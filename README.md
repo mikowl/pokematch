@@ -8,6 +8,6 @@
 	- Win game message
 	- Restart game and generate new set of random pokemons
 
-	1. ~~Create function that grabs 8 random pokemon from pokeapi~~
-	2. ~~Take the 8, double them, then shuffle~~
-	3. ~~Display in nice 4x4 grid~~
+1. ~~Create function that grabs 8 random pokemon from pokeapi~~
+2. ~~Take the 8, double them, then shuffle~~
+3. ~~Display in nice 4x4 grid~~
