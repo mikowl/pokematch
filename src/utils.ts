@@ -39,7 +39,7 @@ const usePokemon = (): UseQueryResult<Pokemon[], Error> => {
 };
 
 const shuffle = (array: any[]) => {
-  return array.sort(() => Math.random() - 0.5);
-}
+	return array.sort(() => Math.random() - 0.5);
+};
 
 export { getPokemonList, usePokemon, shuffle };
