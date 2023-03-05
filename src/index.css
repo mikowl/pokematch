@@ -6,7 +6,7 @@
 	--red: #e74c3c;
 	--green: #2ecc71;
 	--purple: #9b59b6;
-	font-family: "Inter", Avenir, Helvetica, Arial, sans-serif;
+	font-family: "Inter", Helvetica, Arial, sans-serif;
 	font-size: 16px;
 	line-height: 24px;
 	font-weight: 400;
@@ -68,6 +68,7 @@ body {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-gap: 1rem;
   width: 100%;
+  max-width: 1000px;
 }
 
 @media screen and (min-width: 768px) {
@@ -81,31 +82,43 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 7px;
+  border-radius: 0.75rem;
   background: #FFF;
   color: var(--blue);
+  width: 94%;
+  height: 200px;
+  background: rgb(53,106,150);
+  background: linear-gradient(180deg, rgba(53,106,150,1) 0%, rgba(97,152,205,1) 100%);
+  background: rgb(53,106,150);
+  background: linear-gradient(304deg, rgba(53,106,150,1) 0%, rgba(49,116,172,1) 10%, rgba(73,138,193,1) 19%, rgba(83,139,186,1) 27%, rgba(54,109,158,1) 38%, rgba(65,113,156,1) 57%, rgba(41,95,144,1) 82%, rgba(97,152,205,1) 100%);
+  border: 7px solid var(--darkblue);
+  opacity: 0.9;
 }
+
+.inner {
+  border-radius: 0.25rem;
+}
+
 .pokeCard img {
   width: 20vh;
   width: 20dvh;
   height: auto;
   image-rendering: pixelated;
 }
+.front .pokeCard img {
+  width: 40%;
+}
 .card-btn {
   padding: 0;
   border: none;
   background: none;
 }
-h1.poke-title {
-	font-family: "Pokemon Solid";
-	font-size: 3.5rem;
-	line-height: 1.1;
-	letter-spacing: 5px;
-	-webkit-text-stroke-width: 4px;
-	-webkit-text-stroke-color: #3367b0;
-	color: #ffcb03;
-	text-shadow: -1px 1px #1d4987, -2px 2px #1d4987, -3px 3px #1d4987, -4px 4px #1d4987;
-	transform: rotate(-3deg);
+h1 {
+	font-size: 3rem;
+  color: var(--yellow);
+  text-shadow:rgba(0, 0, 0, 0.9) 0px 1px 0;
+  letter-spacing: -0.1rem;
+  text-align: center;
 }
 
 .pokemon-type {
@@ -221,6 +234,12 @@ h1.poke-title {
 	margin: 0 0.5rem;
 } */
 
+.poke-load {
+  display: block;
+  margin: 0 auto;
+  width: 2rem;
+}
+
 .spinner {
 	background: #316eba;
 	background: var(--blue);
@@ -302,15 +321,11 @@ footer a:hover {
 	}
 }
 
-@media (prefers-color-scheme: light) {
-	:root {
-		color: #213547;
-		background-color: #ffffff;
-	}
-	a:hover {
-		color: #747bff;
-	}
-	button {
-		background-color: #f9f9f9;
-	}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
 }

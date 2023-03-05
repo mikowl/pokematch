@@ -4,9 +4,11 @@ specifiers:
   '@preact/preset-vite': ^2.5.0
   '@tanstack/react-query': ^4.24.10
   '@tanstack/react-query-devtools': ^4.24.13
+  '@types/canvas-confetti': ^1.6.0
   '@typescript-eslint/eslint-plugin': ^5.54.0
   '@typescript-eslint/parser': ^5.54.0
   axios: ^1.3.4
+  canvas-confetti: ^1.6.0
   eslint: ^8.35.0
   eslint-config-preact: ^1.3.0
   eslint-plugin-react: ^7.32.2
@@ -16,7 +18,9 @@ specifiers:
 
 dependencies:
   '@tanstack/react-query': 4.24.10
+  '@types/canvas-confetti': 1.6.0
   axios: 1.3.4
+  canvas-confetti: 1.6.0
   preact: 10.13.0
 
 devDependencies:
@@ -733,6 +737,10 @@ packages:
       '@tanstack/query-core': 4.24.10
       use-sync-external-store: 1.2.0
 
+  /@types/canvas-confetti/1.6.0:
+    resolution: {integrity: sha512-Yq6rIccwcco0TLD5SMUrIM7Fk7Fe/C0jmNRxJJCLtAF6gebDkPuUjK5EHedxecm69Pi/aA+It39Ux4OHmFhjRw==}
+    dev: false
+
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: true
@@ -1041,6 +1049,10 @@ packages:
   /caniuse-lite/1.0.30001460:
     resolution: {integrity: sha512-Bud7abqjvEjipUkpLs4D7gR0l8hBYBHoa+tGtKJHvT2AYzLp1z7EmVkUT4ERpVUfca8S2HGIVs883D8pUH1ZzQ==}
     dev: true
+
+  /canvas-confetti/1.6.0:
+    resolution: {integrity: sha512-ej+w/m8Jzpv9Z7W7uJZer14Ke8P2ogsjg4ZMGIuq4iqUOqY2Jq8BNW42iGmNfRwREaaEfFIczLuZZiEVSYNHAA==}
+    dev: false
 
   /chalk/2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
