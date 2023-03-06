@@ -12,7 +12,7 @@ export default function Pokematch() {
 	const { data, isInitialLoading, error }: PokemonData = usePokemon();
 
 	const [turns, setTurns] = useState<number>(0);
-	const [gameWin, setGameWin] = useState<boolean>(false);
+	const [gameWin, setGameWin] = useState<boolean>(true);
 
 	// deck is an array of objects
 	const [deck, setDeck] = useState<Pokemon[]>([]);
@@ -72,7 +72,7 @@ export default function Pokematch() {
 							/>
 						)}
 					</div>
-					<p>Turns: {turns}</p>
+					<p className={"turns"}>Turns: {turns}</p>
 					{gameWin && pewpewpew()}
 					{gameWin && (
 						<div className="gameOvered ">

@@ -1,3 +1,6 @@
+* {
+	box-sizing: border-box;
+}
 :root {
 	--yellow: #ffcb05;
 	--yellowshade: #c7a008;
@@ -6,7 +9,7 @@
 	--red: #e74c3c;
 	--green: #3b9c5a;
 	--purple: #9b59b6;
-	font-family: "Inter", Helvetica, Arial, sans-serif;
+	font-family: Helvetica, Arial, sans-serif;
 	font-size: 16px;
 	line-height: 24px;
 	font-weight: 400;
@@ -15,14 +18,14 @@
 	color: rgba(255, 255, 255, 0.87);
 	/* background-color: #89cdc1; */
 	background: #79c9fc;
-
+	box-sizing: border-box;
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
+	z-index: 90;
 }
-
 a {
 	font-weight: 500;
 	color: #646cff;
@@ -45,8 +48,22 @@ body {
 	background-position: center 23dvh;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+}
+body:after {
+	position: absolute;
+	content: "";
+	width: 100%;
+	height: 100%;
+	background: rgba(107, 186, 255, 0.4);
+	z-index: 1;
 }
 
+body.fontLoaded {
+  font-family: 'VT323', monospace;
+  opacity: 1;
+}
 /* body:after {
 	position: absolute;
 	content: "";
@@ -60,13 +77,14 @@ body {
   padding: 1.5rem 15px 1.5rem 15px;
   padding-top: 1.5rem;
   margin: 0 auto;
+	z-index: 90;
 }
 
 .card-container {
   display: grid;
   /* grid-template-columns: repeat(4, 1fr); */
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-gap: 1rem;
+  grid-gap: 0.5rem;
   width: 100%;
   max-width: 1000px;
 }
@@ -74,6 +92,7 @@ body {
 @media screen and (min-width: 768px) {
   .card-container {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+		grid-gap: 1rem;
   }
 }
   
@@ -84,7 +103,7 @@ body {
   justify-content: center;
   border-radius: 0.75rem;
   background: #FFF;
-	width: 94%;
+	width: 100%;
 	height: 140px;
   color: var(--blue);
   background: rgb(53,106,150);
@@ -97,7 +116,6 @@ body {
 
 @media screen and (min-width: 600px) {
 	.pokeCard {
-		width: 94%;
 		height: 200px;
 	}
 }
@@ -122,7 +140,7 @@ body {
 }
 h1 {
 	/* font-size: 3rem; */
-	font-size: clamp(2.5rem, 5vw + 0.5rem, 3rem);
+	font-size: clamp(3.5rem, 6vw + 0.5rem, 5rem);
   color: var(--yellow);
 	font-weight: 800;
 	text-transform: uppercase;
@@ -130,12 +148,15 @@ h1 {
   text-shadow:rgba(0, 0, 0, 0.9) 0px 1px 0;
   letter-spacing: -0.1rem;
   text-align: center;
+	transform: translateX(30px);
+	-webkit-font-smoothing: auto;
 }
+
 h1 i {
 	display: inline-block;
 	font-style: normal;
 	font-size: 0.375em;
-	transform: translateY(-1em);
+	transform: translate(-0.5em,-0.875em);
 	color: var(--blue);
 	text-shadow: none;
 
@@ -251,37 +272,47 @@ h1 i {
 
 .gameOvered {
 	position: absolute;
-	top: 25%;
+	top: 32vh;
 	left: 50vw;
 	left: 50svw;
 	color: var(--darkblue);
 	transform: translate(-50%, -50%);
 	text-align: center;
-	background: rgba(255, 203, 5, 0.8);
-	padding: 20px 0;
-	width: 100%;
+	background: rgba(255, 203, 5, 1);
+	padding: 40px 20px;
+	width: calc(100% - 30px);
+	max-width: 600px;
+	border: 7px solid var(--darkblue);
+	border-radius: 0.75rem;
 }
 .gameOvered h2 {
-	font-size: clamp(2.5rem, 5vw + 0.5rem, 3rem);
-	font-weight: 800;
+	font-size: clamp(3.5rem, 6vw + 0.5rem, 4rem);
 	text-transform: uppercase;
 	margin: 1rem 0 1.5rem 0;
 }
 .gameOvered p {
-	font-size: 1.5rem;
-	font-weight: 600;
+	font-size: 2rem;
 	color: var(--blue);
 	transition: all 0.5s ease-in-out;
+	-webkit-font-smoothing: auto;
+}
+.turns {
+	font-size: 1.75rem;
+	color: var(--darkblue);
+	transition: all 0.5s ease-in-out;
+	-webkit-font-smoothing: auto;
+	text-align: center;
+	text-transform: uppercase;
 }
 .restartBtn {
+	font-family: inherit;
 	cursor: pointer;
 	display: block;
 	background: var(--green);
 	color: #fff;
 	border: none;
 	margin: 0 auto;
-	font-weight: 600;
-	font-size: 1.5rem;
+	font-size: 2rem;
 	letter-spacing: -0.05rem;
 	padding: 12px 27px;
 	border-radius: 0.4375rem;
