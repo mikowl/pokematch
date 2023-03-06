@@ -118,6 +118,9 @@ body.fontLoaded {
 	.pokeCard {
 		height: 200px;
 	}
+	h1 {
+		margin: 1rem 0 2.5rem 0;
+	}
 }
 
 .inner {
@@ -152,7 +155,7 @@ h1 {
   color: var(--yellow);
 	font-weight: 800;
 	text-transform: uppercase;
-	margin: 1rem 0 1.5rem 0;
+	margin: 0.75rem 0 2rem 0;
   text-shadow:rgba(0, 0, 0, 0.9) 0px 1px 0;
   letter-spacing: -0.1rem;
   text-align: center;
