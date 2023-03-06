@@ -147,7 +147,7 @@ body.fontLoaded {
   background: none;
 }
 h1 {
-	/* font-size: 3rem; */
+	position: relative;
 	font-size: clamp(3.5rem, 6vw + 0.5rem, 5rem);
   color: var(--yellow);
 	font-weight: 800;
@@ -156,15 +156,14 @@ h1 {
   text-shadow:rgba(0, 0, 0, 0.9) 0px 1px 0;
   letter-spacing: -0.1rem;
   text-align: center;
-	transform: translateX(30px);
 	-webkit-font-smoothing: auto;
 }
 
 h1 i {
-	display: inline-block;
+	position: absolute;
+	transform: translate(17%, -37%);
 	font-style: normal;
 	font-size: 0.375em;
-	transform: translate(-0.5em,-0.875em);
 	color: var(--blue);
 	text-shadow: none;
 
