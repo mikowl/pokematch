@@ -47,6 +47,18 @@ export default function Pokematch() {
 		cards.forEach((card) => card.classList.remove("flipped"));
 	};
 
+	const scoringMessages = () => {
+		if (turns <= 7) {
+			return "You're a Pokematch Master!";
+		} else if (turns > 7 && turns <= 10) {
+			return "You're a Pokematch Trainer!";
+		} else if (turns > 10 && turns <= 20) {
+			return "You're a Pokematch Rookie!";
+		} else {
+			return "You're a Pokematch Noob!";
+		}
+	};
+
 	return (
 		<>
 			<h1>
@@ -77,7 +89,8 @@ export default function Pokematch() {
 					{gameWin && (
 						<div className="gameOvered ">
 							<h2>You won!</h2>
-							<p>You completed the game in {turns} turns</p>
+							{/* <p>You completed the game in {turns} turns</p> */}
+							<p>{scoringMessages()}</p>
 							<button className={"restartBtn"} onClick={handleReset}>
 								New Game?
 							</button>
