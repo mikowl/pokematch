@@ -12,7 +12,7 @@ export default function Pokematch() {
 	const { data, isInitialLoading, error }: PokemonData = usePokemon();
 
 	const [turns, setTurns] = useState<number>(0);
-	const [gameWin, setGameWin] = useState<boolean>(true);
+	const [gameWin, setGameWin] = useState<boolean>(false);
 
 	// deck is an array of objects
 	const [deck, setDeck] = useState<Pokemon[]>([]);
