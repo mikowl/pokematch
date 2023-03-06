@@ -1,3 +1,4 @@
+import confetti from 'canvas-confetti';
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { Pokemon, Result } from "./types/pokemon";
 import axios from "axios";
@@ -42,4 +43,26 @@ const shuffle = (array: any[]) => {
 	return array.sort(() => Math.random() - 0.5);
 };
 
-export { getPokemonList, usePokemon, shuffle };
+	const omgConfetti = () => {
+		confetti({
+			particleCount: 200,
+			startVelocity: 50,
+			spread: 360,
+			shapes: ["circle"],
+			disableForReducedMotion: true,
+			colors: ["#222E66", "#4962D6", "#FFCB05", "#CA370B"],
+			origin: {
+				x: Math.random() * 0.5 + 0.25,
+				y: Math.random() * 0.5 + 0.25,
+			},
+		});
+	};
+	const pewpewpew = () => {
+		setTimeout(omgConfetti, 0);
+		setTimeout(omgConfetti, 1000);
+		setTimeout(omgConfetti, 2000);
+		setTimeout(omgConfetti, 3000);
+		setTimeout(omgConfetti, 4000);
+	};
+
+export { getPokemonList, usePokemon, shuffle, pewpewpew };

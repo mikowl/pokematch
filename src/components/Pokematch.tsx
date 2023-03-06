@@ -3,8 +3,7 @@ import { usePokemon, shuffle } from "../utils";
 import PokeCard from "./PokeCard";
 import { Pokemon } from "../types/pokemon";
 import { UseQueryResult } from "@tanstack/react-query";
-import confetti from "canvas-confetti";
-
+import { pewpewpew } from "../utils";
 import Loader from "./Loader";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
@@ -12,33 +11,11 @@ type PokemonData = UseQueryResult<Pokemon[], Error>;
 export default function Pokematch() {
 	const { data, isInitialLoading, error }: PokemonData = usePokemon();
 
-	const [turns, setTurns] = useState(0);
-	const [gameWin, setGameWin] = useState(true);
+	const [turns, setTurns] = useState<number>(0);
+	const [gameWin, setGameWin] = useState<boolean>(false);
 
 	// deck is an array of objects
 	const [deck, setDeck] = useState<Pokemon[]>([]);
-
-	const omgConfetti = () => {
-		confetti({
-			particleCount: 200,
-			startVelocity: 50,
-			spread: 360,
-			shapes: ["circle"],
-			disableForReducedMotion: true,
-			colors: ["#222E66", "#4962D6", "#FFCB05", "#CA370B"],
-			origin: {
-				x: Math.random() * 0.5 + 0.25,
-				y: Math.random() * 0.5 + 0.25,
-			},
-		});
-	};
-	const pewpewpew = () => {
-		setTimeout(omgConfetti, 0);
-		setTimeout(omgConfetti, 1000);
-		setTimeout(omgConfetti, 2000);
-		setTimeout(omgConfetti, 3000);
-		setTimeout(omgConfetti, 4000);
-	};
 
 	// grab 8 random unique pokemon from data to be used in card match game
 	const randomUniquePokemon = (): Pokemon[] => {
@@ -65,6 +42,9 @@ export default function Pokematch() {
 	const handleReset = () => {
 		setDeck(randomUniquePokemon());
 		setTurns(0);
+		setGameWin(false);
+		const cards = document.querySelectorAll(".card-btn");
+		cards.forEach((card) => card.classList.remove("flipped"));
 	};
 
 	return (
@@ -82,11 +62,27 @@ export default function Pokematch() {
 			) : (
 				<>
 					<div className={"card-container"}>
-						{deck && <PokeCard pokemons={deck} turns={turns} setTurns={setTurns} gameWin={setGameWin} />}
+						{deck && (
+							<PokeCard
+								pokemons={deck}
+								turns={turns}
+								setTurns={setTurns}
+								setGameWin={setGameWin}
+								gameWin={gameWin}
+							/>
+						)}
 					</div>
-					<button onClick={handleReset}>New Game?</button>
 					<p>Turns: {turns}</p>
 					{gameWin && pewpewpew()}
+					{gameWin && (
+						<div className="gameOvered ">
+							<h2>You won!</h2>
+							<p>You completed the game in {turns} turns</p>
+							<button className={"restartBtn"} onClick={handleReset}>
+								New Game?
+							</button>
+						</div>
+					)}
 				</>
 			)}
 		</>

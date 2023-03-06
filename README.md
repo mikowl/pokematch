@@ -1,13 +1,15 @@
 # Pokematch
 
-- Pokemon memory game
+- An overengineered pokemon memory game
   - MVP:
-	- 4x4 grid of random pokemon
-	- Flip cards to match
-	- Keep track of guesses
-	- Win game message
-	- Restart game and generate new set of random pokemons
+	1. ~~Create function that grabs 8 random pokemon from pokeapi~~
+	2. ~~Take the 8, double them, then shuffle~~
+	3. ~~Display in nice 4x4 grid~~
+	3. ~~Flip animation and matching logic~~
+	4. ~~Keep track of guesses~~
+	5. ~~Confetti when you win~~
+	6. ~~Restart game and generate new set of random pokemons~~
 
-1. ~~Create function that grabs 8 random pokemon from pokeapi~~
-2. ~~Take the 8, double them, then shuffle~~
-3. ~~Display in nice 4x4 grid~~
+- TODO maybe
+  - Ability to choose generation
+  - Different difficulties

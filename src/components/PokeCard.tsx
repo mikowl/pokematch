@@ -11,6 +11,8 @@ export default function PokeCard({
 	pokemons: Pokemon[];
 	turns: number;
 	setTurns: Function;
+	gameWin: boolean;
+	setGameWin: Function;
 }) {
 	type CardElement = HTMLButtonElement | string;
 	type Cards = CardElement[] | HTMLButtonElement[];
@@ -36,10 +38,13 @@ export default function PokeCard({
 				if (name1 === name2) {
 					setMatchedCards([...matchedCards, card, card1]);
 					setFlippedCards([]);
+					// # Game win stuff here
 					if (matchedCards.length === pokemons.length - 2) {
 						setTimeout(() => {
 							setGameWin(true);
-						}, 2000);
+							setMatchedCards([]);
+							setFlippedCards([]);
+						}, 1000);
 					}
 				} else {
 					setTimeout(() => {

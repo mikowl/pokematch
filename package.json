@@ -16,6 +16,7 @@
     "preact": "^10.13.0"
   },
   "devDependencies": {
+    "@babel/plugin-transform-react-jsx-source": "^7.19.6",
     "@preact/preset-vite": "^2.5.0",
     "@tanstack/react-query-devtools": "^4.24.13",
     "@typescript-eslint/eslint-plugin": "^5.54.0",

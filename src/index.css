@@ -4,7 +4,7 @@
 	--blue: #326fba;
 	--darkblue: #003a70;
 	--red: #e74c3c;
-	--green: #2ecc71;
+	--green: #3b9c5a;
 	--purple: #9b59b6;
 	font-family: "Inter", Helvetica, Arial, sans-serif;
 	font-size: 16px;
@@ -84,15 +84,22 @@ body {
   justify-content: center;
   border-radius: 0.75rem;
   background: #FFF;
+	width: 94%;
+	height: 140px;
   color: var(--blue);
-  width: 94%;
-  height: 200px;
   background: rgb(53,106,150);
   background: linear-gradient(180deg, rgba(53,106,150,1) 0%, rgba(97,152,205,1) 100%);
   background: rgb(53,106,150);
   background: linear-gradient(304deg, rgba(53,106,150,1) 0%, rgba(49,116,172,1) 10%, rgba(73,138,193,1) 19%, rgba(83,139,186,1) 27%, rgba(54,109,158,1) 38%, rgba(65,113,156,1) 57%, rgba(41,95,144,1) 82%, rgba(97,152,205,1) 100%);
   border: 7px solid var(--darkblue);
   opacity: 0.9;
+}
+
+@media screen and (min-width: 600px) {
+	.pokeCard {
+		width: 94%;
+		height: 200px;
+	}
 }
 
 .inner {
@@ -114,13 +121,25 @@ body {
   background: none;
 }
 h1 {
-	font-size: 3rem;
+	/* font-size: 3rem; */
+	font-size: clamp(2.5rem, 5vw + 0.5rem, 3rem);
   color: var(--yellow);
+	font-weight: 800;
+	text-transform: uppercase;
+	margin: 1rem 0 1.5rem 0;
   text-shadow:rgba(0, 0, 0, 0.9) 0px 1px 0;
   letter-spacing: -0.1rem;
   text-align: center;
 }
+h1 i {
+	display: inline-block;
+	font-style: normal;
+	font-size: 0.375em;
+	transform: translateY(-1em);
+	color: var(--blue);
+	text-shadow: none;
 
+}
 .pokemon-type {
 	display: inline-block;
 	font-weight: 500;
@@ -229,11 +248,49 @@ h1 {
 	padding: 7px 0;
 	border-radius: 0 0 5px 5px;
 }
-/* .pagination span {
-	color: var(--blue);
-	margin: 0 0.5rem;
-} */
 
+.gameOvered {
+	position: absolute;
+	top: 25%;
+	left: 50vw;
+	left: 50svw;
+	color: var(--darkblue);
+	transform: translate(-50%, -50%);
+	text-align: center;
+	background: rgba(255, 203, 5, 0.8);
+	padding: 20px 0;
+	width: 100%;
+}
+.gameOvered h2 {
+	font-size: clamp(2.5rem, 5vw + 0.5rem, 3rem);
+	font-weight: 800;
+	text-transform: uppercase;
+	margin: 1rem 0 1.5rem 0;
+}
+.gameOvered p {
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: var(--blue);
+	transition: all 0.5s ease-in-out;
+}
+.restartBtn {
+	cursor: pointer;
+	display: block;
+	background: var(--green);
+	color: #fff;
+	border: none;
+	margin: 0 auto;
+	font-weight: 600;
+	font-size: 1.5rem;
+	letter-spacing: -0.05rem;
+	padding: 12px 27px;
+	border-radius: 0.4375rem;
+	transition: all 0.2s ease-in-out;
+}
+
+.restartBtn:hover {
+	background:	#5ac57c;
+}
 .poke-load {
   display: block;
   margin: 0 auto;
