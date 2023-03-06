@@ -48,11 +48,11 @@ export default function Pokematch() {
 	};
 
 	const scoringMessages = () => {
-		if (turns <= 7) {
+		if (turns <= 8) {
 			return "You're a Pokematch Master!";
-		} else if (turns > 7 && turns <= 10) {
+		} else if (turns > 8 && turns <= 12) {
 			return "You're a Pokematch Trainer!";
-		} else if (turns > 10 && turns <= 20) {
+		} else if (turns > 12 && turns <= 17) {
 			return "You're a Pokematch Rookie!";
 		} else {
 			return "You're a Pokematch Noob!";
