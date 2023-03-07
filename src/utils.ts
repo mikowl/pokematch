@@ -46,7 +46,6 @@ const usePokemon = (gen: PokemonGeneration): UseQueryResult<Pokemon[], Error> =>
 	return useQuery({
 		queryKey: ["pokemonList"],
 		queryFn: () => getPokemonList(gen),
-		keepPreviousData: true,
 		staleTime: 1000 * 60 * 60 * 24,
 	});
 };
