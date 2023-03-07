@@ -44,16 +44,20 @@ export default function Pokematch() {
 	const handleReset = () => {
 		const nextGen = (gen + 1) as PokemonGeneration;
 		setGen(nextGen);
-		setTimeout(() => {
-			queryClient.clear();
-			refetch();
-			setDeck(randomUniquePokemon());
-			setTurns(0);
-			setGameWin(false);
-			const cards = document.querySelectorAll(".card-btn");
-			cards.forEach((card) => card.classList.remove("flipped"));
-		}, 500);
+		setDeck(randomUniquePokemon());
+		setTurns(0);
+		setGameWin(false);
+		const cards = document.querySelectorAll(".card-btn");
+		cards.forEach((card) => card.classList.remove("flipped"));
 	};
+
+	useEffect(() => {
+		const refetchData = async () => {
+			await queryClient.clear();
+			await refetch();
+		};
+		refetchData();
+	}, [gen, refetch, queryClient]);
 
 	const scoringMessages = () => {
 		if (turns <= 9) {

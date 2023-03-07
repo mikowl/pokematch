@@ -24,7 +24,6 @@ export default function PokeCard({
 		const target = e.target as HTMLElement;
 		const card = target.closest(".card-btn") as HTMLButtonElement;
 
-		console.log(matchedCards.length, pokemons.length);
 		if (card && !Array.isArray(card) && flippedCards.length < 2 && !matchedCards.includes(card)) {
 			const cardElement = card as HTMLButtonElement;
 			cardElement.classList.add("flipped");

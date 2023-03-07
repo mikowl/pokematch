@@ -47,7 +47,7 @@ const usePokemon = (gen: PokemonGeneration): UseQueryResult<Pokemon[], Error> =>
 		queryKey: ["pokemonList"],
 		queryFn: () => getPokemonList(gen),
 		keepPreviousData: true,
-		// staleTime: 1000 * 60 * 60 * 24,
+		staleTime: 1000 * 60 * 60 * 24,
 	});
 };
 
@@ -73,8 +73,6 @@ const pewpewpew = () => {
 	setTimeout(omgConfetti, 0);
 	setTimeout(omgConfetti, 1000);
 	setTimeout(omgConfetti, 2000);
-	setTimeout(omgConfetti, 3000);
-	setTimeout(omgConfetti, 4000);
 };
 
 export { getPokemonList, usePokemon, shuffle, pewpewpew };
