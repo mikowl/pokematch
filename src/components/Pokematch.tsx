@@ -1,16 +1,18 @@
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { usePokemon, shuffle } from "../utils";
 import PokeCard from "./PokeCard";
-import { Pokemon } from "../types/pokemon";
-import { UseQueryResult } from "@tanstack/react-query";
+import { Pokemon, PokemonGeneration } from "../types/pokemon";
+import { UseQueryResult, useQueryClient } from "@tanstack/react-query";
 import { pewpewpew } from "../utils";
 import Loader from "./Loader";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
 
 export default function Pokematch() {
-	const { data, isInitialLoading, error }: PokemonData = usePokemon();
-
+	// usePokemon(gen number)
+	const [gen, setGen] = useState<PokemonGeneration>(1);
+	const queryClient = useQueryClient();
+	const { data, isInitialLoading, error, refetch }: PokemonData = usePokemon(gen);
 	const [turns, setTurns] = useState<number>(0);
 	const [gameWin, setGameWin] = useState<boolean>(false);
 
@@ -40,11 +42,17 @@ export default function Pokematch() {
 	}
 
 	const handleReset = () => {
-		setDeck(randomUniquePokemon());
-		setTurns(0);
-		setGameWin(false);
-		const cards = document.querySelectorAll(".card-btn");
-		cards.forEach((card) => card.classList.remove("flipped"));
+		const nextGen = (gen + 1) as PokemonGeneration;
+		setGen(nextGen);
+		setTimeout(() => {
+			queryClient.clear();
+			refetch();
+			setDeck(randomUniquePokemon());
+			setTurns(0);
+			setGameWin(false);
+			const cards = document.querySelectorAll(".card-btn");
+			cards.forEach((card) => card.classList.remove("flipped"));
+		}, 500);
 	};
 
 	const scoringMessages = () => {
@@ -62,7 +70,7 @@ export default function Pokematch() {
 	return (
 		<>
 			<h1>
-				Pokematch <i>GEN 1</i>
+				Pokematch <i>GEN {gen}</i>
 			</h1>
 			{isInitialLoading ? (
 				<Loader pokeball={true} />
