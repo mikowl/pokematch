@@ -282,7 +282,8 @@ h1 i {
 
 .gameOvered {
 	position: absolute;
-	top: 32vh;
+	top: 36vh;
+	top: 36svh;
 	left: 50vw;
 	left: 50svw;
 	color: var(--darkblue);
@@ -337,6 +338,25 @@ h1 i {
 .restartBtn:hover {
 	background:	#5ac57c;
 }
+
+.pokesCaught {
+	display: flex;
+	/* flex-basis: 100%; */
+	flex-wrap: wrap;
+	list-style: none;
+	padding: 0;
+}
+.pokesCaught li {
+	flex-basis: 33.333%;
+}
+.pokesCaught li img {
+	max-width: 90px;
+}
+.pokesCaught p {
+	font-size: 1.25rem;
+	margin: -1em 0 0 0;
+}
+
 .poke-load {
 	display: block;
 	margin: 0 auto;

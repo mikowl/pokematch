@@ -101,7 +101,18 @@ export default function Pokematch() {
 					{gameWin && (
 						<div className="gameOvered ">
 							<h2>You won!</h2>
-							{/* <p>You completed the game in {turns} turns</p> */}
+							<div className="pokemonList">
+								<h3>Pokemon's Caught: </h3>
+								<ul className="pokesCaught">
+									{deck &&
+										[...new Set(deck)].map((pokemon) => (
+											<li>
+												<img src={pokemon.sprites.front_default} alt={pokemon.name} />
+												<p>{pokemon.name}</p>
+											</li>
+										))}
+								</ul>
+							</div>
 							<p>{scoringMessages()}</p>
 							<button className={"restartBtn"} onClick={handleReset}>
 								New Game?

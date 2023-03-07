@@ -1,7 +1,6 @@
 import confetti from "canvas-confetti";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { Pokemon, Result, PokemonGeneration, PokemonGenerationData } from "./types/pokemon";
-import axios from "axios";
 
 const POKE_API_URL = "https://pokeapi.co/api/v2/pokemon";
 
@@ -24,11 +23,13 @@ const getPokemonList = async (gen: PokemonGeneration) => {
 	const url = `${POKE_API_URL}/?offset=${offset}&limit=${limit}`;
 
 	try {
-		const { data } = await axios.get(url);
+		const response = await fetch(url);
+		const data = await response.json();
 
 		const promises = data.results.map(async (pokemon: Result) => {
 			try {
-				const { data } = await axios.get(pokemon.url);
+				const response = await fetch(pokemon.url);
+				const data = await response.json();
 				return data;
 			} catch (error) {
 				console.log(error);
