@@ -43,6 +43,7 @@ body {
 	position: relative;
 	display: flex;
 	min-width: 320px;
+	min-height: 100dvh;
 	min-height: 100svh;
 	margin: 0 auto;
 	background-image: url("/img/pokewp.jpg");
@@ -420,10 +421,6 @@ p.scoringMessage  {
 }
 
 .turns {
-	position: absolute;
-	bottom: 15px;
-	right: 0;
-	left: 0;
 	background: rgb(0 58 112 / 70%);
 	border: 2px solid var(--yellow);
 	font-size: 1.5rem;
@@ -582,12 +579,6 @@ footer a:hover {
 	h1 i {transform: translate(11%, -4%); min-width: 95px;}
 	.pokeCard {
 		height: 200px;
-	}
-	.turns {
-		position: static;
-    bottom: 15px;
-    right: 0;
-    left: 0;
 	}
 }
 @keyframes rotate {
