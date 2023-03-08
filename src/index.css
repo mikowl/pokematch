@@ -252,19 +252,6 @@ h1 i span {
 	text-align: center;
 }
 
-@media screen and (min-width: 600px) {
-	h1 {margin: 1rem 0 2.5rem 0;}
-	h1 i {transform: translate(11%, -4%); min-width: 95px;}
-	.pokeCard {
-		height: 200px;
-	}
-	.turns {
-		position: absolute;
-    bottom: 15px;
-    right: 0;
-    left: 0;
-	}
-}
 
 .pokemon-type {
 	display: inline-block;
@@ -434,7 +421,10 @@ p.scoringMessage  {
 }
 
 .turns {
-	position: static;
+	position: absolute;
+	bottom: 15px;
+	right: 0;
+	left: 0;
 	background: rgb(0 58 112 / 70%);
 	border: 2px solid var(--yellow);
 	font-size: 1.5rem;
@@ -585,6 +575,19 @@ footer a:hover {
 	color: #edf9da;
 }
 
+@media screen and (min-width: 600px) {
+	h1 {margin: 1rem 0 2.5rem 0;}
+	h1 i {transform: translate(11%, -4%); min-width: 95px;}
+	.pokeCard {
+		height: 200px;
+	}
+	.turns {
+		position: static;
+    bottom: 15px;
+    right: 0;
+    left: 0;
+	}
+}
 @keyframes rotate {
 	100% {
 		transform: rotate(360deg);
