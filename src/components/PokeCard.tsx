@@ -67,14 +67,19 @@ export default function PokeCard({
 					<div className="front">
 						<div className="pokeCard">
 							<div className="inner">
-								<img src={"/pokeball.svg"} alt="Pokeball" />
+								<img src={"/pokeball.svg"} alt="Pokeball" width="73" height="73" />
 							</div>
 						</div>
 					</div>
 					<div className="back">
 						<div className={"pokeCard"} key={`${pokemon.name}-${self.crypto.randomUUID()}`}>
 							<div className="inner">
-								<img src={pokemon.sprites.front_default} alt={pokemon.name} />
+								<img
+									src={pokemon.sprites.front_default}
+									alt={pokemon.name}
+									width="96"
+									height="96"
+								/>
 								{/* <p>{clicks}</p> */}
 							</div>
 						</div>

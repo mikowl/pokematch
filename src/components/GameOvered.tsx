@@ -51,7 +51,12 @@ const GameOvered = ({
 										key={pokemon.id}
 										className={`pokeCaught${activeIndex === pokemon.id ? " active" : ""}`}
 									>
-										<img src={pokemon.sprites.front_default} alt={pokemon.name} />
+										<img
+											src={pokemon.sprites.front_default}
+											alt={pokemon.name}
+											width="96"
+											height="96"
+										/>
 										<p>{pokemon.name}</p>
 									</li>
 								))}

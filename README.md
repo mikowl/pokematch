@@ -13,5 +13,6 @@
 - TODO maybe
   - ~~Next game will move on to next pokemon generation~~
   - ~~Different card backings per generation~~
+  - ~~Sounds~~
   - End game screen for passing gen 9
   - Different difficulties
