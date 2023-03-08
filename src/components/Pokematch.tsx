@@ -13,7 +13,7 @@ export default function Pokematch() {
 	// usePokemon(gen number)
 	const [gen, setGen] = useState<PokemonGeneration>(1);
 	const queryClient = useQueryClient();
-	const { data, isInitialLoading, error, refetch }: PokemonData = usePokemon(gen);
+	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gen);
 	const [turns, setTurns] = useState<number>(0);
 	const [gameWin, setGameWin] = useState<boolean>(false);
 
@@ -22,7 +22,7 @@ export default function Pokematch() {
 
 	// grab 8 random unique pokemon from data to be used in card match game
 	const randomUniquePokemon = (): Pokemon[] => {
-		if (data && !isInitialLoading) {
+		if (data && !isLoading) {
 			const randomPokemon: Pokemon[] = [];
 			while (randomPokemon.length < 6) {
 				const randomIndex = Math.floor(Math.random() * data.length);
@@ -38,7 +38,7 @@ export default function Pokematch() {
 	};
 
 	// set deck state to randomUniquePokemon
-	if (data && !isInitialLoading && deck.length === 0) {
+	if (data && !isLoading && deck.length === 0) {
 		setDeck(randomUniquePokemon());
 	}
 
@@ -77,7 +77,7 @@ export default function Pokematch() {
 			<p className={"instructions"}>
 				Match the Pokemon, complete all 9 generations to win! (in progress)
 			</p>
-			{isInitialLoading ? (
+			{isLoading ? (
 				<Loader pokeball={true} />
 			) : error ? (
 				<p className={"error"}>
