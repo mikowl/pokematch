@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks";
+import { useState, useRef } from "preact/hooks";
 import { Pokemon } from "../types/pokemon";
 
 export default function PokeCard({
@@ -18,9 +18,11 @@ export default function PokeCard({
 	type Cards = CardElement[] | HTMLButtonElement[];
 	const [flippedCards, setFlippedCards] = useState<HTMLButtonElement[]>([]);
 	const [matchedCards, setMatchedCards] = useState<Cards>([]);
+	const [isProccessing, setIsProccessing] = useState<boolean>(false);
 
 	// handle card flip
 	const handleCardFlip = (e: MouseEvent) => {
+		if (isProccessing) return;
 		const target = e.target as HTMLElement;
 		const card = target.closest(".card-btn") as HTMLButtonElement;
 		// play sound on click
@@ -49,10 +51,12 @@ export default function PokeCard({
 						}, 1000);
 					}
 				} else {
+					setIsProccessing(true);
 					setTimeout(() => {
 						card1.classList.remove("flipped");
 						cardElement.classList.remove("flipped");
 						setFlippedCards([]);
+						setIsProccessing(false);
 					}, 1000);
 				}
 				setTurns(turns + 1);
@@ -67,7 +71,7 @@ export default function PokeCard({
 					<div className="front">
 						<div className="pokeCard">
 							<div className="inner">
-								<img src={"/pokeball.svg"} alt="Pokeball" width="73" height="73" />
+								<img src={"/pokeball.png"} alt="Pokeball" width="73" height="73" />
 							</div>
 						</div>
 					</div>

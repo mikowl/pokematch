@@ -113,25 +113,26 @@ body.fontLoaded {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border-radius: 0.75rem;
+	/* border-radius: 0.75rem; */
 	background: #FFF;
 	width: 100%;
 	height: 16vh;
 	height: 16svh;
 	color: rgb(var(--blue));
 	background: rgb(53,106,150);
-	border-color: var(--darkblue);
+	/* border-color: var(--darkblue);
 	border-width: 7px;
-	border-style: solid;
+	border-style: solid; */
 	opacity: 0.9;
+	box-shadow: 3px 0 transparent, -3px 0 transparent, 0 -3px transparent, 0 3px transparent, 6px 0 transparent, -6px 0 transparent, 0 -6px transparent, 0 6px transparent, 0 0 0 3px transparent, 9px 0 var(--darkblue), -9px 0 var(--darkblue), 0 9px var(--darkblue), 0 -9px var(--darkblue), 0 -3px 0 3px var(--darkblue), 0 3px 0 3px var(--darkblue), 3px 0 0 3px var(--darkblue), -3px 0 0 3px var(--darkblue);
 }
 .deckgen-1 .pokeCard {
 	border-color: var(--darkblue);
 	background: rgb(53,106,150);
-	background: linear-gradient(304deg, rgba(53,106,150,1) 0%, rgba(49,116,172,1) 10%, rgba(73,138,193,1) 19%, rgba(83,139,186,1) 27%, rgba(54,109,158,1) 38%, rgba(65,113,156,1) 57%, rgba(41,95,144,1) 82%, rgba(97,152,205,1) 100%);
+	/* background: linear-gradient(304deg, rgba(53,106,150,1) 0%, rgba(49,116,172,1) 10%, rgba(73,138,193,1) 19%, rgba(83,139,186,1) 27%, rgba(54,109,158,1) 38%, rgba(65,113,156,1) 57%, rgba(41,95,144,1) 82%, rgba(97,152,205,1) 100%); */
 }
 .deckgen-2 .pokeCard {
-	border-color: #a38114;
+	/* border-color: #a38114; */
 	background: rgb(231,176,14);
 	background: linear-gradient(324deg, rgba(231,176,14,1) 0%, rgba(217,174,49,1) 18%, rgba(255,204,53,1) 39%, rgba(217,171,35,1) 62%, rgba(244,208,104,1) 83%, rgba(255,203,51,1) 100%);bckground: 
 }
@@ -481,6 +482,7 @@ p.scoringMessage  {
 	display: block;
 	max-width: 100%;
 	width: 100%;
+	height: 100%;
 }
 .pokesCaught li {
 	flex-basis: calc(99.25% / 3);
