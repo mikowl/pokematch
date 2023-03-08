@@ -74,9 +74,7 @@ export default function Pokematch() {
 					GEN <span>{gen}</span>
 				</i>
 			</h1>
-			<p className={"instructions"}>
-				Match the Pokemon, complete all 9 generations to win! (in progress)
-			</p>
+			<p className={"instructions"}>Match the Pokemon, complete all 9 generations to win!</p>
 			{isLoading ? (
 				<Loader pokeball={true} />
 			) : error ? (
