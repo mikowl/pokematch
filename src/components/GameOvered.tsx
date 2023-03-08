@@ -40,7 +40,9 @@ const GameOvered = ({
 		<>
 			{gameWin && (
 				<div className="gameOvered">
-					<h2>You won!</h2>
+					<h2>
+						You caught <span>em</span> all!
+					</h2>
 					<div className="pokemonList">
 						<h3>Pokemon's Caught: </h3>
 						<ul className="pokesCaught">
@@ -66,7 +68,7 @@ const GameOvered = ({
 						Play Again?
 					</button>
 					<p className="upNext">
-						(Generation <strong>{gen + 1}</strong> is up next!)
+						Generation <strong>{gen + 1}</strong> is up next!
 					</p>
 				</div>
 			)}
