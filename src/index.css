@@ -53,7 +53,7 @@ body {
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	opacity: 0;
-	transition: opacity 0.3s ease-in-out;
+	transition: opacity 0.5s ease-in-out;
 }
 body.game-over {
 	/* position: absolute; */
@@ -94,6 +94,11 @@ body.fontLoaded {
 	grid-gap: 0.5rem;
 	width: 100%;
 	max-width: 1000px;
+	/* filter: blur(0); */
+	transition: all 0.5s ease-in-out;
+}
+.game-over .card-container {
+	filter: blur(5px);
 }
 
 @media screen and (min-width: 768px) {
@@ -166,15 +171,6 @@ body.fontLoaded {
 	background: linear-gradient(324deg, rgba(135,134,134,1) 0%, rgba(120,120,120,1) 47%, rgba(112,112,112,1) 63%, rgba(98,98,98,1) 100%);
 }
 
-@media screen and (min-width: 600px) {
-	.pokeCard {
-		height: 200px;
-	}
-	h1 {
-		margin: 1rem 0 2.5rem 0;
-	}
-}
-
 .inner {
 	border-radius: 0.25rem;
 }
@@ -240,9 +236,20 @@ h1 i span {
 	border: 3px solid var(--black);
 }
 
+.instructions {
+	font-size: 1.25rem;
+	text-align: center;
+	color: var(--darkblue);
+	text-transform: uppercase;
+	margin: -1rem 0 2rem 0;
+}
+
 @media screen and (min-width: 600px) {
 	h1 {margin: 1rem 0 2.5rem 0;}
 	h1 i {transform: translate(11%, -4%); min-width: 95px;}
+	.pokeCard {
+		height: 200px;
+	}
 }
 
 .pokemon-type {
@@ -371,7 +378,7 @@ h1 i span {
 	border-radius: 0.75rem;
 	box-shadow: 0 0 335px rgba(0,0,0,1);
 	transform: translateY(-120%);
-	transition: transform 0.75s cubic-bezier(0.05, 0.65, 0.26, 1.19);
+	transition: transform 0.75s ease-in;
 	z-index: 200;
 }
 .game-over .gameOvered {
@@ -401,13 +408,14 @@ h1 i span {
 }
 
 p.scoringMessage  {
+	position: relative;
 	font-size: clamp(1.7rem, 3vw + 0.5rem, 3rem);
 	color: #FFF;
 	transition: all 0.5s ease-in-out;
 	background: var(--blue);
 	border-radius: 4px;
 	padding: 15px 10px;
-	margin: -20px -32px 1rem -32px;
+	margin: -21px -32px 1rem -32px;
 	box-shadow: 0 5px 7px rgb(0 0 0 / 25%),0 -3px 7px rgb(0 0 0 / 27%);
 }
 
@@ -488,6 +496,15 @@ p.scoringMessage  {
 	margin: -1em 0 0 0;
 }
 
+.pokeCaught {
+	opacity: 0;
+	transform: translateX(-50px);
+	transition: all 0.3s ease-in-out;
+}
+.pokeCaught.active {
+	opacity: 1;
+	transform: translateX(0);
+}
 .poke-load {
 	display: block;
 	margin: 0 auto;

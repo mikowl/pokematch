@@ -18,8 +18,6 @@ const pokemonGenerationData: PokemonGenerationData = {
 
 const getPokemonList = async (gen: PokemonGeneration) => {
 	const { offset, limit } = pokemonGenerationData[gen];
-	console.log("offset", offset);
-	console.log("limit", limit);
 	const url = `${POKE_API_URL}/?offset=${offset}&limit=${limit}`;
 
 	try {

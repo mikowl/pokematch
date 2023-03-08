@@ -1,5 +1,6 @@
 import { pewpewpew, scoringMessages } from "../utils";
 import { Pokemon, PokemonGeneration } from "../types/pokemon";
+import { useEffect, useState } from "preact/hooks";
 
 const GameOvered = ({
 	gameWin,
@@ -14,7 +15,28 @@ const GameOvered = ({
 	turns: number;
 	gen: PokemonGeneration;
 }) => {
-	gameWin && pewpewpew();
+	const [activeIndex, setActiveIndex] = useState(-1);
+
+	useEffect(() => {
+		if (gameWin) {
+			const audio = new Audio("/success.mp3");
+			audio.play();
+			pewpewpew();
+		}
+		const lis = document.querySelectorAll(".pokeCaught");
+		let i = 0;
+		const intervalId = setInterval(() => {
+			if (i >= lis.length) {
+				clearInterval(intervalId);
+				return;
+			}
+			lis[i].classList.add("active");
+			setActiveIndex(i);
+			i++;
+		}, 500);
+		return () => clearInterval(intervalId);
+	}, [deck, gameWin]);
+
 	return (
 		<>
 			{gameWin && (
@@ -22,10 +44,13 @@ const GameOvered = ({
 					<h2>You won!</h2>
 					<div className="pokemonList">
 						<h3>Pokemon's Caught: </h3>
-						<ul className="pokesCaught">
+						<ul className="pokesCaught" ref={parent}>
 							{deck &&
 								[...new Set(deck)].map((pokemon) => (
-									<li>
+									<li
+										key={pokemon.id}
+										className={`pokeCaught${activeIndex === pokemon.id ? " active" : ""}`}
+									>
 										<img src={pokemon.sprites.front_default} alt={pokemon.name} />
 										<p>{pokemon.name}</p>
 									</li>
@@ -37,7 +62,7 @@ const GameOvered = ({
 						Play Again?
 					</button>
 					<p className="upNext">
-						(Generation <strong>{gen}</strong> is up next!)
+						(Generation <strong>{gen + 1}</strong> is up next!)
 					</p>
 				</div>
 			)}
