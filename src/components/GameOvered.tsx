@@ -21,7 +21,6 @@ const GameOvered = ({
 		if (gameWin) {
 			const audio = new Audio("/success.mp3");
 			audio.play();
-			pewpewpew();
 		}
 		const lis = document.querySelectorAll(".pokeCaught");
 		let i = 0;
@@ -31,7 +30,7 @@ const GameOvered = ({
 				return;
 			}
 			lis[i].classList.add("active");
-			setActiveIndex(i);
+			setActiveIndex((prevIndex) => i);
 			i++;
 		}, 500);
 		return () => clearInterval(intervalId);

@@ -258,6 +258,12 @@ h1 i span {
 	.pokeCard {
 		height: 200px;
 	}
+	.turns {
+		position: absolute;
+    bottom: 15px;
+    right: 0;
+    left: 0;
+	}
 }
 
 .pokemon-type {
@@ -428,18 +434,18 @@ p.scoringMessage  {
 }
 
 .turns {
+	position: static;
 	background: rgb(0 58 112 / 70%);
 	border: 2px solid var(--yellow);
-	font-size: 1.75rem;
+	font-size: 1.5rem;
 	color: var(--eggshell);
-	transition: all 0.5s ease-in-out;
-	-webkit-font-smoothing: auto;
 	text-align: center;
 	text-transform: uppercase;
-	padding: 10px;
+	padding: 7px 10px;
 	border-radius: 0.5rem;
-	width: 160px;
+	width: 150px;
 	margin: 2rem auto 0 auto;
+	transition: all 0.5s ease-in-out;
 }
 .restartBtn {
 	font-family: inherit;
