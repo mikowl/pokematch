@@ -43,7 +43,7 @@ body {
 	position: relative;
 	display: flex;
 	min-width: 320px;
-	min-height: 100vh;
+	/* min-height: 100vh; */
 	margin: 0 auto;
 	background-image: url("/img/pokewp.jpg");
 	image-rendering: pixelated;
@@ -51,7 +51,6 @@ body {
 	background-position: center 23vh;
 	background-position: center 23dvh;
 	background-repeat: no-repeat;
-	background-attachment: fixed;
 	opacity: 0;
 	transition: opacity 0.5s ease-in-out;
 }
@@ -59,14 +58,14 @@ body.game-over {
 	/* position: absolute; */
 	background: rgba(0, 0, 0, 0.8);
 } 
-body:after {
+/* body:after {
 	position: absolute;
 	content: "";
 	width: 100%;
 	height: 100%;
 	background: rgba(107, 186, 255, 0.4);
 	z-index: 1;
-}
+} */
 
 body.fontLoaded {
 	font-family: 'VT323', monospace;
@@ -576,6 +575,9 @@ footer a:hover {
 }
 
 @media screen and (min-width: 600px) {
+	body {
+		background-attachment: fixed;
+	}
 	h1 {margin: 1rem 0 2.5rem 0;}
 	h1 i {transform: translate(11%, -4%); min-width: 95px;}
 	.pokeCard {
