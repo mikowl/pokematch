@@ -80,10 +80,9 @@ export default function Pokematch() {
 			{isInitialLoading ? (
 				<Loader pokeball={true} />
 			) : error ? (
-				<div>
-					Uh oh
-					<br /> {error}
-				</div>
+				<p className={"error"}>
+					Oh dang, something went wrong <br /> {error}
+				</p>
 			) : (
 				<>
 					<div className={`card-container deckgen-${gen}`}>

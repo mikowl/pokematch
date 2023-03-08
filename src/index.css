@@ -94,7 +94,7 @@ body.fontLoaded {
 	grid-gap: 0.5rem;
 	width: 100%;
 	max-width: 1000px;
-	/* filter: blur(0); */
+	filter: blur(0);
 	transition: all 0.5s ease-in-out;
 }
 .game-over .card-container {
@@ -242,6 +242,12 @@ h1 i span {
 	color: var(--darkblue);
 	text-transform: uppercase;
 	margin: -1rem 0 2rem 0;
+}
+
+.error {
+	font-size: 1.25rem;
+	color: var(--darkblue);
+	text-align: center;
 }
 
 @media screen and (min-width: 600px) {
