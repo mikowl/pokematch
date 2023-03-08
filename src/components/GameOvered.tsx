@@ -44,7 +44,7 @@ const GameOvered = ({
 					<h2>You won!</h2>
 					<div className="pokemonList">
 						<h3>Pokemon's Caught: </h3>
-						<ul className="pokesCaught" ref={parent}>
+						<ul className="pokesCaught">
 							{deck &&
 								[...new Set(deck)].map((pokemon) => (
 									<li
