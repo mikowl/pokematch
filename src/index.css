@@ -2,13 +2,17 @@
 	box-sizing: border-box;
 }
 :root {
+	--eggshell: #fffdcf;
+	--black: #2e2e2e;
 	--yellow: #ffcb05;
 	--yellowshade: #c7a008;
 	--blue: #326fba;
 	--darkblue: #003a70;
+	--skyblue: #3785bd;
 	--red: #e74c3c;
 	--green: #3b9c5a;
 	--purple: #9b59b6;
+	--pink: #ef6a5c;
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 16px;
 	line-height: 24px;
@@ -51,6 +55,10 @@ body {
 	opacity: 0;
 	transition: opacity 0.3s ease-in-out;
 }
+body.game-over {
+	/* position: absolute; */
+	background: rgba(0, 0, 0, 0.8);
+} 
 body:after {
 	position: absolute;
 	content: "";
@@ -82,7 +90,6 @@ body.fontLoaded {
 
 .card-container {
 	display: grid;
-	/* grid-template-columns: repeat(4, 1fr); */
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 	grid-gap: 0.5rem;
 	width: 100%;
@@ -105,13 +112,58 @@ body.fontLoaded {
 	background: #FFF;
 	width: 100%;
 	height: 140px;
-	color: var(--blue);
+	color: rgb(var(--blue));
 	background: rgb(53,106,150);
-	background: linear-gradient(180deg, rgba(53,106,150,1) 0%, rgba(97,152,205,1) 100%);
+	border-color: var(--darkblue);
+	border-width: 7px;
+	border-style: solid;
+	opacity: 0.9;
+}
+.deckgen-1 .pokeCard {
+	border-color: var(--darkblue);
 	background: rgb(53,106,150);
 	background: linear-gradient(304deg, rgba(53,106,150,1) 0%, rgba(49,116,172,1) 10%, rgba(73,138,193,1) 19%, rgba(83,139,186,1) 27%, rgba(54,109,158,1) 38%, rgba(65,113,156,1) 57%, rgba(41,95,144,1) 82%, rgba(97,152,205,1) 100%);
-	border: 7px solid var(--darkblue);
-	opacity: 0.9;
+}
+.deckgen-2 .pokeCard {
+	border-color: #a38114;
+	background: rgb(231,176,14);
+	background: linear-gradient(324deg, rgba(231,176,14,1) 0%, rgba(217,174,49,1) 18%, rgba(255,204,53,1) 39%, rgba(217,171,35,1) 62%, rgba(244,208,104,1) 83%, rgba(255,203,51,1) 100%);bckground: 
+}
+
+.deckgen-3 .pokeCard {
+	border-color: #d5f192;
+	background: rgb(59,156,90);
+	background: linear-gradient(324deg, rgba(59,156,90,1) 0%, rgba(117,158,72,1) 32%, rgba(182,179,62,1) 71%, rgba(255,203,51,1) 100%);
+}
+.deckgen-4 .pokeCard {
+	border-color: #b2141c;
+	background: rgb(231,76,60);
+	background: linear-gradient(324deg, rgba(231,76,60,1) 0%, rgba(201,59,45,1) 32%, rgba(247,99,84,1) 71%, rgba(255,155,144,1) 100%);
+}
+.deckgen-5 .pokeCard {
+	border-color: #b0e0e6;
+	background: rgb(52,139,155);
+	background: linear-gradient(324deg, rgba(52,139,155,1) 0%, rgba(28,138,154,1) 41%, rgba(18,91,102,1) 100%);
+}
+.deckgen-6 .pokeCard {
+	border-color: #f0b7bc;
+	background: rgb(249,113,119);
+	background: linear-gradient(324deg, rgba(249,113,119,1) 0%, rgba(249,157,152,1) 31%, rgba(251,219,219,1) 59%, rgba(250,191,187,1) 100%);
+}
+.deckgen-7 .pokeCard {
+	border-color: #feb472;
+	background: rgb(233,117,11);
+	background: linear-gradient(324deg, rgba(233,117,11,1) 0%, rgba(246,160,84,1) 23%, rgba(209,109,25,1) 51%, rgba(223,121,44,1) 100%);
+}
+.deckgen-8 .pokeCard {
+	border-color: #5e3f89;
+	background: rgb(144,95,186);
+	background: linear-gradient(324deg, rgba(144,95,186,1) 0%, rgba(152,102,195,1) 32%, rgba(126,76,169,1) 71%, rgba(114,67,156,1) 100%);
+}
+.deckgen-9 .pokeCard {
+	border-color: #a89f9f;
+	background: rgb(135,134,134);
+	background: linear-gradient(324deg, rgba(135,134,134,1) 0%, rgba(120,120,120,1) 47%, rgba(112,112,112,1) 63%, rgba(98,98,98,1) 100%);
 }
 
 @media screen and (min-width: 600px) {
@@ -155,22 +207,44 @@ h1 {
 	color: var(--yellow);
 	font-weight: 800;
 	text-transform: uppercase;
-	margin: 0.75rem 0 2rem 0;
+	margin: 0.75rem 0 2rem -1em;
 	text-shadow:rgba(0, 0, 0, 0.9) 0px 1px 0;
 	letter-spacing: -0.1rem;
 	text-align: center;
 	-webkit-font-smoothing: auto;
 }
 
+
 h1 i {
 	position: absolute;
-	transform: translate(17%, -37%);
+	transform: translate(11%, -11%);
 	font-style: normal;
-	font-size: 0.375em;
-	color: var(--blue);
+	font-size: 0.5em;
+	color: var(--skyblue);
 	text-shadow: none;
-
+	min-width: 78px;
 }
+
+h1 i span {
+	display: inline-block;
+	transform: translate(-5px, -2px);
+	font-size: 0.875em;
+	background: rgba(255,255,255,0.8);
+	color: var(--red);
+	padding: 0;
+	width: 40px;
+	height: 40px;
+	text-indent: -2px;
+	border-radius: 100px;
+	line-height: 34px;
+	border: 3px solid var(--black);
+}
+
+@media screen and (min-width: 600px) {
+	h1 {margin: 1rem 0 2.5rem 0;}
+	h1 i {transform: translate(11%, -4%); min-width: 95px;}
+}
+
 .pokemon-type {
 	display: inline-block;
 	font-weight: 500;
@@ -282,43 +356,74 @@ h1 i {
 
 .gameOvered {
 	position: absolute;
-	top: 36vh;
-	top: 36svh;
-	left: 50vw;
-	left: 50svw;
+	top: 2rem;
+	left: 0;
+	right: 0;
 	color: var(--darkblue);
-	transform: translate(-50%, -50%);
-	text-align: center;
 	background: rgba(255, 203, 5, 1);
-	padding: 40px 20px;
+	background: linear-gradient(300deg, rgba(231,176,14,1) 0%, rgba(255,203,51,1) 100%);
+	text-align: center;
+	padding: 30px 20px;
 	width: calc(100% - 30px);
-	max-width: 600px;
-	border: 7px solid var(--darkblue);
+	max-width: 640px;
+	margin: 0 auto;
+	border: 7px solid var(--eggshell);
 	border-radius: 0.75rem;
+	box-shadow: 0 0 335px rgba(0,0,0,1);
+	transform: translateY(-120%);
+	transition: transform 0.75s cubic-bezier(0.05, 0.65, 0.26, 1.19);
+	z-index: 200;
+}
+.game-over .gameOvered {
+	transform: translateY(0);
 }
 .gameOvered h2 {
-	font-size: clamp(3.5rem, 6vw + 0.5rem, 4rem);
+	font-size: clamp(4.5rem, 6vw + 0.5rem, 5rem);
 	text-transform: uppercase;
-	margin: 1rem 0 1.5rem 0;
+	margin: 1rem 0 2rem 0;
+	color: #3b9c5a;
+	text-shadow: 0 0 35px #fff;
+	letter-spacing: -0.1rem;
 }
-.gameOvered p {
-	font-size: 2rem;
+.gameOvered h3 {
+	position: relative;
+	font-size: clamp(1.5rem, 4vw + 0.5rem, 1.5rem);
 	color: var(--blue);
-	transition: all 0.5s ease-in-out;
-	-webkit-font-smoothing: auto;
+	margin: 0;
+	text-transform: uppercase;
+	background: var(--pink);
+	color: #FFF;
+	padding: 0.25rem;
+	width: 60%;
+	min-width: 210px;
+	margin: 0 auto -18px auto;
+	border-radius: 7px 7px 0 0;
 }
+
+p.scoringMessage  {
+	font-size: clamp(1.7rem, 3vw + 0.5rem, 3rem);
+	color: #FFF;
+	transition: all 0.5s ease-in-out;
+	background: var(--blue);
+	border-radius: 4px;
+	padding: 15px 10px;
+	margin: -20px -32px 1rem -32px;
+	box-shadow: 0 5px 7px rgb(0 0 0 / 25%),0 -3px 7px rgb(0 0 0 / 27%);
+}
+
 .turns {
-	background: rgba(255,255,255,0.7);
+	background: rgb(0 58 112 / 70%);
+	border: 2px solid var(--yellow);
 	font-size: 1.75rem;
-	color: var(--darkblue);
+	color: var(--eggshell);
 	transition: all 0.5s ease-in-out;
 	-webkit-font-smoothing: auto;
 	text-align: center;
 	text-transform: uppercase;
 	padding: 10px;
 	border-radius: 0.5rem;
-	max-width: 46%;
-	margin: 1rem auto 0 auto;
+	width: 160px;
+	margin: 2rem auto 0 auto;
 }
 .restartBtn {
 	font-family: inherit;
@@ -327,7 +432,7 @@ h1 i {
 	background: var(--green);
 	color: #fff;
 	border: none;
-	margin: 0 auto;
+	margin: 1.5rem auto 1.5rem auto;
 	font-size: 2rem;
 	letter-spacing: -0.05rem;
 	padding: 12px 27px;
@@ -339,21 +444,47 @@ h1 i {
 	background:	#5ac57c;
 }
 
+.upNext {
+	font-size: 1.5rem;
+	margin: 1rem 0 0;
+	color: var(--darkblue);
+	text-transform: uppercase;
+}
+
+.upNext strong {
+	color: var(--red);
+	background: var(--eggshell);
+	border-radius: 100px;
+	padding: 3px 10.21px;
+	border: 2px solid var(--black);
+}
 .pokesCaught {
 	display: flex;
-	/* flex-basis: 100%; */
 	flex-wrap: wrap;
+	justify-content: center;
 	list-style: none;
-	padding: 0;
+	padding: 1em 0 1.5em 0;
+	border: 2px solid var(--pink);
+	background: rgba(255,255,255,0.4);
+	border-radius: 7px;
+}
+
+.pokesCaught img {
+	display: block;
+	max-width: 100%;
+	width: 100%;
 }
 .pokesCaught li {
-	flex-basis: 33.333%;
+	flex-basis: calc(99.25% / 3);
+	/* margin-top: -1em; */
 }
-.pokesCaught li img {
-	max-width: 90px;
-}
+
 .pokesCaught p {
 	font-size: 1.25rem;
+	font-size: clamp(1.25rem,3vw,1.5rem);
+	color: var(--blue);
+	background: none;
+	box-shadow: none;
 	margin: -1em 0 0 0;
 }
 

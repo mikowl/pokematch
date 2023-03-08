@@ -5,6 +5,7 @@ import { Pokemon, PokemonGeneration } from "../types/pokemon";
 import { UseQueryResult, useQueryClient } from "@tanstack/react-query";
 import { pewpewpew } from "../utils";
 import Loader from "./Loader";
+import GameOvered from "./GameOvered";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
 
@@ -59,22 +60,19 @@ export default function Pokematch() {
 		refetchData();
 	}, [gen, refetch, queryClient]);
 
-	const scoringMessages = () => {
-		if (turns <= 9) {
-			return "You're a Pokematch Master!";
-		} else if (turns > 9 && turns <= 13) {
-			return "You're a Pokematch Trainer!";
-		} else if (turns > 13 && turns <= 18) {
-			return "You're a Pokematch Rookie!";
-		} else {
-			return "You're a Pokematch Noob!";
-		}
-	};
+	// toggle game-over class to body
+	useEffect(() => {
+		const body = document.querySelector("body");
+		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
+	}, [gameWin]);
 
 	return (
 		<>
 			<h1>
-				Pokematch <i>GEN {gen}</i>
+				Pokematch{" "}
+				<i>
+					GEN <span>{gen}</span>
+				</i>
 			</h1>
 			{isInitialLoading ? (
 				<Loader pokeball={true} />
@@ -85,7 +83,7 @@ export default function Pokematch() {
 				</div>
 			) : (
 				<>
-					<div className={"card-container"}>
+					<div className={`card-container deckgen-${gen}`}>
 						{deck && (
 							<PokeCard
 								pokemons={deck}
@@ -97,28 +95,13 @@ export default function Pokematch() {
 						)}
 					</div>
 					<p className={"turns"}>Turns: {turns}</p>
-					{gameWin && pewpewpew()}
-					{gameWin && (
-						<div className="gameOvered ">
-							<h2>You won!</h2>
-							<div className="pokemonList">
-								<h3>Pokemon's Caught: </h3>
-								<ul className="pokesCaught">
-									{deck &&
-										[...new Set(deck)].map((pokemon) => (
-											<li>
-												<img src={pokemon.sprites.front_default} alt={pokemon.name} />
-												<p>{pokemon.name}</p>
-											</li>
-										))}
-								</ul>
-							</div>
-							<p>{scoringMessages()}</p>
-							<button className={"restartBtn"} onClick={handleReset}>
-								New Game?
-							</button>
-						</div>
-					)}
+					<GameOvered
+						gameWin={gameWin}
+						deck={deck}
+						handleReset={handleReset}
+						turns={turns}
+						gen={gen}
+					/>
 				</>
 			)}
 		</>

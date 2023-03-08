@@ -11,5 +11,7 @@
 	6. ~~Restart game and generate new set of random pokemons~~
 
 - TODO maybe
-  - Ability to choose generation
+  - ~~Next game will move on to next pokemon generation~~
+  - ~~Different card backings per generation~~
+  - End game screen for passing gen 9
   - Different difficulties

@@ -57,22 +57,27 @@ const shuffle = (array: any[]) => {
 
 const omgConfetti = () => {
 	confetti({
-		particleCount: 200,
+		particleCount: 300,
 		startVelocity: 50,
 		spread: 360,
 		shapes: ["circle"],
 		disableForReducedMotion: true,
-		colors: ["#222E66", "#4962D6", "#FFCB05", "#CA370B"],
-		origin: {
-			x: Math.random() * 0.5 + 0.25,
-			y: Math.random() * 0.5 + 0.25,
-		},
+		colors: ["#222E66", "#4962D6", "#FFCB05", "#CA370B", "#5e3f89", "#f0b7bc", "#b0e0e6"],
 	});
 };
 const pewpewpew = () => {
-	setTimeout(omgConfetti, 0);
 	setTimeout(omgConfetti, 1000);
-	setTimeout(omgConfetti, 2000);
 };
 
-export { getPokemonList, usePokemon, shuffle, pewpewpew };
+	const scoringMessages = (turns: number) => {
+		if (turns <= 9) {
+			return "You're a Pokematch Master!";
+		} else if (turns > 9 && turns <= 13) {
+			return "You're a Pokematch Trainer!";
+		} else if (turns > 13 && turns <= 18) {
+			return "You're a Pokematch Rookie!";
+		} else {
+			return "You're a Pokematch Noob!";
+		}
+	};
+export { getPokemonList, usePokemon, shuffle, pewpewpew, scoringMessages };
