@@ -91,7 +91,7 @@ body.game-over {
 	grid-gap: 1.75rem;
 	padding: 0 5px;
 	margin-top: 2rem;
-	margin-bottom: env(safe-area-inset-bottom);
+	margin-bottom: 40px;
 	width: 100%;
 	max-width: 1000px;
 	filter: blur(0);
