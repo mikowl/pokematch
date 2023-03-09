@@ -11,7 +11,7 @@ type PokemonData = UseQueryResult<Pokemon[], Error>;
 
 export default function Pokematch() {
 	// usePokemon(gen number)
-	const [gen, setGen] = useState<PokemonGeneration>(1);
+	const [gen, setGen] = useState<PokemonGeneration>(9);
 	const queryClient = useQueryClient();
 	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gen);
 	const [turns, setTurns] = useState<number>(0);
@@ -98,14 +98,16 @@ export default function Pokematch() {
 						)}
 					</div>
 					<p className={"turns"}>Turns: {turns}</p>
-					<GameOvered
-						gameWin={gameWin}
-						deck={deck}
-						handleReset={handleReset}
-						turns={turns}
-						gen={gen}
-						mute={mute}
-					/>
+					{gameWin && (
+						<GameOvered
+							gameWin={gameWin}
+							deck={deck}
+							handleReset={handleReset}
+							turns={turns}
+							gen={gen}
+							mute={mute}
+						/>
+					)}
 				</>
 			)}
 		</div>
