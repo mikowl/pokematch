@@ -1,0 +1,32 @@
+{
+    "theme_color": "#206896",
+    "background_color": "#79c9fc",
+    "display": "minimal-ui",
+    "scope": "/",
+    "start_url": "https://pokematch.vercel.app/",
+    "name": "Pokedex",
+    "short_name": "Pokedex",
+    "description": "The best pokemon memory matching game ever made in the world",
+    "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
