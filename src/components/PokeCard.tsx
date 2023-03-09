@@ -21,6 +21,7 @@ export default function PokeCard({
 	const [flippedCards, setFlippedCards] = useState<HTMLButtonElement[]>([]);
 	const [matchedCards, setMatchedCards] = useState<Cards>([]);
 	const [isProccessing, setIsProccessing] = useState<boolean>(false);
+	const beep = new Audio("/beep.mp3");
 
 	// handle card flip
 	const handleCardFlip = (e: MouseEvent) => {
@@ -30,8 +31,8 @@ export default function PokeCard({
 
 		// make a sound on card flip
 		if (!mute) {
-			const audio = new Audio("/beep.mp3");
-			audio.play();
+			beep.currentTime = 0;
+			beep.play();
 		}
 
 		if (card && !Array.isArray(card) && flippedCards.length < 2 && !matchedCards.includes(card)) {

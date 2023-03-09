@@ -18,11 +18,12 @@ const GameOvered = ({
 	mute: boolean;
 }) => {
 	const [activeIndex, setActiveIndex] = useState(-1);
+	const successSound = new Audio("/success.mp3");
 
 	useEffect(() => {
 		if (gameWin && !mute) {
-			const audio = new Audio("/success.mp3");
-			audio.play();
+			successSound.currentTime = 0;
+			successSound.play();
 		}
 		{
 			gen === 9 && pewpewpew();
