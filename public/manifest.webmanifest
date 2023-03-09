@@ -31,7 +31,8 @@
         {
             "src": "/maskable_icon.png",
             "sizes": "493x493",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         }
     ]
 }
