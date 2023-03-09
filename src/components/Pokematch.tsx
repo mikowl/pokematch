@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { usePokemon, shuffle, TOTAL_GENS } from "../utils";
+import { usePokemon, usePokemonById, shuffle, TOTAL_GENS } from "../utils";
 import PokeCard from "./PokeCard";
 import { Pokemon, PokemonGeneration } from "../types/pokemon";
 import { UseQueryResult, useQueryClient } from "@tanstack/react-query";
@@ -10,7 +10,6 @@ import MuteButton from "./MuteButton";
 type PokemonData = UseQueryResult<Pokemon[], Error>;
 
 export default function Pokematch() {
-	// usePokemon(gen number)
 	const [gen, setGen] = useState<PokemonGeneration>(1);
 	const queryClient = useQueryClient();
 	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gen);

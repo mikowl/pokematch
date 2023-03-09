@@ -18,35 +18,49 @@ const pokemonGenerationData: PokemonGenerationData = {
 };
 
 const getPokemonList = async (gen: PokemonGeneration) => {
-	const { offset, limit } = pokemonGenerationData[gen];
-	const url = `${POKE_API_URL}/?offset=${offset}&limit=${limit}`;
+	const BOARD_SIZE = 12;
 
-	try {
-		const response = await fetch(url);
-		const data = await response.json();
+  const { offset, limit } = pokemonGenerationData[gen];
+  const url = `${POKE_API_URL}/?offset=${offset}&limit=${limit}`;
 
-		const promises = data.results.map(async (pokemon: Result) => {
-			try {
-				const response = await fetch(pokemon.url);
-				const data = await response.json();
-				return data;
-			} catch (error) {
-				console.log(error);
-			}
-		});
+  // pick 6 random pokemon from the list
+  const response = await fetch(url);
+  const { results } = await response.json();
+  const randomPokemon = results.sort(() => Math.random() - 0.5).slice(0, BOARD_SIZE / 2);
 
-		const results = await Promise.all(promises);
-		return results;
-	} catch (error) {
-		console.warn("error", error);
-	}
+  try {
+    const promises = randomPokemon.map(async ({ url }: Result) => {
+      const response = await fetch(url);
+      return await response.json();
+    });
+
+    const results = await Promise.all(promises);
+    return results;
+  } catch (error) {
+    console.warn("error", error);
+  }
 };
+
 
 const usePokemon = (gen: PokemonGeneration): UseQueryResult<Pokemon[], Error> => {
 	return useQuery({
 		queryKey: ["pokemonList"],
 		queryFn: () => getPokemonList(gen),
 		staleTime: 1000 * 60 * 60 * 24,
+	});
+};
+
+export const getPokemonById = async (id: number) => {
+	const pokemon = await fetch(`${POKE_API_URL}/${id}`).then(
+		(res) => res.json()
+	);
+	return pokemon as Pokemon;
+};
+
+const usePokemonById = (id: number) => {
+	return useQuery({
+		queryKey: ["pokemon", id],
+		queryFn: () => getPokemonById(id),
 	});
 };
 
@@ -84,4 +98,4 @@ const pewpewpew = () => {
 			return `${rating(1)} -Pokematch Noob-`;
 		}
 	};
-export { getPokemonList, usePokemon, shuffle, pewpewpew, scoringMessages, TOTAL_GENS };
+export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, TOTAL_GENS };
