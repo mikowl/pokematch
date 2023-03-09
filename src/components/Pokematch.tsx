@@ -11,7 +11,7 @@ type PokemonData = UseQueryResult<Pokemon[], Error>;
 
 export default function Pokematch() {
 	// usePokemon(gen number)
-	const [gen, setGen] = useState<PokemonGeneration>(9);
+	const [gen, setGen] = useState<PokemonGeneration>(1);
 	const queryClient = useQueryClient();
 	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gen);
 	const [turns, setTurns] = useState<number>(0);
