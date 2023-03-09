@@ -20,35 +20,36 @@ export default function PokeCard({
 	type Cards = CardElement[] | HTMLButtonElement[];
 	const [flippedCards, setFlippedCards] = useState<HTMLButtonElement[]>([]);
 	const [matchedCards, setMatchedCards] = useState<Cards>([]);
-	const [isProccessing, setIsProccessing] = useState<boolean>(false);
+	const [isProcessing, setIsProcessing] = useState<boolean>(false);
 	const beep = new Audio("/beep.mp3");
 
-	// handle card flip
 	const handleCardFlip = (e: MouseEvent) => {
-		if (isProccessing) return;
+		// Get the clicked card
 		const target = e.target as HTMLElement;
 		const card = target.closest(".card-btn") as HTMLButtonElement;
+		if (isProcessing || flippedCards.includes(card)) return;
 
-		// make a sound on card flip
+		// Play sound on card flip
 		if (!mute) {
 			beep.currentTime = 0;
 			beep.play();
 		}
-
+		// Only flip the card if it's not already flipped, and there are fewer than 2 flipped cards
 		if (card && !Array.isArray(card) && flippedCards.length < 2 && !matchedCards.includes(card)) {
-			const cardElement = card as HTMLButtonElement;
-			cardElement.classList.add("flipped");
-			setFlippedCards([...flippedCards, cardElement]);
+			card.classList.add("flipped");
+			setFlippedCards([...flippedCards, card]);
 
+			// Check for a match if there are now 2 flipped cards
 			if (flippedCards.length === 1) {
 				const [card1] = flippedCards;
 				const name1 = card1.getAttribute("data-name");
-				const name2 = cardElement.getAttribute("data-name");
+				const name2 = card.getAttribute("data-name");
 
 				if (name1 === name2) {
+					// Match found
 					setMatchedCards([...matchedCards, card, card1]);
 					setFlippedCards([]);
-					// # Game win stuff here
+					// Check if the game has been won
 					if (matchedCards.length === pokemons.length - 2) {
 						setTimeout(() => {
 							setGameWin(true);
@@ -57,12 +58,13 @@ export default function PokeCard({
 						}, 1000);
 					}
 				} else {
-					setIsProccessing(true);
+					// No match found
+					setIsProcessing(true);
 					setTimeout(() => {
 						card1.classList.remove("flipped");
-						cardElement.classList.remove("flipped");
+						card.classList.remove("flipped");
 						setFlippedCards([]);
-						setIsProccessing(false);
+						setIsProcessing(false);
 					}, 1000);
 				}
 				setTurns(turns + 1);
