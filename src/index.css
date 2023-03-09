@@ -95,11 +95,11 @@ body.game-over {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 	grid-gap: 1.75rem;
-	padding: 0 5px;
+	padding: 0 10px;
 	margin-top: 2rem;
 	margin-bottom: 40px;
 	width: 100%;
-	max-width: 1000px;
+	max-width: 940px;
 	filter: blur(0);
 	transition: all 0.5s ease-in-out;
 }
@@ -358,26 +358,30 @@ h1 i span {
 }
 
 .gameOvered {
-	position: absolute;
-	top: 2rem;
+	position: fixed;
+	top: 1.75rem;
 	left: 0;
 	right: 0;
 	color: var(--darkblue);
 	background: rgba(255, 203, 5, 1);
 	background: linear-gradient(300deg, rgba(231,176,14,1) 0%, rgba(255,203,51,1) 100%);
 	text-align: center;
-	padding: 30px 20px;
+	padding: 30px 20px 10px 20px;
 	width: calc(100% - 30px);
 	max-width: 570px;
 	margin: 0 auto;
 	border: 7px solid var(--eggshell);
 	border-radius: 0.75rem;
+	box-shadow: 0 -50px 50px rgb(0 0 0 / 70%);	
 	transform: translateY(-120%);
 	transition: transform 0.75s ease-in;
 	z-index: 200;
 }
 .game-over .gameOvered {
 	transform: translateY(0);
+}
+.gameOvered.game-complete {
+	position: absolute;
 }
 .gameOvered h2 {
 	font-size: clamp(1.25rem, 3vw + 0.5rem, 2rem);
@@ -436,7 +440,7 @@ p.scoringMessage  {
 	display: none;
 }
 
-.restartBtn {
+.btn {
 	font-family: inherit;
 	cursor: pointer;
 	display: block;
@@ -451,10 +455,18 @@ p.scoringMessage  {
 	transition: all 0.2s ease-in-out;
 }
 
-.restartBtn:hover {
+.btn:hover {
 	background:	#5ac57c;
 }
 
+.nextGame.btn {
+
+}
+
+.restart.btn {
+	margin: 1rem auto -2.75rem auto;
+	border: 5px solid var(--eggshell);
+}
 .muteBtn {
 	position: absolute;
 	bottom: 8px;
@@ -494,7 +506,7 @@ p.scoringMessage  {
 	flex-wrap: wrap;
 	justify-content: center;
 	list-style: none;
-	padding: 0em 0 2.5em 0;
+	padding: 0em 0 1em 0;
 	border: 2px solid var(--pink);
 	background: rgba(255,255,255,0.4);
 	border-radius: 7px;
@@ -508,7 +520,7 @@ p.scoringMessage  {
 }
 .pokesCaught li {
 	flex-basis: calc(99.25% / 3);
-	/* margin-top: -1em; */
+	margin-bottom: 1.5rem;
 }
 
 .pokesCaught p {
@@ -625,7 +637,7 @@ footer a:hover {
 		text-transform: uppercase;
 		padding: 7px 10px;
 		border-radius: 0.5rem;
-		width: 170px;
+		width: 180px;
 		margin: 2rem auto 0 auto;
 		transition: all 0.5s ease-in-out;
 	}

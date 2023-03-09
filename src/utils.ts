@@ -2,6 +2,7 @@ import confetti from "canvas-confetti";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { Pokemon, Result, PokemonGeneration, PokemonGenerationData } from "./types/pokemon";
 
+const TOTAL_GENS = 9;
 const POKE_API_URL = "https://pokeapi.co/api/v2/pokemon";
 
 const pokemonGenerationData: PokemonGenerationData = {
@@ -68,14 +69,19 @@ const pewpewpew = () => {
 };
 
 	const scoringMessages = (turns: number) => {
+		// const score = 100 - turns;
+		const rating = (star: number): string => "★".repeat(Math.max(0, Math.min(star, 5))).padEnd(5,"☆" );
+		const score = (12 * 2) - (turns * 2);
 		if (turns <= 9) {
-			return "You're a Pokematch Master!";
+			return `${rating(5)} -Pokematch Master-`;
 		} else if (turns > 9 && turns <= 13) {
-			return "You're a Pokematch Trainer!";
-		} else if (turns > 13 && turns <= 18) {
-			return "You're a Pokematch Rookie!";
+			return `${rating(4)} -Pokematch Trainer-`;
+		} else if (turns > 13 && turns <= 16) {
+			return `${rating(3)} -Pokematch Rookie-`;
+		} else if (turns > 16 && turns <= 18) {
+			return `${rating(2)} -Pokematch Beginner-`;
 		} else {
-			return "You're a Pokematch Noob!";
+			return `${rating(1)} -Pokematch Noob-`;
 		}
 	};
-export { getPokemonList, usePokemon, shuffle, pewpewpew, scoringMessages };
+export { getPokemonList, usePokemon, shuffle, pewpewpew, scoringMessages, TOTAL_GENS };

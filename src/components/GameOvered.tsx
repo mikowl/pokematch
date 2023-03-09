@@ -1,19 +1,23 @@
-import { scoringMessages, pewpewpew } from "../utils";
+import { scoringMessages, pewpewpew, TOTAL_GENS } from "../utils";
 import { Pokemon, PokemonGeneration } from "../types/pokemon";
 import { useEffect, useState } from "preact/hooks";
 
 const GameOvered = ({
 	gameWin,
 	deck,
-	handleReset,
+	handleNextGame,
+	handleRestart,
 	turns,
+	totalTurns,
 	gen,
 	mute,
 }: {
 	gameWin: boolean;
 	deck: Pokemon[];
-	handleReset: () => void;
+	handleNextGame: () => void;
+	handleRestart: () => void;
 	turns: number;
+	totalTurns: number;
 	gen: PokemonGeneration;
 	mute: boolean;
 }) => {
@@ -26,7 +30,7 @@ const GameOvered = ({
 			successSound.play();
 		}
 		{
-			gen === 9 && pewpewpew();
+			gen === TOTAL_GENS && pewpewpew();
 		}
 		const lis = document.querySelectorAll(".pokeCaught");
 		let i = 0;
@@ -42,9 +46,11 @@ const GameOvered = ({
 		return () => clearInterval(intervalId);
 	}, [deck, gameWin]);
 
+	const averageScore = ((TOTAL_GENS * deck.length) / 2 / totalTurns) * 100;
+
 	return (
 		<>
-			<div className="gameOvered">
+			<div className={`gameOvered ${gen === 9 ? "game-complete" : ""}`}>
 				<h2>
 					You caught <span>em</span> all!
 				</h2>
@@ -70,18 +76,19 @@ const GameOvered = ({
 				</div>
 				<p className="scoringMessage">{scoringMessages(turns)}</p>
 
-				{gen === 9 ? (
+				{gen === TOTAL_GENS ? (
 					<p className="gameOveredMessage">
-						You have completed all 9 generations of Pokemon! Congratulations!
+						You have completed all 9 generations of Pokemon! Your average:{" "}
+						<strong>{averageScore.toFixed()}%</strong>
+						<button className={"btn restart"} onClick={handleRestart}>
+							Play again?
+						</button>
 					</p>
 				) : (
 					<>
-						<button className={"restartBtn"} onClick={handleReset}>
-							Play Again?
+						<button className={"btn nextGame"} onClick={handleNextGame}>
+							Start Gen {gen + 1}!
 						</button>
-						<p className="upNext">
-							Generation <strong>{gen + 1}</strong> is up next!
-						</p>
 					</>
 				)}
 			</div>

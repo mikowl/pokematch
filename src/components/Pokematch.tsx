@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { usePokemon, shuffle } from "../utils";
+import { usePokemon, shuffle, TOTAL_GENS } from "../utils";
 import PokeCard from "./PokeCard";
 import { Pokemon, PokemonGeneration } from "../types/pokemon";
 import { UseQueryResult, useQueryClient } from "@tanstack/react-query";
@@ -15,6 +15,7 @@ export default function Pokematch() {
 	const queryClient = useQueryClient();
 	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gen);
 	const [turns, setTurns] = useState<number>(0);
+	const [totalTurns, setTotalTurns] = useState<number>(turns);
 	const [gameWin, setGameWin] = useState<boolean>(false);
 	const [mute, setMute] = useState<boolean>(false);
 
@@ -43,14 +44,23 @@ export default function Pokematch() {
 		setDeck(randomUniquePokemon());
 	}
 
-	const handleReset = () => {
-		const nextGen = (gen + 1) as PokemonGeneration;
-		setGen(nextGen);
+	const reset = () => {
 		setDeck(randomUniquePokemon());
 		setTurns(0);
 		setGameWin(false);
 		const cards = document.querySelectorAll(".card-btn");
 		cards.forEach((card) => card.classList.remove("flipped"));
+	};
+
+	const handleNextGame = () => {
+		const nextGen = (gen + 1) as PokemonGeneration;
+		setGen(nextGen);
+		reset();
+	};
+
+	const handleRestart = () => {
+		setGen(1);
+		reset();
 	};
 
 	useEffect(() => {
@@ -76,7 +86,9 @@ export default function Pokematch() {
 					GEN <span>{gen}</span>
 				</i>
 			</h1>
-			<p className={"instructions"}>Match the Pokemon, complete all 9 generations to win!</p>
+			<p className={"instructions"}>
+				Match the Pokemon, complete all {TOTAL_GENS} generations to win!
+			</p>
 			{isLoading ? (
 				<Loader pokeball={true} />
 			) : error ? (
@@ -91,8 +103,9 @@ export default function Pokematch() {
 								pokemons={deck}
 								turns={turns}
 								setTurns={setTurns}
+								setTotalTurns={setTotalTurns}
+								totalTurns={totalTurns}
 								setGameWin={setGameWin}
-								gameWin={gameWin}
 								mute={mute}
 							/>
 						)}
@@ -102,8 +115,10 @@ export default function Pokematch() {
 						<GameOvered
 							gameWin={gameWin}
 							deck={deck}
-							handleReset={handleReset}
+							handleNextGame={handleNextGame}
+							handleRestart={handleRestart}
 							turns={turns}
+							totalTurns={totalTurns}
 							gen={gen}
 							mute={mute}
 						/>

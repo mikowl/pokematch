@@ -9,7 +9,7 @@ const Loader: FunctionalComponent<LoaderProps> = ({ pokeball = true }) => {
 		return (
 			<>
 				<img
-					src="/pokeball.svg"
+					src="/img/pokeball.svg"
 					alt="Loading..."
 					className="poke-load animate-spin"
 					width="32"

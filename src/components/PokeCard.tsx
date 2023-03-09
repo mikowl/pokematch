@@ -5,14 +5,16 @@ export default function PokeCard({
 	pokemons,
 	turns,
 	setTurns,
-	gameWin,
+	setTotalTurns,
+	totalTurns,
 	setGameWin,
 	mute,
 }: {
 	pokemons: Pokemon[];
 	turns: number;
 	setTurns: Function;
-	gameWin: boolean;
+	setTotalTurns: Function;
+	totalTurns: number;
 	setGameWin: Function;
 	mute: boolean;
 }) {
@@ -21,7 +23,7 @@ export default function PokeCard({
 	const [flippedCards, setFlippedCards] = useState<HTMLButtonElement[]>([]);
 	const [matchedCards, setMatchedCards] = useState<Cards>([]);
 	const [isProcessing, setIsProcessing] = useState<boolean>(false);
-	const beep = new Audio("/beep.mp3");
+	const beep = new Audio("/beepalt.mp3");
 
 	const handleCardFlip = (e: MouseEvent) => {
 		// Get the clicked card
@@ -68,6 +70,8 @@ export default function PokeCard({
 					}, 1000);
 				}
 				setTurns(turns + 1);
+				setTotalTurns(totalTurns + 1);
+				console.log(totalTurns);
 			}
 		}
 	};
