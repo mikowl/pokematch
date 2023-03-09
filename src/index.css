@@ -61,6 +61,7 @@ body {
 	min-width: 320px;
 	min-height: 100dvh;
 	min-height: 100svh;
+	height: calc(100vh - env(safe-area-inset-bottom));
 	margin: 0 auto;
 	background-image: url("/img/pokewp.jpg");
 	image-rendering: pixelated;
