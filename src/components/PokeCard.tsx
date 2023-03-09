@@ -7,12 +7,14 @@ export default function PokeCard({
 	setTurns,
 	gameWin,
 	setGameWin,
+	mute,
 }: {
 	pokemons: Pokemon[];
 	turns: number;
 	setTurns: Function;
 	gameWin: boolean;
 	setGameWin: Function;
+	mute: boolean;
 }) {
 	type CardElement = HTMLButtonElement | string;
 	type Cards = CardElement[] | HTMLButtonElement[];
@@ -25,9 +27,12 @@ export default function PokeCard({
 		if (isProccessing) return;
 		const target = e.target as HTMLElement;
 		const card = target.closest(".card-btn") as HTMLButtonElement;
-		// play sound on click
-		const audio = new Audio("/beep.mp3");
-		audio.play();
+
+		// make a sound on card flip
+		if (!mute) {
+			const audio = new Audio("/beep.mp3");
+			audio.play();
+		}
 
 		if (card && !Array.isArray(card) && flippedCards.length < 2 && !matchedCards.includes(card)) {
 			const cardElement = card as HTMLButtonElement;

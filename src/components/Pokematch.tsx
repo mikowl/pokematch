@@ -3,9 +3,9 @@ import { usePokemon, shuffle } from "../utils";
 import PokeCard from "./PokeCard";
 import { Pokemon, PokemonGeneration } from "../types/pokemon";
 import { UseQueryResult, useQueryClient } from "@tanstack/react-query";
-import { pewpewpew } from "../utils";
 import Loader from "./Loader";
 import GameOvered from "./GameOvered";
+import MuteButton from "./MuteButton";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
 
@@ -16,6 +16,7 @@ export default function Pokematch() {
 	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gen);
 	const [turns, setTurns] = useState<number>(0);
 	const [gameWin, setGameWin] = useState<boolean>(false);
+	const [mute, setMute] = useState<boolean>(false);
 
 	// deck is an array of objects
 	const [deck, setDeck] = useState<Pokemon[]>([]);
@@ -67,10 +68,11 @@ export default function Pokematch() {
 	}, [gameWin]);
 
 	return (
-		<>
+		<div className={`gcolor${gen}`}>
+			<MuteButton mute={mute} setMute={setMute} />
 			<h1>
 				Pokematch{" "}
-				<i>
+				<i class={`gcolor${gen}`}>
 					GEN <span>{gen}</span>
 				</i>
 			</h1>
@@ -91,6 +93,7 @@ export default function Pokematch() {
 								setTurns={setTurns}
 								setGameWin={setGameWin}
 								gameWin={gameWin}
+								mute={mute}
 							/>
 						)}
 					</div>
@@ -101,9 +104,10 @@ export default function Pokematch() {
 						handleReset={handleReset}
 						turns={turns}
 						gen={gen}
+						mute={mute}
 					/>
 				</>
 			)}
-		</>
+		</div>
 	);
 }

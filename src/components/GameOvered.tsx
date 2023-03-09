@@ -1,4 +1,4 @@
-import { pewpewpew, scoringMessages } from "../utils";
+import { scoringMessages } from "../utils";
 import { Pokemon, PokemonGeneration } from "../types/pokemon";
 import { useEffect, useState } from "preact/hooks";
 
@@ -8,17 +8,19 @@ const GameOvered = ({
 	handleReset,
 	turns,
 	gen,
+	mute,
 }: {
 	gameWin: boolean;
 	deck: Pokemon[];
 	handleReset: () => void;
 	turns: number;
 	gen: PokemonGeneration;
+	mute: boolean;
 }) => {
 	const [activeIndex, setActiveIndex] = useState(-1);
 
 	useEffect(() => {
-		if (gameWin) {
+		if (gameWin && !mute) {
 			const audio = new Audio("/success.mp3");
 			audio.play();
 		}

@@ -14,6 +14,7 @@
 	--purple: #9b59b6;
 	--pink: #ef6a5c;
 	--pixelBorder: 4px 0 transparent, -4px 0 transparent, 0 -4px transparent, 0 4px transparent;
+	--gcolor1: var(--darkblue);
 	--gcolor2: #a38114;
 	--gcolor3: #d5f192;
 	--gcolor4: #b2141c;
@@ -90,6 +91,7 @@ body.game-over {
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 	grid-gap: 1.75rem;
 	padding: 0 5px;
+	margin-top: 2rem;
 	width: 100%;
 	max-width: 1000px;
 	filter: blur(0);
@@ -99,13 +101,6 @@ body.game-over {
 	filter: blur(5px);
 }
 
-@media screen and (min-width: 768px) {
-	.card-container {
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-		grid-gap: 2rem;
-	}
-}
-	
 .pokeCard {
 	position: relative;
 	display: flex;
@@ -125,6 +120,16 @@ body.game-over {
 	box-shadow: var(--pixelBorder),
 	8px 0 var(--darkblue), -8px 0 var(--darkblue), 0 -8px var(--darkblue), 0 8px var(--darkblue), 0 0 0 4px var(--darkblue);
 }
+.gcolor1 { color: var(--gcolor1); }
+.gcolor2 { color: var(--gcolor2); }
+.gcolor3 { color: var(--gcolor3); }
+.gcolor4 { color: var(--gcolor4); }
+.gcolor5 { color: var(--gcolor5); }
+.gcolor6 { color: var(--gcolor6); }
+.gcolor7 { color: var(--gcolor7); }
+.gcolor8 { color: var(--gcolor8); }
+.gcolor9 { color: var(--gcolor9); }
+
 .deckgen-1 .pokeCard {
 	box-shadow: var(--pixelBorder),
 	8px 0 var(--darkblue), -8px 0 var(--darkblue), 0 -8px var(--darkblue), 0 8px var(--darkblue), 0 0 0 4px var(--darkblue);
@@ -193,7 +198,7 @@ body.game-over {
 }
 h1 {
 	position: relative;
-	font-size: clamp(2rem, 5vw + 0.5rem, 3rem);
+	font-size: clamp(1.75rem, 5vw + 0.5rem, 3rem);
 	color: var(--yellow);
 	font-weight: 800;
 	text-transform: uppercase;
@@ -221,11 +226,11 @@ h1 i span {
 }
 
 .instructions {
-	font-size: 1rem;
+	font-size: clamp(0.75rem, 1.5vw + 0.5rem, 1rem);
 	text-align: center;
 	color: var(--darkblue);
 	text-transform: uppercase;
-	margin: -1rem 0 2rem 0;
+	margin-top: -1rem;
 	line-height: 1;
 	letter-spacing: -0.05rem;
 }
@@ -435,6 +440,28 @@ p.scoringMessage  {
 	background:	#5ac57c;
 }
 
+.muteBtn {
+	width: 100%;
+	position: absolute;
+	bottom: 8px;
+	right: 10px;
+}
+
+.muteBtn svg {
+	width: 24px;
+	height: 24px;
+}
+
+.muteBtn button {
+	cursor: pointer;
+	background: none;
+	border: none;
+}
+
+.icon-mute {
+	fill: var(--darkblue);
+}
+
 .upNext {
 	font-size: 1.125rem;
 	margin: 1rem 0 0;
@@ -513,6 +540,7 @@ p.scoringMessage  {
 }
 
 .flip {
+	width: 100%;
 	position: relative;
 	cursor: pointer;
 	filter: contrast(1.1);
@@ -561,6 +589,9 @@ footer a:hover {
 		transform: translate(11%, -4%);
 		min-width: 95px;
 	}
+	.card-container {
+		margin-top: 3rem;
+	}
 	.gameOvered h2 { margin: 1rem 0 2rem 0; }
 	.pokeCard { height: 200px; }
 	.pokeCard img {
@@ -581,7 +612,20 @@ footer a:hover {
 		margin: 2rem auto 0 auto;
 		transition: all 0.5s ease-in-out;
 	}
+	.muteBtn {
+		position: unset;
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: -1.5rem;
+	}
 }
+@media screen and (min-width: 768px) {
+	.card-container {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		grid-gap: 2rem;
+	}
+}
+
 @keyframes rotate {
 	100% {
 		transform: rotate(360deg);

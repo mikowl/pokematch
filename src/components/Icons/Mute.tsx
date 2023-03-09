@@ -1,0 +1,25 @@
+import { IconProps } from "../../types/other";
+
+const MuteIcon = (props: IconProps) => {
+	return (
+		<svg
+			className={`icon-mute`}
+			xmlns="http://www.w3.org/2000/svg"
+			width={props.width}
+			height={props.height}
+			viewBox={`0 0 512 512`}
+		>
+			<title>Mute</title>
+			<path
+				fill={props.fill}
+				d="M211 0L211 33L178 33L178 66L144 66L144 100L111 100L111 133L33 133L33 166L0 166L0 346L33 346L33 379L111 379L111 412L144 412L144 446L178 446L178 479L211 479L211 512L279 512L279 479L312 479L312 33L279 33L279 0L211 0z"
+			/>
+			<path
+				fill={props.fill}
+				d="M345 166L345 201L378 201L378 234L411 234L411 267L378 267L378 300L345 300L345 334L379 334L379 301L412 301L412 268L445 268L445 301L478 301L478 334L512 334L512 300L479 300L479 267L446 267L446 234L479 234L479 201L512 201L512 166L478 166L478 200L445 200L445 233L412 233L412 200L379 200L379 166L345 166z"
+			/>
+		</svg>
+	);
+};
+
+export default MuteIcon;
