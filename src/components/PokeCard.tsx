@@ -1,22 +1,15 @@
-import { useState, useRef } from "preact/hooks";
+import { useState } from "preact/hooks";
+import { GameData } from "../types/other";
 import { Pokemon } from "../types/pokemon";
 
 export default function PokeCard({
 	pokemons,
-	turns,
-	setTurns,
-	setTotalTurns,
-	totalTurns,
-	setGameWin,
-	mute,
+	setGameState,
+	gameState,
 }: {
 	pokemons: Pokemon[];
-	turns: number;
-	setTurns: Function;
-	setTotalTurns: Function;
-	totalTurns: number;
-	setGameWin: Function;
-	mute: boolean;
+	setGameState: Function;
+	gameState: GameData;
 }) {
 	type CardElement = HTMLButtonElement | string;
 	type Cards = CardElement[] | HTMLButtonElement[];
@@ -32,7 +25,7 @@ export default function PokeCard({
 		if (isProcessing || flippedCards.includes(card)) return;
 
 		// Play sound on card flip
-		if (!mute) {
+		if (!gameState.mute) {
 			beep.currentTime = 0;
 			beep.play();
 		}
@@ -44,8 +37,8 @@ export default function PokeCard({
 			// Check for a match if there are now 2 flipped cards
 			if (flippedCards.length === 1) {
 				const [card1] = flippedCards;
-				const name1 = card1.getAttribute("data-name");
-				const name2 = card.getAttribute("data-name");
+				const name1 = card1.dataset.name;
+				const name2 = card.dataset.name;
 
 				if (name1 === name2) {
 					// Match found
@@ -54,7 +47,10 @@ export default function PokeCard({
 					// Check if the game has been won
 					if (matchedCards.length === pokemons.length - 2) {
 						setTimeout(() => {
-							setGameWin(true);
+							setGameState({
+								...gameState,
+								gameWin: true,
+							});
 							setMatchedCards([]);
 							setFlippedCards([]);
 						}, 1000);
@@ -69,8 +65,12 @@ export default function PokeCard({
 						setIsProcessing(false);
 					}, 1000);
 				}
-				setTurns(turns + 1);
-				setTotalTurns(totalTurns + 1);
+
+				setGameState({
+					...gameState,
+					turns: gameState.turns + 1,
+					totalTurns: gameState.totalTurns + 1,
+				});
 			}
 		}
 	};
@@ -78,6 +78,7 @@ export default function PokeCard({
 	return (
 		<>
 			{pokemons.map((pokemon) => (
+				// encrypt pokemon.name so users can't view the name in the DOM
 				<button className={"card-btn flip"} onClick={handleCardFlip} data-name={pokemon.name}>
 					<div className="front">
 						<div className="pokeCard">
@@ -95,7 +96,6 @@ export default function PokeCard({
 									width="96"
 									height="96"
 								/>
-								{/* <p>{clicks}</p> */}
 							</div>
 						</div>
 					</div>

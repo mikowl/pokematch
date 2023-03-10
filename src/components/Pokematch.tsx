@@ -1,22 +1,39 @@
 import { useEffect, useState } from "preact/hooks";
 import { usePokemon, shuffle, TOTAL_GENS, BOARD_SIZE } from "../utils";
 import PokeCard from "./PokeCard";
-import { Pokemon, PokemonGeneration } from "../types/pokemon";
-import { UseQueryResult, useQueryClient } from "@tanstack/react-query";
+import { Pokemon } from "../types/pokemon";
+import { GameData } from "../types/other";
+import { UseQueryResult } from "@tanstack/react-query";
 import Loader from "./Loader";
 import GameOvered from "./GameOvered";
 import MuteButton from "./MuteButton";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
-
 export default function Pokematch() {
-	const [gen, setGen] = useState<PokemonGeneration>(1);
-	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gen);
+	// const [gen, setGen] = useState<PokemonGeneration>(1);
+	const getInitialGameState = (): GameData => {
+		const gameStateFromLocalStorage = localStorage.getItem("gameState");
+		if (gameStateFromLocalStorage !== null) {
+			return JSON.parse(gameStateFromLocalStorage);
+		} else {
+			return {
+				turns: 0,
+				totalTurns: 0,
+				gameWin: false,
+				gen: 1,
+				mute: false,
+			};
+		}
+	};
+	const [gameState, setGameState] = useState<GameData>(getInitialGameState());
 
-	const [turns, setTurns] = useState<number>(0);
-	const [totalTurns, setTotalTurns] = useState<number>(turns);
-	const [gameWin, setGameWin] = useState<boolean>(false);
-	const [mute, setMute] = useState<boolean>(false);
+	// set game state in local storage
+	useEffect(() => {
+		localStorage.setItem("gameState", JSON.stringify(gameState));
+	}, [gameState]);
+
+	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gameState.gen);
+
 	const [deck, setDeck] = useState<Pokemon[]>([]);
 
 	// grab 8 random unique pokemon from data to be used in card match game
@@ -47,38 +64,49 @@ export default function Pokematch() {
 
 	const reset = () => {
 		setDeck(randomUniquePokemon());
-		setTurns(0);
-		setGameWin(false);
+		setGameState({
+			...gameState,
+			turns: 0,
+			gameWin: false,
+		});
 		const cards = document.querySelectorAll(".card-btn");
 		cards.forEach((card) => card.classList.remove("flipped"));
 	};
 
 	const handleNextGame = () => {
-		setGen(gen + 1);
+		setGameState({
+			...gameState,
+			gen: gameState.gen + 1,
+		});
 	};
 
 	const handleRestart = () => {
-		setGen(1);
+		setGameState({
+			...gameState,
+			gen: 1,
+		});
 	};
 
 	useEffect(() => {
 		refetchData().then(() => {
 			reset();
 		});
-	}, [gen]);
+		// update game state in local storage
+		localStorage.setItem("gameState", JSON.stringify(gameState));
+	}, [gameState.gen]);
 
 	useEffect(() => {
 		const body = document.querySelector("body");
-		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
-	}, [gameWin]);
+		gameState.gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
+	}, [gameState.gameWin]);
 
 	return (
-		<div className={`gcolor${gen}`}>
-			<MuteButton mute={mute} setMute={setMute} />
+		<div className={`gcolor${gameState.gen}`}>
+			<MuteButton gameState={gameState} setGameState={setGameState} />
 			<h1>
 				Pokematch{" "}
-				<i class={`gcolor${gen}`}>
-					GEN <span>{gen}</span>
+				<i class={`gcolor${gameState.gen}`}>
+					GEN <span>{gameState.gen}</span>
 				</i>
 			</h1>
 			<p className={"instructions"}>
@@ -92,30 +120,16 @@ export default function Pokematch() {
 				</p>
 			) : (
 				<>
-					<div className={`card-container deckgen-${gen}`}>
-						{deck && (
-							<PokeCard
-								pokemons={deck}
-								turns={turns}
-								setTurns={setTurns}
-								setTotalTurns={setTotalTurns}
-								totalTurns={totalTurns}
-								setGameWin={setGameWin}
-								mute={mute}
-							/>
-						)}
+					<div className={`card-container deckgen-${gameState.gen}`}>
+						{deck && <PokeCard pokemons={deck} gameState={gameState} setGameState={setGameState} />}
 					</div>
-					<p className={`turns ${gameWin ? "hide" : ""}`}>Turns: {turns}</p>
-					{gameWin && (
+					<p className={`turns ${gameState.gameWin ? "hide" : ""}`}>Turns: {gameState.turns}</p>
+					{gameState.gameWin && (
 						<GameOvered
-							gameWin={gameWin}
+							gameState={gameState}
 							deck={deck}
 							handleNextGame={handleNextGame}
 							handleRestart={handleRestart}
-							turns={turns}
-							totalTurns={totalTurns}
-							gen={gen}
-							mute={mute}
 						/>
 					)}
 				</>

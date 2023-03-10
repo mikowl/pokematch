@@ -1,36 +1,29 @@
 import { scoringMessages, pewpewpew, TOTAL_GENS } from "../utils";
-import { Pokemon, PokemonGeneration } from "../types/pokemon";
+import { Pokemon } from "../types/pokemon";
+import { GameData } from "../types/other";
 import { useEffect, useState } from "preact/hooks";
 
 const GameOvered = ({
-	gameWin,
+	gameState,
 	deck,
 	handleNextGame,
 	handleRestart,
-	turns,
-	totalTurns,
-	gen,
-	mute,
 }: {
-	gameWin: boolean;
+	gameState: GameData;
 	deck: Pokemon[];
 	handleNextGame: () => void;
 	handleRestart: () => void;
-	turns: number;
-	totalTurns: number;
-	gen: PokemonGeneration;
-	mute: boolean;
 }) => {
 	const [activeIndex, setActiveIndex] = useState(-1);
 	const successSound = new Audio("/success.mp3");
 
 	useEffect(() => {
-		if (gameWin && !mute) {
+		if (gameState.gameWin && !gameState.mute) {
 			successSound.currentTime = 0;
 			successSound.play();
 		}
 		{
-			gen === TOTAL_GENS && pewpewpew();
+			gameState.gen === TOTAL_GENS && pewpewpew();
 		}
 		const lis = document.querySelectorAll(".pokeCaught");
 		let i = 0;
@@ -44,13 +37,13 @@ const GameOvered = ({
 			i++;
 		}, 500);
 		return () => clearInterval(intervalId);
-	}, [deck, gameWin]);
+	}, [deck, gameState.gameWin]);
 
-	const averageScore = ((TOTAL_GENS * deck.length) / 2 / totalTurns) * 100;
+	const averageScore = ((TOTAL_GENS * deck.length) / 2 / gameState.totalTurns) * 100;
 
 	return (
 		<>
-			<div className={`gameOvered ${gen === 9 ? "game-complete" : ""}`}>
+			<div className={`gameOvered ${gameState.gen === 9 ? "game-complete" : ""}`}>
 				<h2>
 					You caught <span>em</span> all!
 				</h2>
@@ -74,9 +67,9 @@ const GameOvered = ({
 							))}
 					</ul>
 				</div>
-				<p className="scoringMessage">{scoringMessages(turns)}</p>
+				<p className="scoringMessage">{scoringMessages(gameState.turns)}</p>
 
-				{gen === TOTAL_GENS ? (
+				{gameState.gen === TOTAL_GENS ? (
 					<p className="gameOveredMessage">
 						You have completed all 9 generations of Pokemon! Your score:{" "}
 						<strong>{(averageScore * 1.5).toFixed()}%</strong>
@@ -87,7 +80,7 @@ const GameOvered = ({
 				) : (
 					<>
 						<button className={"btn nextGame"} onClick={handleNextGame}>
-							Start Gen {gen + 1}!
+							Start Gen {gameState.gen + 1}!
 						</button>
 					</>
 				)}

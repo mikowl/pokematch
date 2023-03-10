@@ -1,15 +1,25 @@
 import MuteIcon from "./Icons/Mute";
 import UnmuteIcon from "./Icons/Unmute";
+import { GameData } from "../types/other";
 
-const MuteButton = ({ setMute, mute }: { setMute: Function; mute: boolean }) => {
+const MuteButton = ({
+	gameState,
+	setGameState,
+}: {
+	gameState: GameData;
+	setGameState: Function;
+}) => {
 	const handleMute = () => {
-		setMute(!mute);
+		setGameState({
+			...gameState,
+			mute: !gameState.mute,
+		});
 	};
 
 	return (
 		<div className={`muteBtn`}>
 			<button onClick={handleMute}>
-				{!mute ? (
+				{!gameState.mute ? (
 					<MuteIcon width={32} height={32} fill={"#d12428"} />
 				) : (
 					<UnmuteIcon width={32} height={32} />
