@@ -44,7 +44,7 @@ const getPokemonList = async (gen: PokemonGeneration) => {
 
 const usePokemon = (gen: PokemonGeneration): UseQueryResult<Pokemon[], Error> => {
 	return useQuery({
-		queryKey: ["pokemonList"],
+		queryKey: ["pokemonList", gen],
 		queryFn: () => getPokemonList(gen),
 		staleTime: 1000 * 60 * 60 * 24,
 	});
@@ -82,20 +82,26 @@ const pewpewpew = () => {
 	setTimeout(omgConfetti, 1000);
 };
 
-	const scoringMessages = (turns: number) => {
-		// const score = 100 - turns;
-		const rating = (star: number): string => "★".repeat(Math.max(0, Math.min(star, 5))).padEnd(5,"☆" );
-		const score = (12 * 2) - (turns * 2);
-		if (turns <= 9) {
-			return `${rating(5)} -Pokematch Master-`;
-		} else if (turns > 9 && turns <= 13) {
-			return `${rating(4)} -Pokematch Trainer-`;
-		} else if (turns > 13 && turns <= 16) {
-			return `${rating(3)} -Pokematch Rookie-`;
-		} else if (turns > 16 && turns <= 18) {
-			return `${rating(2)} -Pokematch Beginner-`;
-		} else {
-			return `${rating(1)} -Pokematch Noob-`;
-		}
-	};
+type Rating = {
+	turns: number;
+	rating: string;
+	title: string;
+};
+
+const ratingThresholds: Rating[] = [
+	{ turns: 9, rating: "★★★★★", title: "-Pokematch Master-" },
+	{ turns: 13, rating: "★★★★☆", title: "-Pokematch Trainer-" },
+	{ turns: 15, rating: "★★★☆☆", title: "-Pokematch Rookie-" },
+	{ turns: 17, rating: "★★☆☆☆", title: "-Pokematch Beginner-" },
+	{ turns: Infinity, rating: "★☆☆☆☆", title: "-Pokematch Noob-" },
+];
+
+const scoringMessages = (turns: number): string => {
+	const score = 12 * 2 - turns * 2;
+	const { rating, title } = ratingThresholds.find(
+		(threshold) => turns <= threshold.turns
+	)!;
+	return `${rating.padEnd(5, "☆")} ${title}`;
+};
+
 export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, TOTAL_GENS };

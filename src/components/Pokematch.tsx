@@ -43,6 +43,11 @@ export default function Pokematch() {
 		setDeck(randomUniquePokemon());
 	}
 
+	const refetchData = async () => {
+		await queryClient.clear();
+		await refetch();
+	};
+
 	const reset = () => {
 		setDeck(randomUniquePokemon());
 		setTurns(0);
@@ -50,25 +55,29 @@ export default function Pokematch() {
 		const cards = document.querySelectorAll(".card-btn");
 		cards.forEach((card) => card.classList.remove("flipped"));
 	};
-
+	
 	const handleNextGame = () => {
-		const nextGen = (gen + 1) as PokemonGeneration;
-		setGen(nextGen);
-		reset();
+		setGen(gen + 1);
 	};
+	
+	useEffect(() => {
+		// const nextGen = (gen + 1) as PokemonGeneration;
+		refetchData().then(() => {
+			reset();
+		});
+		console.log('gen', gen)
+		// gameWin && setGen(gen + 1);
+	}, [gen]);
 
 	const handleRestart = () => {
 		setGen(1);
-		reset();
+		refetchData().then(() => {
+			reset();
+		});
 	};
 
-	useEffect(() => {
-		const refetchData = async () => {
-			await queryClient.clear();
-			await refetch();
-		};
-		refetchData();
-	}, [gen, refetch, queryClient]);
+	// useEffect(() => {
+	// }, [gen, refetch, queryClient]);
 
 	// toggle game-over class to body
 	useEffect(() => {
@@ -109,7 +118,7 @@ export default function Pokematch() {
 							/>
 						)}
 					</div>
-					<p className={"turns"}>Turns: {turns}</p>
+					<p className={`turns ${gameWin ? 'hide': ''}`}>Turns: {turns}</p>}
 					{gameWin && (
 						<GameOvered
 							gameWin={gameWin}

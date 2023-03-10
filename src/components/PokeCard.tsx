@@ -71,7 +71,6 @@ export default function PokeCard({
 				}
 				setTurns(turns + 1);
 				setTotalTurns(totalTurns + 1);
-				console.log(totalTurns);
 			}
 		}
 	};

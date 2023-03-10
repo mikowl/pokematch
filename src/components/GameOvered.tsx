@@ -78,8 +78,8 @@ const GameOvered = ({
 
 				{gen === TOTAL_GENS ? (
 					<p className="gameOveredMessage">
-						You have completed all 9 generations of Pokemon! Your average:{" "}
-						<strong>{averageScore.toFixed()}%</strong>
+						You have completed all 9 generations of Pokemon! Your score:{" "}
+						<strong>{(averageScore * 1.5).toFixed()}%</strong>
 						<button className={"btn restart"} onClick={handleRestart}>
 							Play again?
 						</button>
