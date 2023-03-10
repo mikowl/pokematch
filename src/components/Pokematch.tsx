@@ -55,31 +55,21 @@ export default function Pokematch() {
 		const cards = document.querySelectorAll(".card-btn");
 		cards.forEach((card) => card.classList.remove("flipped"));
 	};
-	
+
 	const handleNextGame = () => {
 		setGen(gen + 1);
 	};
-	
-	useEffect(() => {
-		// const nextGen = (gen + 1) as PokemonGeneration;
-		refetchData().then(() => {
-			reset();
-		});
-		console.log('gen', gen)
-		// gameWin && setGen(gen + 1);
-	}, [gen]);
 
 	const handleRestart = () => {
 		setGen(1);
+	};
+
+	useEffect(() => {
 		refetchData().then(() => {
 			reset();
 		});
-	};
+	}, [gen]);
 
-	// useEffect(() => {
-	// }, [gen, refetch, queryClient]);
-
-	// toggle game-over class to body
 	useEffect(() => {
 		const body = document.querySelector("body");
 		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
@@ -118,7 +108,7 @@ export default function Pokematch() {
 							/>
 						)}
 					</div>
-					<p className={`turns ${gameWin ? 'hide': ''}`}>Turns: {turns}</p>}
+					<p className={`turns ${gameWin ? "hide" : ""}`}>Turns: {turns}</p>
 					{gameWin && (
 						<GameOvered
 							gameWin={gameWin}
