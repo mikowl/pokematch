@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { usePokemon, usePokemonById, shuffle, TOTAL_GENS } from "../utils";
+import { usePokemon, shuffle, TOTAL_GENS, BOARD_SIZE } from "../utils";
 import PokeCard from "./PokeCard";
 import { Pokemon, PokemonGeneration } from "../types/pokemon";
 import { UseQueryResult, useQueryClient } from "@tanstack/react-query";
@@ -11,21 +11,19 @@ type PokemonData = UseQueryResult<Pokemon[], Error>;
 
 export default function Pokematch() {
 	const [gen, setGen] = useState<PokemonGeneration>(1);
-	const queryClient = useQueryClient();
 	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gen);
+
 	const [turns, setTurns] = useState<number>(0);
 	const [totalTurns, setTotalTurns] = useState<number>(turns);
 	const [gameWin, setGameWin] = useState<boolean>(false);
 	const [mute, setMute] = useState<boolean>(false);
-
-	// deck is an array of objects
 	const [deck, setDeck] = useState<Pokemon[]>([]);
 
 	// grab 8 random unique pokemon from data to be used in card match game
 	const randomUniquePokemon = (): Pokemon[] => {
 		if (data && !isLoading) {
 			const randomPokemon: Pokemon[] = [];
-			while (randomPokemon.length < 6) {
+			while (randomPokemon.length < BOARD_SIZE / 2) {
 				const randomIndex = Math.floor(Math.random() * data.length);
 				// ensure there are no duplicates
 				if (!randomPokemon.includes(data[randomIndex])) {
@@ -44,7 +42,6 @@ export default function Pokematch() {
 	}
 
 	const refetchData = async () => {
-		await queryClient.clear();
 		await refetch();
 	};
 

@@ -3,6 +3,7 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { Pokemon, Result, PokemonGeneration, PokemonGenerationData } from "./types/pokemon";
 
 const TOTAL_GENS = 9;
+const BOARD_SIZE = 12;
 const POKE_API_URL = "https://pokeapi.co/api/v2/pokemon";
 
 const pokemonGenerationData: PokemonGenerationData = {
@@ -18,7 +19,6 @@ const pokemonGenerationData: PokemonGenerationData = {
 };
 
 const getPokemonList = async (gen: PokemonGeneration) => {
-	const BOARD_SIZE = 12;
 
   const { offset, limit } = pokemonGenerationData[gen];
   const url = `${POKE_API_URL}/?offset=${offset}&limit=${limit}`;
@@ -104,4 +104,4 @@ const scoringMessages = (turns: number): string => {
 	return `${rating.padEnd(5, "☆")} ${title}`;
 };
 
-export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, TOTAL_GENS };
+export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, TOTAL_GENS, BOARD_SIZE };
