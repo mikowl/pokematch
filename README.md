@@ -14,6 +14,7 @@
   - ~~Next game will move on to next pokemon generation~~
   - ~~Different card backings per generation~~
   - ~~Sounds~~
+  - Different difficulties
   - ~~Mute button~~
   - ~~End game screen for passing gen 9~~
-  - Different difficulties
+  - ~~Local storage to save current level and mute state~~
