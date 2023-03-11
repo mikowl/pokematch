@@ -15,6 +15,25 @@
 	--purple: #9b59b6;
 	--pink: #ef6a5c;
 	--pixelBorder: 4px 0 transparent, -4px 0 transparent, 0 -4px transparent, 0 4px transparent;
+	--lcolor1: #04d;
+	--lcolorb1: #48f;
+	--lcolor2: #360;
+	--lcolorb2: #bd8;
+	--lcolor3: #90b;
+	--lcolorb3: #d9f;
+	--lcolor4: #058;
+	--lcolorb4: #9de;
+	--lcolor5: #a05;
+	--lcolorb5: #c59;
+	--lcolor6: #2b7;
+	--lcolorb6: #9db;
+	--lcolor7: #c80;
+	--lcolorb7: #eb9;
+	--lcolor8: #6d56f9;
+	--lcolorb8: #aaf;
+	--lcolor9: #ba0;
+	--lcolorb9: #ed8;
+
 	--gcolor1: var(--darkblue);
 	--gcolor2: #a38114;
 	--gcolor3: #d5f192;
@@ -127,61 +146,61 @@ body.game-over {
 	box-shadow: var(--pixelBorder),
 	8px 0 var(--darkblue), -8px 0 var(--darkblue), 0 -8px var(--darkblue), 0 8px var(--darkblue), 0 0 0 4px var(--darkblue);
 }
-.gcolor1 { color: var(--gcolor1); }
-.gcolor2 { color: var(--gcolor2); }
-.gcolor3 { color: var(--gcolor3); }
-.gcolor4 { color: var(--gcolor4); }
-.gcolor5 { color: var(--gcolor5); }
-.gcolor6 { color: var(--gcolor6); }
-.gcolor7 { color: var(--gcolor7); }
-.gcolor8 { color: var(--gcolor8); }
-.gcolor9 { color: var(--gcolor9); }
+.gcolor1 { color: var(--lcolor1); }
+.gcolor2 { color: var(--lcolor2); }
+.gcolor3 { color: var(--lcolor3); }
+.gcolor4 { color: var(--lcolor4); }
+.gcolor5 { color: var(--lcolor5); }
+.gcolor6 { color: var(--lcolor6); }
+.gcolor7 { color: var(--lcolor7); }
+.gcolor8 { color: var(--lcolor8); }
+.gcolor9 { color: var(--lcolor9); }
 
 .deckgen-1 .pokeCard {
+	background: var(--lcolorb1);
 	box-shadow: var(--pixelBorder),
-	8px 0 var(--darkblue), -8px 0 var(--darkblue), 0 -8px var(--darkblue), 0 8px var(--darkblue), 0 0 0 4px var(--darkblue);
-	background: rgb(53,106,150);
+	8px 0 var(--lcolor1), -8px 0 var(--lcolor1), 0 -8px var(--lcolor1), 0 8px var(--lcolor1), 0 0 0 4px var(--lcolor1);
 }
 .deckgen-2 .pokeCard {
-	background: rgb(231,176,14);
+	background: var(--lcolorb2);
 	box-shadow: var(--pixelBorder),
-	8px 0 var(--gcolor2), -8px 0 var(--gcolor2), 0 -8px var(--gcolor2), 0 8px var(--gcolor2), 0 0 0 4px var(--gcolor2);
+	8px 0 var(--lcolor2), -8px 0 var(--lcolor2), 0 -8px var(--lcolor2), 0 8px var(--lcolor2), 0 0 0 4px var(--lcolor2);
 }
 
 .deckgen-3 .pokeCard {
-	background: rgb(59,156,90);
+	background: var(--lcolorb3);
 	box-shadow: var(--pixelBorder),
-	8px 0 var(--gcolor3), -8px 0 var(--gcolor3), 0 -8px var(--gcolor3), 0 8px var(--gcolor3), 0 0 0 4px var(--gcolor3);
+	8px 0 var(--lcolor3), -8px 0 var(--lcolor3), 0 -8px var(--lcolor3), 0 8px var(--lcolor3), 0 0 0 4px var(--lcolor3);
 }
 .deckgen-4 .pokeCard {
-	background: rgb(231,76,60);
+	background: var(--lcolorb4);
 	box-shadow: var(--pixelBorder),
-	8px 0 var(--gcolor4), -8px 0 var(--gcolor4), 0 -8px var(--gcolor4), 0 8px var(--gcolor4), 0 0 0 4px var(--gcolor4);
+	8px 0 var(--lcolor4), -8px 0 var(--lcolor4), 0 -8px var(--lcolor4), 0 8px var(--lcolor4), 0 0 0 4px var(--lcolor4);
 }
 .deckgen-5 .pokeCard {
-	background: rgb(52,139,155);
+	background: var(--lcolorb5);
 	box-shadow: var(--pixelBorder),
-	8px 0 var(--gcolor5), -8px 0 var(--gcolor5), 0 -8px var(--gcolor5), 0 8px var(--gcolor5), 0 0 0 4px var(--gcolor5);
+	8px 0 var(--lcolor5), -8px 0 var(--lcolor5), 0 -8px var(--lcolor5), 0 8px var(--lcolor5), 0 0 0 4px var(--lcolor5);
 }
 .deckgen-6 .pokeCard {
-	background: rgb(249,113,119);
+	background: var(--lcolorb6);
 	box-shadow: var(--pixelBorder),
-	8px 0 var(--gcolor6), -8px 0 var(--gcolor6), 0 -8px var(--gcolor6), 0 8px var(--gcolor6), 0 0 0 4px var(--gcolor6);
+	8px 0 var(--lcolor6), -8px 0 var(--lcolor6), 0 -8px var(--lcolor6), 0 8px var(--lcolor6), 0 0 0 4px var(--lcolor6);
 }
 .deckgen-7 .pokeCard {
-	background: rgb(233,117,11);
+	background: var(--lcolorb7);
 	box-shadow: var(--pixelBorder),
-	8px 0 var(--gcolor7), -8px 0 var(--gcolor7), 0 -8px var(--gcolor7), 0 8px var(--gcolor7), 0 0 0 4px var(--gcolor7);
+	8px 0 var(--lcolor7), -8px 0 var(--lcolor7), 0 -8px var(--lcolor7), 0 8px var(--lcolor7), 0 0 0 4px var(--lcolor7);
 }
 .deckgen-8 .pokeCard {
-	background: rgb(144,95,186);
+	background: var(--lcolorb8);
 	box-shadow: var(--pixelBorder),
-	8px 0 var(--gcolor8), -8px 0 var(--gcolor8), 0 -8px var(--gcolor8), 0 8px var(--gcolor8), 0 0 0 4px var(--gcolor8);
+	8px 0 var(--lcolor8), -8px 0 var(--lcolor8), 0 -8px var(--lcolor8), 0 8px var(--lcolor8), 0 0 0 4px var(--lcolor8);
 }
 .deckgen-9 .pokeCard {
-	background: rgb(114 81 81);
+	background: var(--lcolorb9);
 	box-shadow: var(--pixelBorder),
-	8px 0 var(--gcolor9), -8px 0 var(--gcolor9), 0 -8px var(--gcolor9), 0 8px var(--gcolor9), 0 0 0 4px var(--gcolor9);
+	8px 0 var(--lcolor9), -8px 0 var(--lcolor9), 0 -8px var(--lcolor9), 0 8px var(--lcolor9), 0 0 0 4px var(--lcolor9);
 }
 
 .inner {
