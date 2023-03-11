@@ -44,9 +44,7 @@ const GameOvered = ({
 	return (
 		<>
 			<div className={`gameOvered ${gameState.gen === 9 ? "game-complete" : ""}`}>
-				<h2>
-					You caught <span>em</span> all!
-				</h2>
+				<h2>{gameState.gen === TOTAL_GENS ? "Game Over!" : "You caught 'em all!"}</h2>
 				<div className="pokemonList">
 					<h3>Pokemon's Caught: </h3>
 					<ul className="pokesCaught">
@@ -71,7 +69,7 @@ const GameOvered = ({
 
 				{gameState.gen === TOTAL_GENS ? (
 					<p className="gameOveredMessage">
-						You have completed all 9 generations of Pokemon! Your score:{" "}
+						You have completed all 9 generations of Pokemon! <br /> score:{" "}
 						<strong>{(averageScore * 1.5).toFixed()}%</strong>
 						<button className={"btn restart"} onClick={handleRestart}>
 							Play again?

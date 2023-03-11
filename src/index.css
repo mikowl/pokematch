@@ -102,7 +102,7 @@ body.game-over {
 	width: 100%;
 	max-width: 940px;
 	filter: blur(0);
-	transition: all 0.5s ease-in-out;
+	transition: filter 0.5s ease-in-out;
 }
 .game-over .card-container {
 	filter: blur(5px);
@@ -382,7 +382,10 @@ h1 i span {
 }
 .gameOvered.game-complete {
 	position: absolute;
+	background: #33d8d2;
+	border: 7px solid #FFF;
 }
+
 .gameOvered h2 {
 	font-size: clamp(1.25rem, 3vw + 0.5rem, 2rem);
 	text-transform: uppercase;
@@ -391,6 +394,9 @@ h1 i span {
 	text-shadow: 0 0 35px #fff;
 	letter-spacing: -0.15rem;
 	line-height: 1;
+}
+.gameOvered.game-complete h2 {
+	color: #d2574a;
 }
 .gameOvered h2 span::before {
 	content: "'";
@@ -420,9 +426,16 @@ h1 i span {
 	letter-spacing: -0.05rem;
 	margin-bottom: 0;
 	color: #644d15;
+	color: #0e7772;
+	color: var(--yellow);
 	text-shadow: 0 1px 0 rgb(255 255 255 / 80%);
+
 }
 
+.gameOveredMessage strong {
+	color: var(--blue);
+	font-size: 1.2em;
+}
 p.scoringMessage  {
 	position: relative;
 	font-size: clamp(1rem, 2vw + 0.5rem, 1.5rem);
