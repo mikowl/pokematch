@@ -5,34 +5,34 @@
 :root {
 	--eggshell: #fffdcf;
 	--black: #2e2e2e;
-	--yellow: #ffcb05;
+	--yellow: #f8b800;
 	--yellowshade: #c7a008;
-	--blue: #326fba;
-	--darkblue: #003a70;
-	--skyblue: #3785bd;
+	--blue: #0078f8;
+	--darkblue: #0000bc;
+	--skyblue: #3cbcfc;
 	--red: #e74c3c;
-	--green: #3b9c5a;
+	--green: #00a800;
 	--purple: #9b59b6;
-	--pink: #ef6a5c;
+	--pink: #f87858;
 	--pixelBorder: 4px 0 transparent, -4px 0 transparent, 0 -4px transparent, 0 4px transparent;
-	--lcolor1: #04d;
-	--lcolorb1: #48f;
-	--lcolor2: #360;
-	--lcolorb2: #bd8;
-	--lcolor3: #90b;
-	--lcolorb3: #d9f;
-	--lcolor4: #058;
-	--lcolorb4: #9de;
-	--lcolor5: #a05;
-	--lcolorb5: #c59;
-	--lcolor6: #2b7;
-	--lcolorb6: #9db;
-	--lcolor7: #c80;
-	--lcolorb7: #eb9;
-	--lcolor8: #6d56f9;
-	--lcolorb8: #aaf;
-	--lcolor9: #ba0;
-	--lcolorb9: #ed8;
+	--lcolor1: #0000bc;
+	--lcolorb1: #0078f8;
+	--lcolor2: #007800;
+	--lcolorb2: #58d854;
+	--lcolor3: #f85898;
+	--lcolorb3: #f8b8f8;
+	--lcolor4: #008888;
+	--lcolorb4: #00fcfc;
+	--lcolor5: #a80020;
+	--lcolorb5: #e40058;
+	--lcolor6: #00a844;
+	--lcolorb6: #58f898;
+	--lcolor7: #f83800;
+	--lcolorb7: #f87858;
+	--lcolor8: #6844fc;
+	--lcolorb8: #b8b8f8;
+	--lcolor9: #fca044;
+	--lcolorb9: #f8d878;
 
 	--gcolor1: var(--darkblue);
 	--gcolor2: #a38114;
@@ -383,15 +383,16 @@ h1 i span {
 	left: 0;
 	right: 0;
 	color: var(--darkblue);
-	background: rgba(255, 203, 5, 1);
-	background: linear-gradient(300deg, rgba(231,176,14,1) 0%, rgba(255,203,51,1) 100%);
+	background: var(--yellow);
 	text-align: center;
 	padding: 30px 20px 10px 20px;
 	width: calc(100% - 30px);
 	max-width: 570px;
 	margin: 0 auto;
-	border: 7px solid var(--eggshell);
-	border-radius: 0.75rem;
+	/* border: 7px solid var(--eggshell); */
+	box-shadow: var(--pixelBorder),
+	8px 0 #FFF, -8px 0 #FFF, 0 -8px #FFF, 0 8px #FFF, 0 0 0 4px #FFF;
+	/* border-radius: 0.75rem; */
 	transform: translateY(-120%);
 	transition: transform 0.75s ease-in;
 	z-index: 200;
@@ -401,21 +402,20 @@ h1 i span {
 }
 .gameOvered.game-complete {
 	position: absolute;
-	background: #33d8d2;
-	border: 7px solid #FFF;
+	background: #00fcfc;
 }
 
 .gameOvered h2 {
 	font-size: clamp(1.25rem, 3vw + 0.5rem, 2rem);
 	text-transform: uppercase;
 	margin: 0.5rem 0 1rem 0;
-	color: #3b9c5a;
+	color: var(--green);
 	text-shadow: 0 0 35px #fff;
 	letter-spacing: -0.15rem;
 	line-height: 1;
 }
 .gameOvered.game-complete h2 {
-	color: #d2574a;
+	color: var(--red);
 }
 .gameOvered h2 span::before {
 	content: "'";
@@ -431,12 +431,12 @@ h1 i span {
 	text-transform: uppercase;
 	background: var(--pink);
 	color: #FFF;
-	padding: 0.5rem 0.25rem;
+	padding: 0.25rem 0.25rem 0;
 	width: 83%;
 	min-width: 210px;
 	letter-spacing: -0.15rem;
-	margin: 0 auto -18px auto;
-	border-radius: 7px 7px 0 0;
+	margin: 0 auto -1.6rem auto;
+	box-shadow: var(--pixelBorder), 5px 0 var(--pink), -6px 0 var(--pink), 0 -6px var(--pink), 0 6px var(--pink), 0 0 0 3px var(--pink);
 }
 
 .gameOveredMessage {
@@ -444,15 +444,12 @@ h1 i span {
 	line-height: 1.4;	
 	letter-spacing: -0.05rem;
 	margin-bottom: 0;
-	color: #644d15;
-	color: #0e7772;
-	color: var(--yellow);
+	color: var(--darkblue);
 	text-shadow: 0 1px 0 rgb(255 255 255 / 80%);
-
 }
 
 .gameOveredMessage strong {
-	color: var(--blue);
+	color: var(--lcolor3);
 	font-size: 1.2em;
 }
 p.scoringMessage  {
@@ -461,10 +458,9 @@ p.scoringMessage  {
 	color: #FFF;
 	transition: all 0.5s ease-in-out;
 	background: var(--blue);
-	border-radius: 4px;
+	border-radius: 2px;
 	padding: 15px 10px;
 	margin: -21px -32px 1rem -32px;
-	box-shadow: 0 5px 7px rgb(0 0 0 / 25%),0 -3px 7px rgb(0 0 0 / 27%);
 	letter-spacing: -0.15rem;
 }
 
@@ -497,7 +493,7 @@ p.scoringMessage  {
 
 .restart.btn {
 	margin: 1rem auto -2.75rem auto;
-	border: 5px solid var(--eggshell);
+	border: 5px solid #FFF;
 }
 .muteBtn {
 	position: absolute;
@@ -538,10 +534,9 @@ p.scoringMessage  {
 	flex-wrap: wrap;
 	justify-content: center;
 	list-style: none;
-	padding: 0em 0 1em 0;
-	border: 2px solid var(--pink);
+	padding: 0.5em 0 1.5em 0;
 	background: rgba(255,255,255,0.4);
-	border-radius: 7px;
+	box-shadow: var(--pixelBorder), 5px 0 var(--pink), -6px 0 var(--pink), 0 -6px var(--pink), 0 6px var(--pink), 0 0 0 3px var(--pink)
 }
 
 .pokesCaught img {

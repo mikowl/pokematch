@@ -28,14 +28,16 @@ const GameOvered = ({
 		const lis = document.querySelectorAll(".pokeCaught");
 		let i = 0;
 		const intervalId = setInterval(() => {
-			if (i >= lis.length) {
-				clearInterval(intervalId);
-				return;
-			}
-			lis[i].classList.add("active");
-			setActiveIndex((prevIndex) => i);
-			i++;
-		}, 500);
+			setTimeout(() => {
+				if (i >= lis.length) {
+					clearInterval(intervalId);
+					return;
+				}
+				lis[i].classList.add("active");
+				setActiveIndex(activeIndex + 1);
+				i++;
+			}, 500);
+		}, 300);
 		return () => clearInterval(intervalId);
 	}, [deck, gameState.gameWin]);
 

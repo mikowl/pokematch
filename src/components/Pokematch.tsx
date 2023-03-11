@@ -20,7 +20,7 @@ export default function Pokematch() {
 				turns: 0,
 				totalTurns: 0,
 				gameWin: false,
-				gen: 1,
+				gen: 9,
 				mute: false,
 			};
 		}
