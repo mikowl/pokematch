@@ -154,7 +154,8 @@ body.game-over {
 .gcolor6 { color: var(--lcolor6); }
 .gcolor7 { color: var(--lcolor7); }
 .gcolor8 { color: var(--lcolor8); }
-.gcolor9 { color: var(--lcolor9); }
+.gcolor9 { color: var(--yellow);	}
+i.gcolor9 { text-shadow: var(--blue) -4px -4px 0, var(--blue) 4px -4px 0, var(--blue) -4px 4px 0, var(--blue) 4px 4px 0, var(--blue) -3px -3px 0, var(--blue) -3px -3px 0, var(--blue) 3px -3px 0, var(--blue) -3px 3px 0, var(--blue) 3px 3px 0, var(--blue) -3px -3px 0, var(--blue) 2px -2px 0, var(--blue) -2px 2px 0, var(--blue) 2px 2px 0, var(--blue) -1px -1px 0, var(--blue) 1px -1px 0, var(--blue) -1px 1px 0, var(--blue) 1px 1px 0; }
 
 .deckgen-1 .pokeCard {
 	background: var(--lcolorb1);
@@ -230,6 +231,24 @@ h1 {
 	text-transform: uppercase;
 	margin: 0.75rem 0 2rem -1em;
 	text-shadow:rgba(0, 0, 0, 0.9) 0px 1px 0;
+	text-shadow:
+		var(--lcolor1) -4px -4px 0,
+		var(--lcolor1) 4px -4px 0,
+		var(--lcolor1) -4px 4px 0,
+		var(--lcolor1) 4px 4px 0,
+		var(--lcolor1) -3px -3px 0,
+		var(--lcolor1) -3px -3px 0,
+		var(--lcolor1) 3px -3px 0,
+		var(--lcolor1) -3px 3px 0,
+		var(--lcolor1) 3px 3px 0,
+		var(--lcolor1) -3px -3px 0,
+		var(--lcolor1) 2px -2px 0,
+		var(--lcolor1) -2px 2px 0,
+		var(--lcolor1) 2px 2px 0,
+		var(--lcolor1) -1px -1px 0,
+		var(--lcolor1) 1px -1px 0,
+		var(--lcolor1) -1px 1px 0,
+		var(--lcolor1) 1px 1px 0;
 	letter-spacing: -0.1rem;
 	text-align: center;
 	-webkit-font-smoothing: auto;
@@ -242,8 +261,8 @@ h1 i {
 	font-style: normal;
 	font-size: 0.5em;
 	color: var(--skyblue);
-	text-shadow: none;
 	min-width: 78px;
+	text-shadow: none;
 }
 
 h1 i span {
@@ -257,7 +276,7 @@ h1 i span {
 	color: var(--darkblue);
 	text-transform: uppercase;
 	margin-top: -1rem;
-	line-height: 1;
+	line-height: 1.3;
 	letter-spacing: -0.05rem;
 }
 
