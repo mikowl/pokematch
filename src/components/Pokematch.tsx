@@ -111,6 +111,8 @@ export default function Pokematch() {
 			</h1>
 			<p className={"instructions"}>
 				Match the Pokemon, complete all {TOTAL_GENS} generations to win!
+				<br />
+				Every round is unique!
 			</p>
 			{isLoading ? (
 				<Loader pokeball={true} />
