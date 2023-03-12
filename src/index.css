@@ -119,7 +119,7 @@ body.game-over {
 	margin-top: 2rem;
 	margin-bottom: 40px;
 	width: 100%;
-	max-width: 940px;
+	max-width: 916px;
 	filter: blur(0);
 	transition: filter 0.5s ease-in-out;
 }
@@ -668,21 +668,20 @@ footer a:hover {
 		margin-top: 3rem;
 	}
 	.gameOvered h2 { margin: 1rem 0 2rem 0; }
-	.pokeCard { height: 200px; }
+	.pokeCard { height: 20vh; height: 20svh; }
 	.pokeCard img {
 		width: 20vh;
 		width: 20dvh;
 	}
 	.turns {
 		display: block;
-		background: rgb(0 58 112 / 70%);
-		border: 2px solid var(--yellow);
 		font-size: 1.125rem;
-		color: var(--eggshell);
+		color: var(--darkblue);
+		color: #33512b;
+		text-shadow: 0 1px 0 rgba(255 255 255 / 0.2);
 		text-align: center;
 		text-transform: uppercase;
 		padding: 7px 10px;
-		border-radius: 0.5rem;
 		width: 180px;
 		margin: 2rem auto 0 auto;
 		transition: all 0.5s ease-in-out;

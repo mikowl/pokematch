@@ -15,7 +15,7 @@ const pokemonGenerationData: PokemonGenerationData = {
 	6: { offset: 649, limit: 72 },
 	7: { offset: 721, limit: 88 },
 	8: { offset: 809, limit: 96 },
-	9: { offset: 905, limit: 105 },
+	9: { offset: 905, limit: 103 },
 };
 
 const getPokemonList = async (gen: PokemonGeneration) => {

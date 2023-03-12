@@ -9,6 +9,7 @@ import GameOvered from "./GameOvered";
 import MuteButton from "./MuteButton";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
+
 export default function Pokematch() {
 	// const [gen, setGen] = useState<PokemonGeneration>(1);
 	const getInitialGameState = (): GameData => {
@@ -25,14 +26,16 @@ export default function Pokematch() {
 			};
 		}
 	};
+
 	const [gameState, setGameState] = useState<GameData>(getInitialGameState());
+	const { gen, turns, totalTurns, gameWin, mute } = gameState;
 
 	// set game state in local storage
 	useEffect(() => {
 		localStorage.setItem("gameState", JSON.stringify(gameState));
 	}, [gameState]);
 
-	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gameState.gen);
+	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gen);
 
 	const [deck, setDeck] = useState<Pokemon[]>([]);
 
@@ -76,7 +79,7 @@ export default function Pokematch() {
 	const handleNextGame = () => {
 		setGameState({
 			...gameState,
-			gen: gameState.gen + 1,
+			gen: gen + 1,
 		});
 	};
 
@@ -93,20 +96,20 @@ export default function Pokematch() {
 		});
 		// update game state in local storage
 		localStorage.setItem("gameState", JSON.stringify(gameState));
-	}, [gameState.gen]);
+	}, [gen]);
 
 	useEffect(() => {
 		const body = document.querySelector("body");
-		gameState.gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
-	}, [gameState.gameWin]);
+		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
+	}, [gameWin]);
 
 	return (
-		<div className={`gcolor${gameState.gen}`}>
+		<div className={`gcolor${gen}`}>
 			<MuteButton gameState={gameState} setGameState={setGameState} />
 			<h1>
 				Pokematch{" "}
-				<i class={`gcolor${gameState.gen}`}>
-					GEN <span>{gameState.gen}</span>
+				<i class={`gcolor${gen}`}>
+					GEN <span>{gen}</span>
 				</i>
 			</h1>
 			<p className={"instructions"}>
@@ -122,11 +125,11 @@ export default function Pokematch() {
 				</p>
 			) : (
 				<>
-					<div className={`card-container deckgen-${gameState.gen}`}>
+					<div className={`card-container deckgen-${gen}`}>
 						{deck && <PokeCard pokemons={deck} gameState={gameState} setGameState={setGameState} />}
 					</div>
-					<p className={`turns ${gameState.gameWin ? "hide" : ""}`}>Turns: {gameState.turns}</p>
-					{gameState.gameWin && (
+					<p className={`turns ${gameWin ? "hide" : ""}`}>Turns: {turns}</p>
+					{gameWin && (
 						<GameOvered
 							gameState={gameState}
 							deck={deck}
