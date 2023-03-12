@@ -1,12 +1,13 @@
 import { IconProps } from "../../types/other";
 
 const MuteIcon = (props: IconProps) => {
+	const size = props.size ?? 32;
 	return (
 		<svg
 			className={`icon-mute`}
 			xmlns="http://www.w3.org/2000/svg"
-			width={props.width}
-			height={props.height}
+			width={size}
+			height={size}
 			viewBox={`0 0 512 512`}
 		>
 			<title>Mute</title>

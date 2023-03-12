@@ -6,8 +6,8 @@ const UnmuteIcon = (props: IconProps) => {
 		<svg
 			className={`icon-mute`}
 			xmlns="http://www.w3.org/2000/svg"
-			width={props.size}
-			height={props.size}
+			width={size}
+			height={size}
 			viewBox={`0 0 512 512`}
 		>
 			<title>Unmute</title>

@@ -11,7 +11,6 @@ import MuteButton from "./MuteButton";
 type PokemonData = UseQueryResult<Pokemon[], Error>;
 
 export default function Pokematch() {
-	// const [gen, setGen] = useState<PokemonGeneration>(1);
 	const getInitialGameState = (): GameData => {
 		const gameStateFromLocalStorage = localStorage.getItem("gameState");
 		if (gameStateFromLocalStorage !== null) {
@@ -21,7 +20,7 @@ export default function Pokematch() {
 				turns: 0,
 				totalTurns: 0,
 				gameWin: false,
-				gen: 9,
+				gen: 1,
 				mute: false,
 				difficulty: 0,
 				boardSize: 0,
@@ -84,9 +83,7 @@ export default function Pokematch() {
 		setGameState({
 			...gameState,
 			turns: 0,
-			totalTurns: 0,
 			gameWin: false,
-			difficulty: 0,
 		});
 		const cards = document.querySelectorAll(".card-btn");
 		cards.forEach((card) => card.classList.remove("flipped"));
@@ -102,6 +99,8 @@ export default function Pokematch() {
 	const handleRestart = () => {
 		setGameState({
 			...gameState,
+			difficulty: 0,
+			totalTurns: 0,
 			gen: 1,
 		});
 	};
