@@ -21,7 +21,7 @@ export default function Pokematch() {
 				turns: 0,
 				totalTurns: 0,
 				gameWin: false,
-				gen: 1,
+				gen: 9,
 				mute: false,
 				difficulty: 0,
 				boardSize: 0,
@@ -85,6 +85,7 @@ export default function Pokematch() {
 			...gameState,
 			turns: 0,
 			gameWin: false,
+			difficulty: 0,
 		});
 		const cards = document.querySelectorAll(".card-btn");
 		cards.forEach((card) => card.classList.remove("flipped"));
@@ -134,11 +135,11 @@ export default function Pokematch() {
 			{/* Choose difficulty */}
 			{gameState.difficulty === 0 ? (
 				<div className={"difficulty"}>
-					<p>Choose Difficulty:</p>
-					<button onClick={handleDifficulty} value="1">
+					<h2>Choose Difficulty:</h2>
+					<button className={"btn easy"} onClick={handleDifficulty} value="1">
 						Easy
 					</button>
-					<button onClick={handleDifficulty} value="2">
+					<button className={"btn hard"} onClick={handleDifficulty} value="2">
 						Hard
 					</button>
 				</div>
@@ -151,7 +152,7 @@ export default function Pokematch() {
 				</p>
 			) : (
 				<>
-					<div className={`card-container deckgen-${gen}`}>
+					<div className={`card-container deckgen-${gen} bs-${boardSize}`}>
 						{deck && <PokeCard pokemons={deck} gameState={gameState} setGameState={setGameState} />}
 					</div>
 					<p className={`turns ${gameWin ? "hide" : ""}`}>Turns: {turns}</p>
@@ -161,6 +162,7 @@ export default function Pokematch() {
 							deck={deck}
 							handleNextGame={handleNextGame}
 							handleRestart={handleRestart}
+							boardSize={boardSize}
 						/>
 					)}
 				</>

@@ -8,11 +8,13 @@ const GameOvered = ({
 	deck,
 	handleNextGame,
 	handleRestart,
+	boardSize,
 }: {
 	gameState: GameData;
 	deck: Pokemon[];
 	handleNextGame: () => void;
 	handleRestart: () => void;
+	boardSize: number;
 }) => {
 	const [activeIndex, setActiveIndex] = useState(-1);
 	const successSound = new Audio("/success.mp3");
@@ -49,7 +51,7 @@ const GameOvered = ({
 				<h2>{gameState.gen === TOTAL_GENS ? "Game Over!" : "You caught 'em all!"}</h2>
 				<div className="pokemonList">
 					<h3>Pokemon's Caught: </h3>
-					<ul className="pokesCaught">
+					<ul className={`pokesCaught bs-${boardSize}`}>
 						{deck &&
 							[...new Set(deck)].map((pokemon) => (
 								<li

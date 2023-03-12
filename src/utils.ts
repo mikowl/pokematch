@@ -7,7 +7,7 @@ const TOTAL_GENS = 9;
 const POKE_API_URL = "https://pokeapi.co/api/v2/pokemon";
 const BOARD_SIZES: BoardSize = {
 	1: 12,
-	2: 18,
+	2: 16,
 };
 const difficulty: number = 0;
 
