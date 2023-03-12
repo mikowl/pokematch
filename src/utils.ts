@@ -5,6 +5,11 @@ import { BoardSize } from "./types/other";
 
 const TOTAL_GENS = 9;
 const POKE_API_URL = "https://pokeapi.co/api/v2/pokemon";
+const BOARD_SIZES: BoardSize = {
+	1: 12,
+	2: 18,
+};
+const difficulty: number = 0;
 
 const pokemonGenerationData: PokemonGenerationData = {
 	1: { offset: 0, limit: 151 },
@@ -18,11 +23,6 @@ const pokemonGenerationData: PokemonGenerationData = {
 	9: { offset: 905, limit: 103 },
 };
 
-const BOARD_SIZES: BoardSize = {
-	1: 12,
-	2: 18,
-};
-const difficulty: number = 0;
 
 const getPokemonList = async (gen: PokemonGeneration, BOARD_SIZES: BoardSize, difficulty: number) => {
 
@@ -85,6 +85,7 @@ const omgConfetti = () => {
 };
 const pewpewpew = () => {
 	setTimeout(omgConfetti, 1000);
+	setTimeout(omgConfetti, 2000);
 };
 
 type Rating = {

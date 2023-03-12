@@ -129,7 +129,6 @@ export default function Pokematch() {
 			<p className={"instructions"}>
 				Match the Pokemon, complete all {TOTAL_GENS} generations to win!
 				<br />
-				{gameState.difficulty}
 				Every round is unique!
 			</p>
 			{/* Choose difficulty */}
