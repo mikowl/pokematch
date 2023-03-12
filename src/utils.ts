@@ -1,10 +1,15 @@
 import confetti from "canvas-confetti";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { Pokemon, Result, PokemonGeneration, PokemonGenerationData } from "./types/pokemon";
+import { BoardSize } from "./types/other";
 
 const TOTAL_GENS = 9;
-const BOARD_SIZE = 12;
 const POKE_API_URL = "https://pokeapi.co/api/v2/pokemon";
+const BOARD_SIZES: BoardSize = {
+	1: 12,
+	2: 16,
+};
+const difficulty: number = 0;
 
 const pokemonGenerationData: PokemonGenerationData = {
 	1: { offset: 0, limit: 151 },
@@ -18,7 +23,8 @@ const pokemonGenerationData: PokemonGenerationData = {
 	9: { offset: 905, limit: 103 },
 };
 
-const getPokemonList = async (gen: PokemonGeneration) => {
+
+const getPokemonList = async (gen: PokemonGeneration, BOARD_SIZES: BoardSize, difficulty: number) => {
 
   const { offset, limit } = pokemonGenerationData[gen];
   const url = `${POKE_API_URL}/?offset=${offset}&limit=${limit}`;
@@ -26,7 +32,7 @@ const getPokemonList = async (gen: PokemonGeneration) => {
   // pick 6 random pokemon from the list
   const response = await fetch(url);
   const { results } = await response.json();
-  const randomPokemon = results.sort(() => Math.random() - 0.5).slice(0, BOARD_SIZE / 2);
+  const randomPokemon = results.sort(() => Math.random() - 0.5).slice(0, BOARD_SIZES[difficulty]);
 
   try {
     const promises = randomPokemon.map(async ({ url }: Result) => {
@@ -41,11 +47,10 @@ const getPokemonList = async (gen: PokemonGeneration) => {
   }
 };
 
-
 const usePokemon = (gen: PokemonGeneration): UseQueryResult<Pokemon[], Error> => {
 	return useQuery({
 		queryKey: ["pokemonList", gen],
-		queryFn: () => getPokemonList(gen),
+		queryFn: () => getPokemonList(gen, BOARD_SIZES, difficulty),
 		staleTime: 1000 * 60 * 60 * 24,
 	});
 };
@@ -80,6 +85,7 @@ const omgConfetti = () => {
 };
 const pewpewpew = () => {
 	setTimeout(omgConfetti, 1000);
+	setTimeout(omgConfetti, 2000);
 };
 
 type Rating = {
@@ -104,4 +110,4 @@ const scoringMessages = (turns: number): string => {
 	return `${rating.padEnd(5, "☆")} ${title}`;
 };
 
-export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, TOTAL_GENS, BOARD_SIZE };
+export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, TOTAL_GENS, BOARD_SIZES };

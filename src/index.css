@@ -123,6 +123,17 @@ body.game-over {
 	filter: blur(0);
 	transition: filter 0.5s ease-in-out;
 }
+.card-container.bs-16 {
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	grid-gap:  1.375rem;
+}
+.card-container.bs-16 .pokeCard {
+	height: 15vh;
+	height: 15svh;	
+}
+.card-container.bs-16 .front .pokeCard img {
+	width: 60%;
+}
 .game-over .card-container {
 	filter: blur(5px);
 }
@@ -273,13 +284,51 @@ h1 i span {
 .instructions {
 	font-size: clamp(0.75rem, 1.5vw + 0.5rem, 1rem);
 	text-align: center;
-	color: var(--darkblue);
+	color: var(--blue);
 	text-transform: uppercase;
 	margin-top: -1rem;
 	line-height: 1.3;
 	letter-spacing: -0.05rem;
 }
 
+.difficulty {
+	font-size: clamp(0.75rem, 1.5vw + 0.5rem, 1rem);
+	text-align: center;
+	margin-top: 3rem;
+	line-height: 1.3;
+	letter-spacing: -0.05rem;
+}
+
+.difficulty h2 {
+	color: var(--darkblue);
+}
+.difficulty .btn {
+	display: inline-block;
+	margin: 1rem;
+	padding: 6px 27px;
+	border: none;
+	border-radius: 0;
+}
+
+.btn.hard {
+	background: var(--red);
+	box-shadow: var(--pixelBorder),
+	8px 0 var(--red), -8px 0 var(--red), 0 -8px var(--red), 0 8px var(--red), 0 0 0 4px var(--red);
+}
+
+.btn.hard:hover {
+	background: var(--red);
+	filter: contrast(1.2);
+}
+.btn.easy {
+	background: var(--green);
+	box-shadow: var(--pixelBorder),
+	8px 0 var(--green), -8px 0 var(--green), 0 -8px var(--green), 0 8px var(--green), 0 0 0 4px var(--green);
+}
+.btn.easy:hover {
+	background: var(--green);
+	filter: contrast(1.3);
+}
 .error {
 	font-size: 1.25rem;
 	color: var(--darkblue);
@@ -511,8 +560,10 @@ p.scoringMessage  {
 }
 
 .restart.btn {
-	margin: 1rem auto -2.75rem auto;
-	border: 5px solid #FFF;
+	margin: 1rem auto -2.5rem auto;
+	border: none;
+	border-radius: 0;
+	box-shadow: var(--pixelBorder), 5px 0 #FFF, -6px 0 #FFF, 0 -6px #FFF, 0 6px #FFF, 0 0 0 3px #FFF;
 }
 .muteBtn {
 	position: absolute;
@@ -669,9 +720,27 @@ footer a:hover {
 	}
 	.gameOvered h2 { margin: 1rem 0 2rem 0; }
 	.pokeCard { height: 20vh; height: 20svh; }
+	.card-container.bs-16 {
+		grid-gap: 1.5rem;
+	}
+	.card-container.bs-16 .pokeCard {
+		height: 16vh;
+		height: 16svh;
+	}
+	.card-container.bs-16 .front .pokeCard img {
+		width: 35%;
+	}
+	.card-container.bs-16 .back .pokeCard img {
+		width: 17vh;
+		width: 17dvh;
+	}
 	.pokeCard img {
 		width: 20vh;
 		width: 20dvh;
+	}
+	.pokesCaught.bs-16 li {
+		flex-basis: 23%;
+		margin-bottom: 1.5rem;
 	}
 	.turns {
 		display: block;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { usePokemon, shuffle, TOTAL_GENS, BOARD_SIZE } from "../utils";
+import { usePokemon, shuffle, TOTAL_GENS, BOARD_SIZES } from "../utils";
 import PokeCard from "./PokeCard";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
@@ -21,29 +21,43 @@ export default function Pokematch() {
 				turns: 0,
 				totalTurns: 0,
 				gameWin: false,
-				gen: 1,
+				gen: 9,
 				mute: false,
+				difficulty: 0,
+				boardSize: 0,
 			};
 		}
 	};
 
 	const [gameState, setGameState] = useState<GameData>(getInitialGameState());
-	const { gen, turns, gameWin } = gameState;
+	const { gen, turns, gameWin, boardSize } = gameState;
 
 	// set game state in local storage
 	useEffect(() => {
 		localStorage.setItem("gameState", JSON.stringify(gameState));
+		console.log("%cSaving...", "color: green; font-size: 14px; font-family: monospace;");
 	}, [gameState]);
 
 	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gen);
 
 	const [deck, setDeck] = useState<Pokemon[]>([]);
 
+	const handleDifficulty = (e: Event) => {
+		const target = e.target as HTMLInputElement;
+		const difficulty = parseInt(target.value);
+		setGameState({
+			...gameState,
+			difficulty,
+			boardSize: BOARD_SIZES[difficulty],
+		});
+	};
+
 	// grab 8 random unique pokemon from data to be used in card match game
 	const randomUniquePokemon = (): Pokemon[] => {
 		if (data && !isLoading) {
 			const randomPokemon: Pokemon[] = [];
-			while (randomPokemon.length < BOARD_SIZE / 2) {
+			while (randomPokemon.length < boardSize / 2) {
+				console.log(boardSize);
 				const randomIndex = Math.floor(Math.random() * data.length);
 				// ensure there are no duplicates
 				if (!randomPokemon.includes(data[randomIndex])) {
@@ -57,7 +71,7 @@ export default function Pokematch() {
 	};
 
 	// set deck state to randomUniquePokemon
-	if (data && !isLoading && deck.length === 0) {
+	if (data && !isLoading && deck.length === 0 && gameState.difficulty !== 0) {
 		setDeck(randomUniquePokemon());
 	}
 
@@ -71,6 +85,7 @@ export default function Pokematch() {
 			...gameState,
 			turns: 0,
 			gameWin: false,
+			difficulty: 0,
 		});
 		const cards = document.querySelectorAll(".card-btn");
 		cards.forEach((card) => card.classList.remove("flipped"));
@@ -117,15 +132,27 @@ export default function Pokematch() {
 				<br />
 				Every round is unique!
 			</p>
-			{isLoading ? (
+			{/* Choose difficulty */}
+			{gameState.difficulty === 0 ? (
+				<div className={"difficulty"}>
+					<h2>Choose Difficulty:</h2>
+					<button className={"btn easy"} onClick={handleDifficulty} value="1">
+						Easy
+					</button>
+					<button className={"btn hard"} onClick={handleDifficulty} value="2">
+						Hard
+					</button>
+				</div>
+			) : isLoading ? (
 				<Loader pokeball={true} />
 			) : error ? (
 				<p className={"error"}>
-					Oh dang, something went wrong <br /> {error}
+					{" "}
+					Oh dang, something went wrong <br /> {error}{" "}
 				</p>
 			) : (
 				<>
-					<div className={`card-container deckgen-${gen}`}>
+					<div className={`card-container deckgen-${gen} bs-${boardSize}`}>
 						{deck && <PokeCard pokemons={deck} gameState={gameState} setGameState={setGameState} />}
 					</div>
 					<p className={`turns ${gameWin ? "hide" : ""}`}>Turns: {turns}</p>
@@ -135,6 +162,7 @@ export default function Pokematch() {
 							deck={deck}
 							handleNextGame={handleNextGame}
 							handleRestart={handleRestart}
+							boardSize={boardSize}
 						/>
 					)}
 				</>
