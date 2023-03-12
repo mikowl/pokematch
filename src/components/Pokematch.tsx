@@ -28,7 +28,7 @@ export default function Pokematch() {
 	};
 
 	const [gameState, setGameState] = useState<GameData>(getInitialGameState());
-	const { gen, turns, totalTurns, gameWin, mute } = gameState;
+	const { gen, turns, gameWin } = gameState;
 
 	// set game state in local storage
 	useEffect(() => {
