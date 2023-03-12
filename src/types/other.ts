@@ -1,8 +1,7 @@
 import { PokemonGeneration } from './pokemon';
 
 export type IconProps = {
-	width: number;
-	height: number;
+	size?: number;
 	fill?: string;
 };
 
