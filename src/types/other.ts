@@ -16,4 +16,6 @@ export type GameData = {
 	boardSize: number;
 };
 
-export type BoardSize = { [key: number]: number } 
+// export type BoardSize = { [key: number]: number } 
+
+export type BoardSize = Record<number, number>

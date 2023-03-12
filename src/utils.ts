@@ -18,14 +18,13 @@ const pokemonGenerationData: PokemonGenerationData = {
 	9: { offset: 905, limit: 103 },
 };
 
-const board_size: BoardSize = {
+const BOARD_SIZES: BoardSize = {
 	1: 12,
-	2: 16,
+	2: 18,
 };
 const difficulty: number = 0;
-// board size is based on difficult so boardSize[1] is 12 and boardSize[2] is 16
-// difficulty is a number that can be 0, 1, or 2
-const getPokemonList = async (gen: PokemonGeneration, board_size: BoardSize, difficulty: number) => {
+
+const getPokemonList = async (gen: PokemonGeneration, BOARD_SIZES: BoardSize, difficulty: number) => {
 
   const { offset, limit } = pokemonGenerationData[gen];
   const url = `${POKE_API_URL}/?offset=${offset}&limit=${limit}`;
@@ -33,7 +32,7 @@ const getPokemonList = async (gen: PokemonGeneration, board_size: BoardSize, dif
   // pick 6 random pokemon from the list
   const response = await fetch(url);
   const { results } = await response.json();
-  const randomPokemon = results.sort(() => Math.random() - 0.5).slice(0, board_size[difficulty]);
+  const randomPokemon = results.sort(() => Math.random() - 0.5).slice(0, BOARD_SIZES[difficulty]);
 
   try {
     const promises = randomPokemon.map(async ({ url }: Result) => {
@@ -51,7 +50,7 @@ const getPokemonList = async (gen: PokemonGeneration, board_size: BoardSize, dif
 const usePokemon = (gen: PokemonGeneration): UseQueryResult<Pokemon[], Error> => {
 	return useQuery({
 		queryKey: ["pokemonList", gen],
-		queryFn: () => getPokemonList(gen, board_size, difficulty),
+		queryFn: () => getPokemonList(gen, BOARD_SIZES, difficulty),
 		staleTime: 1000 * 60 * 60 * 24,
 	});
 };
@@ -110,4 +109,4 @@ const scoringMessages = (turns: number): string => {
 	return `${rating.padEnd(5, "☆")} ${title}`;
 };
 
-export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, TOTAL_GENS };
+export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, TOTAL_GENS, BOARD_SIZES };

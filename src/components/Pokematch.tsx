@@ -1,8 +1,8 @@
 import { useEffect, useState } from "preact/hooks";
-import { usePokemon, shuffle, TOTAL_GENS } from "../utils";
+import { usePokemon, shuffle, TOTAL_GENS, BOARD_SIZES } from "../utils";
 import PokeCard from "./PokeCard";
 import { Pokemon } from "../types/pokemon";
-import { Difficulty, GameData } from "../types/other";
+import { GameData } from "../types/other";
 import { UseQueryResult } from "@tanstack/react-query";
 import Loader from "./Loader";
 import GameOvered from "./GameOvered";
@@ -35,20 +35,20 @@ export default function Pokematch() {
 	// set game state in local storage
 	useEffect(() => {
 		localStorage.setItem("gameState", JSON.stringify(gameState));
+		console.log("%cSaving...", "color: green; font-size: 14px; font-family: monospace;");
 	}, [gameState]);
 
 	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gen);
 
 	const [deck, setDeck] = useState<Pokemon[]>([]);
 
-	// choose difficulty level
 	const handleDifficulty = (e: Event) => {
 		const target = e.target as HTMLInputElement;
 		const difficulty = parseInt(target.value);
 		setGameState({
 			...gameState,
 			difficulty,
-			boardSize: difficulty === 0 ? 0 : difficulty === 1 ? 12 : 18,
+			boardSize: BOARD_SIZES[difficulty],
 		});
 	};
 
