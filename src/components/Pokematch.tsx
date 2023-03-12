@@ -84,6 +84,7 @@ export default function Pokematch() {
 		setGameState({
 			...gameState,
 			turns: 0,
+			totalTurns: 0,
 			gameWin: false,
 			difficulty: 0,
 		});
