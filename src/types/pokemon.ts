@@ -7,6 +7,7 @@ export type PokemonGenerationData = {
 	};
 };
 
+
 export interface Result {
   name: string;
   url: string;

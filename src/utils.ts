@@ -1,9 +1,9 @@
 import confetti from "canvas-confetti";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { Pokemon, Result, PokemonGeneration, PokemonGenerationData } from "./types/pokemon";
+import { BoardSize } from "./types/other";
 
 const TOTAL_GENS = 9;
-const BOARD_SIZE = 12;
 const POKE_API_URL = "https://pokeapi.co/api/v2/pokemon";
 
 const pokemonGenerationData: PokemonGenerationData = {
@@ -18,7 +18,14 @@ const pokemonGenerationData: PokemonGenerationData = {
 	9: { offset: 905, limit: 103 },
 };
 
-const getPokemonList = async (gen: PokemonGeneration) => {
+const board_size: BoardSize = {
+	1: 12,
+	2: 16,
+};
+const difficulty: number = 0;
+// board size is based on difficult so boardSize[1] is 12 and boardSize[2] is 16
+// difficulty is a number that can be 0, 1, or 2
+const getPokemonList = async (gen: PokemonGeneration, board_size: BoardSize, difficulty: number) => {
 
   const { offset, limit } = pokemonGenerationData[gen];
   const url = `${POKE_API_URL}/?offset=${offset}&limit=${limit}`;
@@ -26,7 +33,7 @@ const getPokemonList = async (gen: PokemonGeneration) => {
   // pick 6 random pokemon from the list
   const response = await fetch(url);
   const { results } = await response.json();
-  const randomPokemon = results.sort(() => Math.random() - 0.5).slice(0, BOARD_SIZE / 2);
+  const randomPokemon = results.sort(() => Math.random() - 0.5).slice(0, board_size[difficulty]);
 
   try {
     const promises = randomPokemon.map(async ({ url }: Result) => {
@@ -41,11 +48,10 @@ const getPokemonList = async (gen: PokemonGeneration) => {
   }
 };
 
-
 const usePokemon = (gen: PokemonGeneration): UseQueryResult<Pokemon[], Error> => {
 	return useQuery({
 		queryKey: ["pokemonList", gen],
-		queryFn: () => getPokemonList(gen),
+		queryFn: () => getPokemonList(gen, board_size, difficulty),
 		staleTime: 1000 * 60 * 60 * 24,
 	});
 };
@@ -104,4 +110,4 @@ const scoringMessages = (turns: number): string => {
 	return `${rating.padEnd(5, "☆")} ${title}`;
 };
 
-export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, TOTAL_GENS, BOARD_SIZE };
+export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, TOTAL_GENS };

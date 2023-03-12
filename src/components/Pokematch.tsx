@@ -1,8 +1,8 @@
 import { useEffect, useState } from "preact/hooks";
-import { usePokemon, shuffle, TOTAL_GENS, BOARD_SIZE } from "../utils";
+import { usePokemon, shuffle, TOTAL_GENS } from "../utils";
 import PokeCard from "./PokeCard";
 import { Pokemon } from "../types/pokemon";
-import { GameData } from "../types/other";
+import { Difficulty, GameData } from "../types/other";
 import { UseQueryResult } from "@tanstack/react-query";
 import Loader from "./Loader";
 import GameOvered from "./GameOvered";
@@ -23,12 +23,14 @@ export default function Pokematch() {
 				gameWin: false,
 				gen: 1,
 				mute: false,
+				difficulty: 0,
+				boardSize: 0,
 			};
 		}
 	};
 
 	const [gameState, setGameState] = useState<GameData>(getInitialGameState());
-	const { gen, turns, gameWin } = gameState;
+	const { gen, turns, gameWin, boardSize } = gameState;
 
 	// set game state in local storage
 	useEffect(() => {
@@ -39,11 +41,23 @@ export default function Pokematch() {
 
 	const [deck, setDeck] = useState<Pokemon[]>([]);
 
+	// choose difficulty level
+	const handleDifficulty = (e: Event) => {
+		const target = e.target as HTMLInputElement;
+		const difficulty = parseInt(target.value);
+		setGameState({
+			...gameState,
+			difficulty,
+			boardSize: difficulty === 0 ? 0 : difficulty === 1 ? 12 : 18,
+		});
+	};
+
 	// grab 8 random unique pokemon from data to be used in card match game
 	const randomUniquePokemon = (): Pokemon[] => {
 		if (data && !isLoading) {
 			const randomPokemon: Pokemon[] = [];
-			while (randomPokemon.length < BOARD_SIZE / 2) {
+			while (randomPokemon.length < boardSize / 2) {
+				console.log(boardSize);
 				const randomIndex = Math.floor(Math.random() * data.length);
 				// ensure there are no duplicates
 				if (!randomPokemon.includes(data[randomIndex])) {
@@ -57,7 +71,7 @@ export default function Pokematch() {
 	};
 
 	// set deck state to randomUniquePokemon
-	if (data && !isLoading && deck.length === 0) {
+	if (data && !isLoading && deck.length === 0 && gameState.difficulty !== 0) {
 		setDeck(randomUniquePokemon());
 	}
 
@@ -115,13 +129,26 @@ export default function Pokematch() {
 			<p className={"instructions"}>
 				Match the Pokemon, complete all {TOTAL_GENS} generations to win!
 				<br />
+				{gameState.difficulty}
 				Every round is unique!
 			</p>
-			{isLoading ? (
+			{/* Choose difficulty */}
+			{gameState.difficulty === 0 ? (
+				<div className={"difficulty"}>
+					<p>Choose Difficulty:</p>
+					<button onClick={handleDifficulty} value="1">
+						Easy
+					</button>
+					<button onClick={handleDifficulty} value="2">
+						Hard
+					</button>
+				</div>
+			) : isLoading ? (
 				<Loader pokeball={true} />
 			) : error ? (
 				<p className={"error"}>
-					Oh dang, something went wrong <br /> {error}
+					{" "}
+					Oh dang, something went wrong <br /> {error}{" "}
 				</p>
 			) : (
 				<>

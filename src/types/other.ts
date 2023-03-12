@@ -12,4 +12,8 @@ export type GameData = {
 	gameWin: boolean;
 	gen: PokemonGeneration;
 	mute: boolean;
+	difficulty: number;
+	boardSize: number;
 };
+
+export type BoardSize = { [key: number]: number } 
