@@ -65,6 +65,7 @@
 	src: url('/fonts/gameboy-webfont.woff2') format('woff2'), url('/fonts/gameboy-webfont.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
+	font-display: swap;
 }
 a {
 	font-weight: 500;
@@ -553,10 +554,6 @@ p.scoringMessage  {
 
 .btn:hover {
 	background:	#5ac57c;
-}
-
-.nextGame.btn {
-
 }
 
 .restart.btn {

@@ -5,11 +5,6 @@ import { BoardSize } from "./types/other";
 
 const TOTAL_GENS = 9;
 const POKE_API_URL = "https://pokeapi.co/api/v2/pokemon";
-const BOARD_SIZES: BoardSize = {
-	1: 12,
-	2: 16,
-};
-const difficulty: number = 0;
 
 const pokemonGenerationData: PokemonGenerationData = {
 	1: { offset: 0, limit: 151 },
@@ -23,34 +18,39 @@ const pokemonGenerationData: PokemonGenerationData = {
 	9: { offset: 905, limit: 103 },
 };
 
+const getPokemonList = async (gen: PokemonGeneration, BOARD_SIZES: number) => {
 
-const getPokemonList = async (gen: PokemonGeneration, BOARD_SIZES: BoardSize, difficulty: number) => {
+	const { offset, limit } = pokemonGenerationData[gen];
+	const url = `${POKE_API_URL}/?offset=${offset}&limit=${limit}`;
 
-  const { offset, limit } = pokemonGenerationData[gen];
-  const url = `${POKE_API_URL}/?offset=${offset}&limit=${limit}`;
+	// pick 6 random pokemon from the list
+	const response = await fetch(url);
+	const { results } = await response.json();
+	const randomIndex = Math.floor(Math.random() * results.length);
+	const randomPokemon = results.sort(() => Math.random() - 0.5).slice(0, BOARD_SIZES / 2);
+	console.log('randomPokemon', randomPokemon);
 
-  // pick 6 random pokemon from the list
-  const response = await fetch(url);
-  const { results } = await response.json();
-  const randomPokemon = results.sort(() => Math.random() - 0.5).slice(0, BOARD_SIZES[difficulty]);
+	try {
+		const promises = randomPokemon.map(async ({ url }: Result) => {
+			const response = await fetch(url);
+			return await response.json();
+		});
 
-  try {
-    const promises = randomPokemon.map(async ({ url }: Result) => {
-      const response = await fetch(url);
-      return await response.json();
-    });
+		const results = await Promise.all(promises);
+		// duplicate results array and shuffle
+		const shuffledCards = shuffle([...results, ...results]);
+		console.log('shuffledCards', shuffledCards);
 
-    const results = await Promise.all(promises);
-    return results;
-  } catch (error) {
-    console.warn("error", error);
-  }
+		return shuffledCards;
+	} catch (error) {
+		console.warn("error", error);
+	}
 };
 
-const usePokemon = (gen: PokemonGeneration): UseQueryResult<Pokemon[], Error> => {
+const usePokemon = (gen: PokemonGeneration, BOARD_SIZES: number): UseQueryResult<Pokemon[], Error> => {
 	return useQuery({
 		queryKey: ["pokemonList", gen],
-		queryFn: () => getPokemonList(gen, BOARD_SIZES, difficulty),
+		queryFn: () => getPokemonList(gen, BOARD_SIZES),
 		staleTime: 1000 * 60 * 60 * 24,
 	});
 };
@@ -110,4 +110,4 @@ const scoringMessages = (turns: number): string => {
 	return `${rating.padEnd(5, "☆")} ${title}`;
 };
 
-export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, TOTAL_GENS, BOARD_SIZES };
+export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, TOTAL_GENS };
