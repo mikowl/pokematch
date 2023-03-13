@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { usePokemon, shuffle, TOTAL_GENS } from "../utils";
+import { usePokemon, TOTAL_GENS } from "../utils";
 import PokeCard from "./PokeCard";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
@@ -7,7 +7,6 @@ import { UseQueryResult } from "@tanstack/react-query";
 import Loader from "./Loader";
 import GameOvered from "./GameOvered";
 import MuteButton from "./MuteButton";
-import { create } from "canvas-confetti";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
 
@@ -21,7 +20,7 @@ export default function Pokematch() {
 				turns: 0,
 				totalTurns: 0,
 				gameWin: false,
-				gen: 1,
+				gen: 9,
 				mute: false,
 				difficulty: 0,
 				boardSize: 0,
@@ -33,12 +32,15 @@ export default function Pokematch() {
 	const { gen, turns, gameWin, boardSize } = gameState;
 
 	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gen, boardSize);
-
 	const [deck, setDeck] = useState<Pokemon[]>([]);
 
+	const refetchData = async () => {
+		await refetch();
+	};
 	if (data && !isLoading) {
 		setDeck(data);
 	}
+
 	const handleDifficulty = (e: MouseEvent) => {
 		const target = e.target as HTMLInputElement;
 		const board_size = parseInt(target.value);
@@ -46,9 +48,8 @@ export default function Pokematch() {
 			...gameState,
 			boardSize: board_size,
 		});
-		setDeck(data);
+		if (data) setDeck(data);
 	};
-	console.log("data", data);
 
 	// after difficulty is chosen and board size is set, refetch data
 	useEffect(() => {
@@ -57,12 +58,8 @@ export default function Pokematch() {
 		});
 	}, [boardSize]);
 
-	const refetchData = async () => {
-		await refetch();
-	};
-
 	const reset = () => {
-		setDeck(data);
+		if (data) setDeck(data);
 		setGameState({
 			...gameState,
 			turns: 0,
@@ -85,6 +82,7 @@ export default function Pokematch() {
 			difficulty: 0,
 			totalTurns: 0,
 			gen: 1,
+			boardSize: 0,
 		});
 	};
 
@@ -138,7 +136,7 @@ export default function Pokematch() {
 					<div className={`card-container deckgen-${gen} bs-${boardSize}`}>
 						{deck && <PokeCard pokemons={deck} gameState={gameState} setGameState={setGameState} />}
 					</div>
-					<p className={`turns ${gameWin ? "hide" : ""}`}>Turns: {turns}</p>
+					{deck && <p className={`turns ${gameWin ? "hide" : ""}`}>Turns: {turns}</p>}
 					{gameWin && (
 						<GameOvered
 							gameState={gameState}

@@ -18,17 +18,15 @@ const pokemonGenerationData: PokemonGenerationData = {
 	9: { offset: 905, limit: 103 },
 };
 
-const getPokemonList = async (gen: PokemonGeneration, BOARD_SIZES: number) => {
+const getRandomPokemon = async (gen: PokemonGeneration, BOARD_SIZES: number) => {
 
 	const { offset, limit } = pokemonGenerationData[gen];
 	const url = `${POKE_API_URL}/?offset=${offset}&limit=${limit}`;
 
-	// pick 6 random pokemon from the list
+	// pick board size / 2 random pokemon from the list
 	const response = await fetch(url);
 	const { results } = await response.json();
-	const randomIndex = Math.floor(Math.random() * results.length);
 	const randomPokemon = results.sort(() => Math.random() - 0.5).slice(0, BOARD_SIZES / 2);
-	console.log('randomPokemon', randomPokemon);
 
 	try {
 		const promises = randomPokemon.map(async ({ url }: Result) => {
@@ -39,8 +37,6 @@ const getPokemonList = async (gen: PokemonGeneration, BOARD_SIZES: number) => {
 		const results = await Promise.all(promises);
 		// duplicate results array and shuffle
 		const shuffledCards = shuffle([...results, ...results]);
-		console.log('shuffledCards', shuffledCards);
-
 		return shuffledCards;
 	} catch (error) {
 		console.warn("error", error);
@@ -50,7 +46,7 @@ const getPokemonList = async (gen: PokemonGeneration, BOARD_SIZES: number) => {
 const usePokemon = (gen: PokemonGeneration, BOARD_SIZES: number): UseQueryResult<Pokemon[], Error> => {
 	return useQuery({
 		queryKey: ["pokemonList", gen],
-		queryFn: () => getPokemonList(gen, BOARD_SIZES),
+		queryFn: () => getRandomPokemon(gen, BOARD_SIZES),
 		staleTime: 1000 * 60 * 60 * 24,
 	});
 };
