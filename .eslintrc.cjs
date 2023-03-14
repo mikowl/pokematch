@@ -3,10 +3,14 @@ module.exports = {
 		browser: true,
 		es2021: true,
 	},
-	extends: ["eslint:all", "preact", "prettier"],
+	extends: ["preact"],
 	overrides: [
 		{
-			files: ["**/*.js", "**/*.ts", "**/*.tsx"],
+			files: [
+				"**/*.js",
+				"**/*.ts",
+				"**/*.tsx",
+			],
 		},
 	],
 	parser: "@typescript-eslint/parser",
@@ -17,10 +21,30 @@ module.exports = {
 		ecmaVersion: 12,
 		sourceType: "module",
 	},
+	plugins: [
+		"eslint-plugin-import",
+	],
 	rules: {
-		"max-lines": 0,
-		"no-magic-numbers": "off",
-		"no-var": "error",
-		"one-var": "off",
+		"import/consistent-type-specifier-style": [
+			"error",
+			"prefer-inline",
+		],
+		indent: [
+			"error",
+			"tab",
+		],
+		"max-len": "off",
+		'no-mixed-spaces-and-tabs': 'warn',
+		'no-nested-ternary': 'warn',
+		'no-tabs': 'off',
+		'no-ternary': 'off',
+		'object-curly-newline': 'off',
+		"prefer-const": "error",
+
+		"react/self-closing-comp": [
+			"error",
+			{ component: true,
+				html: true },
+		],
 	},
 };

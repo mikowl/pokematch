@@ -1,7 +1,6 @@
 import confetti from "canvas-confetti";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { Pokemon, Result, PokemonGeneration, PokemonGenerationData } from "./types/pokemon";
-import { BoardSize } from "./types/other";
 
 const TOTAL_GENS = 9;
 const POKE_API_URL = "https://pokeapi.co/api/v2/pokemon";
@@ -99,7 +98,6 @@ const ratingThresholds: Rating[] = [
 ];
 
 const scoringMessages = (turns: number): string => {
-	const score = 12 * 2 - turns * 2;
 	const { rating, title } = ratingThresholds.find(
 		(threshold) => turns <= threshold.turns
 	)!;

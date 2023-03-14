@@ -15,23 +15,22 @@ export default function Pokematch() {
 		const gameStateFromLocalStorage = localStorage.getItem("gameState");
 		if (gameStateFromLocalStorage !== null) {
 			return JSON.parse(gameStateFromLocalStorage);
-		} else {
-			return {
-				turns: 0,
-				totalTurns: 0,
-				gameWin: false,
-				gen: 9,
-				mute: false,
-				difficulty: 0,
-				boardSize: 0,
-			};
 		}
+		return {
+			turns: 0,
+			totalTurns: 0,
+			gameWin: false,
+			gen: 9,
+			mute: false,
+			difficulty: 0,
+			boardSize: 0,
+		};
 	};
 
 	const [gameState, setGameState] = useState<GameData>(getInitialGameState());
 	const { gen, turns, gameWin, boardSize } = gameState;
 
-	const { data, isLoading, error, refetch }: PokemonData = usePokemon(gen, boardSize);
+	const { data, isLoading, isFetching, error, refetch }: PokemonData = usePokemon(gen, boardSize);
 	const [deck, setDeck] = useState<Pokemon[]>([]);
 
 	const refetchData = async () => {
@@ -39,16 +38,18 @@ export default function Pokematch() {
 	};
 	if (data && !isLoading) {
 		setDeck(data);
+		console.log("isFetching", isFetching);
 	}
 
 	const handleDifficulty = (e: MouseEvent) => {
 		const target = e.target as HTMLInputElement;
-		const board_size = parseInt(target.value);
+		const board_size = parseInt(target.value, 10);
 		setGameState({
 			...gameState,
 			boardSize: board_size,
 		});
 		if (data) setDeck(data);
+		console.log("isFetching", isFetching);
 	};
 
 	// after difficulty is chosen and board size is set, refetch data
@@ -56,6 +57,7 @@ export default function Pokematch() {
 		refetchData().then(() => {
 			reset();
 		});
+		console.log("isFetching", isFetching);
 	}, [boardSize]);
 
 	const reset = () => {
@@ -98,6 +100,48 @@ export default function Pokematch() {
 		const body = document.querySelector("body");
 		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
 	}, [gameWin]);
+	let content;
+
+	if (boardSize === 0) {
+		content = (
+			<div className={"difficulty"}>
+				<h2>Choose Difficulty:</h2>
+				<button className={"btn easy"} onClick={handleDifficulty} value="12">
+					Easy
+				</button>
+				<button className={"btn hard"} onClick={handleDifficulty} value="16">
+					Hard
+				</button>
+			</div>
+		);
+	} else if (isFetching || isLoading) {
+		content = <Loader pokeball={true} />;
+	} else if (error) {
+		content = (
+			<p className={"error"}>
+				{" "}
+				Oh dang, something went wrong <br /> {error}{" "}
+			</p>
+		);
+	} else {
+		content = (
+			<>
+				<div className={`card-container deckgen-${gen} bs-${boardSize}`}>
+					{deck && <PokeCard pokemons={deck} gameState={gameState} setGameState={setGameState} />}
+				</div>
+				{deck && <p className={`turns ${gameWin ? "hide" : ""}`}>Turns: {turns}</p>}
+				{gameWin && (
+					<GameOvered
+						gameState={gameState}
+						deck={deck}
+						handleNextGame={handleNextGame}
+						handleRestart={handleRestart}
+						boardSize={boardSize}
+					/>
+				)}
+			</>
+		);
+	}
 
 	return (
 		<div className={`gcolor${gen}`}>
@@ -113,41 +157,7 @@ export default function Pokematch() {
 				<br />
 				Every round is unique!
 			</p>
-			{/* Choose difficulty */}
-			{boardSize === 0 ? (
-				<div className={"difficulty"}>
-					<h2>Choose Difficulty:</h2>
-					<button className={"btn easy"} onClick={handleDifficulty} value="12">
-						Easy
-					</button>
-					<button className={"btn hard"} onClick={handleDifficulty} value="16">
-						Hard
-					</button>
-				</div>
-			) : isLoading ? (
-				<Loader pokeball={true} />
-			) : error ? (
-				<p className={"error"}>
-					{" "}
-					Oh dang, something went wrong <br /> {error}{" "}
-				</p>
-			) : (
-				<>
-					<div className={`card-container deckgen-${gen} bs-${boardSize}`}>
-						{deck && <PokeCard pokemons={deck} gameState={gameState} setGameState={setGameState} />}
-					</div>
-					{deck && <p className={`turns ${gameWin ? "hide" : ""}`}>Turns: {turns}</p>}
-					{gameWin && (
-						<GameOvered
-							gameState={gameState}
-							deck={deck}
-							handleNextGame={handleNextGame}
-							handleRestart={handleRestart}
-							boardSize={boardSize}
-						/>
-					)}
-				</>
-			)}
+			{content}
 		</div>
 	);
 }
