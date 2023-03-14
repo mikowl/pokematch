@@ -11,7 +11,9 @@
 	--darkblue: #0000bc;
 	--skyblue: #3cbcfc;
 	--red: #e74c3c;
+	--red2: #b64438;
 	--green: #00a800;
+	--green2: #278927;
 	--purple: #9b59b6;
 	--pink: #f87858;
 	--pixelBorder: 4px 0 transparent, -4px 0 transparent, 0 -4px transparent, 0 4px transparent;
@@ -314,20 +316,20 @@ h1 i span {
 .btn.hard {
 	background: var(--red);
 	box-shadow: var(--pixelBorder),
-	8px 0 var(--red), -8px 0 var(--red), 0 -8px var(--red), 0 8px var(--red), 0 0 0 4px var(--red);
+	8px 0 var(--red2), -8px 0 var(--red2), 0 -8px var(--red2), 0 8px var(--red2), 0 0 0 4px var(--red2);
 }
 
 .btn.hard:hover {
-	background: var(--red);
+	background: var(--red2);
 	filter: contrast(1.2);
 }
 .btn.easy {
-	background: var(--green);
+	background: var(--green2);
 	box-shadow: var(--pixelBorder),
-	8px 0 var(--green), -8px 0 var(--green), 0 -8px var(--green), 0 8px var(--green), 0 0 0 4px var(--green);
+	8px 0 var(--green2), -8px 0 var(--green2), 0 -8px var(--green2), 0 8px var(--green2), 0 0 0 4px var(--green2);
 }
 .btn.easy:hover {
-	background: var(--green);
+	background: var(--green2);
 	filter: contrast(1.3);
 }
 .error {
