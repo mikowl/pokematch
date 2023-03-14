@@ -4,8 +4,8 @@
     "display": "minimal-ui",
     "scope": "/",
     "start_url": "https://pokematch.vercel.app/",
-    "name": "Pokedex",
-    "short_name": "Pokedex",
+    "name": "Pokematch",
+    "short_name": "Pokematch",
     "description": "The best pokemon memory matching game ever made in the world",
     "icons": [
         {
