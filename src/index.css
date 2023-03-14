@@ -314,7 +314,7 @@ h1 i span {
 }
 
 .btn.hard {
-	background: var(--red);
+	background: var(--red2);
 	box-shadow: var(--pixelBorder),
 	8px 0 var(--red2), -8px 0 var(--red2), 0 -8px var(--red2), 0 8px var(--red2), 0 0 0 4px var(--red2);
 }
