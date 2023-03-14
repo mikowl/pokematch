@@ -1,6 +1,7 @@
 import { useState } from "preact/hooks";
 import { GameData } from "../types/other";
 import { Pokemon } from "../types/pokemon";
+import { Fragment } from "preact/jsx-runtime";
 
 export default function PokeCard({
 	pokemons,
@@ -77,29 +78,35 @@ export default function PokeCard({
 
 	return (
 		<>
-			{pokemons.map((pokemon) => (
+			{pokemons.map((pokemon, i) => (
 				// encrypt pokemon.name so users can't view the name in the DOM
-				<button className={"card-btn flip"} onClick={handleCardFlip} data-name={pokemon.name}>
-					<div className="front">
-						<div className="pokeCard">
-							<div className="inner">
-								<img src={"/pokeball.png"} alt="Pokeball" width="73" height="73" />
+				<Fragment key={`${pokemon.name}-${i}`}>
+					<button
+						className={"card-btn flip"}
+						onClick={handleCardFlip}
+						data-name={btoa(pokemon.name)}
+					>
+						<div className="front">
+							<div className="pokeCard">
+								<div className="inner">
+									<img src={"/pokeball.png"} alt="Pokeball" width="73" height="73" />
+								</div>
 							</div>
 						</div>
-					</div>
-					<div className="back">
-						<div className={"pokeCard"} key={`${pokemon.name}-${self.crypto.randomUUID()}`}>
-							<div className="inner">
-								<img
-									src={pokemon.sprites.front_default}
-									alt={pokemon.name}
-									width="96"
-									height="96"
-								/>
+						<div className="back">
+							<div className={"pokeCard"}>
+								<div className="inner">
+									<img
+										src={pokemon.sprites.front_default}
+										alt={pokemon.name}
+										width="96"
+										height="96"
+									/>
+								</div>
 							</div>
 						</div>
-					</div>
-				</button>
+					</button>
+				</Fragment>
 			))}
 		</>
 	);
