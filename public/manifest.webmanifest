@@ -1,7 +1,7 @@
 {
     "theme_color": "#206896",
     "background_color": "#79c9fc",
-    "display": "minimal-ui",
+    "display": "standalone ",
     "scope": "/",
     "start_url": "https://pokematch.vercel.app/",
     "name": "Pokematch",
