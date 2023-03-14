@@ -38,7 +38,6 @@ export default function Pokematch() {
 	};
 	if (data && !isLoading) {
 		setDeck(data);
-		console.log("isFetching", isFetching);
 	}
 
 	const handleDifficulty = (e: MouseEvent) => {
@@ -49,7 +48,6 @@ export default function Pokematch() {
 			boardSize: board_size,
 		});
 		if (data) setDeck(data);
-		console.log("isFetching", isFetching);
 	};
 
 	// after difficulty is chosen and board size is set, refetch data
@@ -57,7 +55,6 @@ export default function Pokematch() {
 		refetchData().then(() => {
 			reset();
 		});
-		console.log("isFetching", isFetching);
 	}, [boardSize]);
 
 	const reset = () => {
