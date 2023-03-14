@@ -157,6 +157,7 @@ body.game-over {
 	border-width: 7px;
 	border-style: solid; */
 	opacity: 0.9;
+	transition: all 0.3s ease-in-out;
 	box-shadow: var(--pixelBorder),
 	8px 0 var(--darkblue), -8px 0 var(--darkblue), 0 -8px var(--darkblue), 0 8px var(--darkblue), 0 0 0 4px var(--darkblue);
 }

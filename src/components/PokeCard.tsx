@@ -77,9 +77,14 @@ export default function PokeCard({
 
 	return (
 		<>
+			{pokemons.length === 0 && <div className="loading">Loading...</div>}
 			{pokemons.map((pokemon) => (
-				// encrypt pokemon.name so users can't view the name in the DOM
-				<button className={"card-btn flip"} onClick={handleCardFlip} data-name={pokemon.name}>
+				<button
+					className={"card-btn flip"}
+					onClick={handleCardFlip}
+					data-name={pokemon.name}
+					key={`${pokemon.name}-${self.crypto.randomUUID()}`}
+				>
 					<div className="front">
 						<div className="pokeCard">
 							<div className="inner">
@@ -88,7 +93,7 @@ export default function PokeCard({
 						</div>
 					</div>
 					<div className="back">
-						<div className={"pokeCard"} key={`${pokemon.name}-${self.crypto.randomUUID()}`}>
+						<div className={"pokeCard"}>
 							<div className="inner">
 								<img
 									src={pokemon.sprites.front_default}
