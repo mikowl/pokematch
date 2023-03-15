@@ -100,9 +100,7 @@ export default function Pokematch() {
 
 	useEffect(() => {
 		const roundTime = formatTime(Date.now() - gameState.startTime);
-		console.log("time: ", formatTime(roundTime));
 		setRoundTime(roundTime);
-
 		const body = document.querySelector("body");
 		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
 	}, [gameWin]);
