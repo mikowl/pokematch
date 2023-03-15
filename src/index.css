@@ -585,11 +585,11 @@ p.scoringMessage  {
 }
 
 .time {
+	display: inline-flex;
 	background: var(--red);
 	padding: 5px 10px;
 	transform: translateY(-16px);
 	color: #FFF;
-	display: inline-block;
 	border-top: 3px solid rgb(0 0 0 / 20%);
 	border-bottom: 3px solid #FFF;
 	border-left: 3px solid #FFF;

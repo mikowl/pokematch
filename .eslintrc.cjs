@@ -3,6 +3,11 @@ module.exports = {
 		browser: true,
 		es2021: true,
 	},
+	settings: {
+		jest: {
+			version: 26,
+		},
+	},
 	extends: ["preact"],
 	overrides: [
 		{
