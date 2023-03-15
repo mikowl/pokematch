@@ -598,6 +598,11 @@ p.scoringMessage  {
 	box-shadow: -1px -1px 0 #b22c1e, -2px -2px 0 #b22c1e, -3px -3px #b22c1e, -4px -4px #b22c1e, -5px -5px #b22c1e, -6px -6px #b22c1e; */
 }
 
+.time .icon-clock {
+	margin-right: 10px;
+	transform: translateY(-1px);
+}
+
 .icon-mute {
 	fill: var(--darkblue);
 }

@@ -2,6 +2,7 @@ import { scoringMessages, pewpewpew, TOTAL_GENS } from "../utils";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
 import { useEffect, useState } from "preact/hooks";
+import ClockIcon from "./Icons/Clock";
 
 const GameOvered = ({
 	gameState,
@@ -83,7 +84,10 @@ const GameOvered = ({
 					</p>
 				) : (
 					<>
-						<small className="time">Time: {roundTime}</small>
+						<small className="time">
+							<ClockIcon size={24} fill="#FFF" />
+							{roundTime}
+						</small>
 						<button className={"btn nextGame"} onClick={handleNextGame}>
 							Start Gen {gameState.gen + 1}!
 						</button>
