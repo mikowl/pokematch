@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { usePokemon, TOTAL_GENS } from "../utils";
+import { usePokemon, TOTAL_GENS, formatTime } from "../utils";
 import PokeCard from "./PokeCard";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
@@ -24,6 +24,7 @@ export default function Pokematch() {
 			mute: false,
 			difficulty: 0,
 			boardSize: 0,
+			startTime: 0,
 		};
 	};
 
@@ -32,6 +33,8 @@ export default function Pokematch() {
 
 	const { data, isLoading, isFetching, error, refetch }: PokemonData = usePokemon(gen, boardSize);
 	const [deck, setDeck] = useState<Pokemon[]>([]);
+
+	const [roundTime, setRoundTime] = useState<number | string>(0);
 
 	const refetchData = async () => {
 		await refetch();
@@ -45,12 +48,13 @@ export default function Pokematch() {
 		const board_size = parseInt(target.value, 10);
 		setGameState({
 			...gameState,
+			startTime: Date.now(),
 			boardSize: board_size,
 		});
 		if (data) setDeck(data);
 	};
 
-	// after difficulty is chosen and board size is set, refetch data
+	// after difficulty is chosen and board size is set, get data
 	useEffect(() => {
 		refetchData().then(() => {
 			reset();
@@ -71,6 +75,7 @@ export default function Pokematch() {
 	const handleNextGame = () => {
 		setGameState({
 			...gameState,
+			startTime: Date.now(),
 			gen: gen + 1,
 		});
 	};
@@ -94,9 +99,14 @@ export default function Pokematch() {
 	}, [gen]);
 
 	useEffect(() => {
+		const roundTime = formatTime(Date.now() - gameState.startTime);
+		console.log("time: ", formatTime(roundTime));
+		setRoundTime(roundTime);
+
 		const body = document.querySelector("body");
 		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
 	}, [gameWin]);
+
 	let content;
 
 	if (boardSize === 0) {
@@ -134,6 +144,7 @@ export default function Pokematch() {
 						handleNextGame={handleNextGame}
 						handleRestart={handleRestart}
 						boardSize={boardSize}
+						roundTime={roundTime}
 					/>
 				)}
 			</>

@@ -545,18 +545,20 @@ p.scoringMessage  {
 	cursor: pointer;
 	display: block;
 	background: var(--green);
+	background: var(--green);
 	color: #fff;
 	border: none;
-	margin: 1.5rem auto 1.5rem auto;
+	margin: .5rem auto 1.5rem auto;
 	font-size: 1.25rem;
 	letter-spacing: -0.15rem;
-	padding: 12px 27px;
-	border-radius: 0.4375rem;
+	padding: 7px 23px;
+	box-shadow: var(--pixelBorder), 5px 0 var(--green), -6px 0 var(--green), 0 -6px var(--green), 0 6px var(--green), 0 0 0 3px var(--green);
 	transition: all 0.2s ease-in-out;
 }
 
 .btn:hover {
-	background:	#5ac57c;
+	background:	#0cc30c;
+	box-shadow: var(--pixelBorder), 5px 0 #0cc30c, -6px 0 #0cc30c, 0 -6px #0cc30c, 0 6px #0cc30c, 0 0 0 3px #0cc30c;
 }
 
 .restart.btn {
@@ -580,6 +582,20 @@ p.scoringMessage  {
 	cursor: pointer;
 	background: none;
 	border: none;
+}
+
+.time {
+	background: var(--red);
+	padding: 5px 10px;
+	transform: translateY(-16px);
+	color: #FFF;
+	display: inline-block;
+	border-top: 3px solid rgb(0 0 0 / 20%);
+	border-bottom: 3px solid #FFF;
+	border-left: 3px solid #FFF;
+	border-right: 3px solid #FFF;
+	/* border-top: 1px solid rgb(255 255 255 / 20%);
+	box-shadow: -1px -1px 0 #b22c1e, -2px -2px 0 #b22c1e, -3px -3px #b22c1e, -4px -4px #b22c1e, -5px -5px #b22c1e, -6px -6px #b22c1e; */
 }
 
 .icon-mute {

@@ -65,6 +65,14 @@ const shuffle = (array: any[]) => {
 	return array.sort(() => Math.random() - 0.5);
 };
 
+// format time to minutes and seconds function
+function formatTime(timestamp:number) {
+	const minutes = Math.floor(timestamp / 60000); // 1 minute = 60000 ms
+	const seconds = Math.floor((timestamp - minutes * 60000) / 1000); // 1 second = 1000 ms
+	const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+	return `${minutes}:${formattedSeconds}`;
+}
+
 const omgConfetti = () => {
 	confetti({
 		particleCount: 300,
@@ -101,4 +109,4 @@ const scoringMessages = (turns: number): string => {
 	return `${rating.padEnd(5, "☆")} ${title}`;
 };
 
-export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, TOTAL_GENS };
+export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, formatTime, TOTAL_GENS };

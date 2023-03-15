@@ -13,7 +13,8 @@ export type GameData = {
 	mute: boolean;
 	difficulty: number;
 	boardSize: number;
-};
+	startTime: number;
+}
 
 // export type BoardSize = { [key: number]: number } 
 

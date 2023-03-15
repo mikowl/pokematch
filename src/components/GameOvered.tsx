@@ -9,12 +9,14 @@ const GameOvered = ({
 	handleNextGame,
 	handleRestart,
 	boardSize,
+	roundTime,
 }: {
 	gameState: GameData;
 	deck: Pokemon[];
 	handleNextGame: () => void;
 	handleRestart: () => void;
 	boardSize: number;
+	roundTime: number | string;
 }) => {
 	const [activeIndex, setActiveIndex] = useState(-1);
 	const successSound = new Audio("/success.mp3");
@@ -81,6 +83,7 @@ const GameOvered = ({
 					</p>
 				) : (
 					<>
+						<small className="time">Time: {roundTime}</small>
 						<button className={"btn nextGame"} onClick={handleNextGame}>
 							Start Gen {gameState.gen + 1}!
 						</button>
