@@ -25,11 +25,6 @@ export default function PokeCard({
 		const card = target.closest(".card-btn") as HTMLButtonElement;
 		if (isProcessing || flippedCards.includes(card)) return;
 
-		// Play sound on card flip
-		if (!gameState.mute) {
-			beep.currentTime = 0;
-			beep.play();
-		}
 		// Only flip the card if it's not already flipped, and there are fewer than 2 flipped cards
 		if (card && !Array.isArray(card) && flippedCards.length < 2 && !matchedCards.includes(card)) {
 			card.classList.add("flipped");
@@ -45,6 +40,14 @@ export default function PokeCard({
 					// Match found
 					setMatchedCards([...matchedCards, card, card1]);
 					setFlippedCards([]);
+					// Play sound on card match
+					if (!gameState.mute) {
+						// delay the sound so it doesn't play too fast
+						setTimeout(() => {
+							beep.currentTime = 0;
+							beep.play();
+						}, 500);
+					}
 					// Check if the game has been won
 					if (matchedCards.length === pokemons.length - 2) {
 						setTimeout(() => {
