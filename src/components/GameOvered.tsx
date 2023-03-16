@@ -1,4 +1,4 @@
-import { scoringMessages, pewpewpew, TOTAL_GENS } from "../utils";
+import { scoringMessages, pewpewpew, timeToSeconds, TOTAL_GENS } from "../utils";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
 import { useEffect, useState } from "preact/hooks";
@@ -84,7 +84,7 @@ const GameOvered = ({
 					</p>
 				) : (
 					<>
-						<small className="time">
+						<small className={`time ${timeToSeconds(roundTime) <= 20 ? "fiyahhh" : ""}`}>
 							<ClockIcon size={24} fill="#FFF" />
 							{roundTime}
 						</small>

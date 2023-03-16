@@ -117,6 +117,11 @@ export default function Pokematch() {
 				<button className={"btn hard"} onClick={handleDifficulty} value="16">
 					Hard
 				</button>
+				{import.meta.env.VITE_DEBUG == "TRUE" && (
+					<button className={"btn dbg"} onClick={handleDifficulty} value="4">
+						Dumb
+					</button>
+				)}
 			</div>
 		);
 	} else if (isFetching || isLoading) {

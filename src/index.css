@@ -13,7 +13,9 @@
 	--red: #e74c3c;
 	--red2: #b64438;
 	--green: #00a800;
+	--greenh: #0cc30c;
 	--green2: #1f7c1f;
+	--green2h: #349c34;
 	--purple: #9b59b6;
 	--pink: #f87858;
 	--pixelBorder: 4px 0 transparent, -4px 0 transparent, 0 -4px transparent, 0 4px transparent;
@@ -285,6 +287,26 @@ h1 i span {
 	padding: 0;
 }
 
+.btn {
+	font-family: inherit;
+	cursor: pointer;
+	display: block;
+	background: var(--green);
+	background: var(--green);
+	color: #fff;
+	border: none;
+	margin: .5rem auto 1.5rem auto;
+	font-size: 1.25rem;
+	letter-spacing: -0.15rem;
+	padding: 7px 23px;
+	box-shadow: var(--pixelBorder), 5px 0 var(--green), -6px 0 var(--green), 0 -6px var(--green), 0 6px var(--green), 0 0 0 3px var(--green);
+	transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+	filter: contrast(1.3);
+}
+
 .instructions {
 	font-size: clamp(0.75rem, 1.5vw + 0.5rem, 1rem);
 	text-align: center;
@@ -322,7 +344,7 @@ h1 i span {
 
 .btn.hard:hover {
 	background: var(--red2);
-	filter: contrast(1.2);
+	filter: contrast(1.3);
 }
 .btn.easy {
 	background: var(--green2);
@@ -331,8 +353,11 @@ h1 i span {
 }
 .btn.easy:hover {
 	background: var(--green2);
-	filter: contrast(1.3);
+	filter: contrast(1.3) brightness(1.2);
 }
+
+.btn.dbg {filter: hue-rotate(315deg);}
+
 .error {
 	font-size: 1.25rem;
 	color: var(--darkblue);
@@ -540,27 +565,6 @@ p.scoringMessage  {
 	display: none;
 }
 
-.btn {
-	font-family: inherit;
-	cursor: pointer;
-	display: block;
-	background: var(--green);
-	background: var(--green);
-	color: #fff;
-	border: none;
-	margin: .5rem auto 1.5rem auto;
-	font-size: 1.25rem;
-	letter-spacing: -0.15rem;
-	padding: 7px 23px;
-	box-shadow: var(--pixelBorder), 5px 0 var(--green), -6px 0 var(--green), 0 -6px var(--green), 0 6px var(--green), 0 0 0 3px var(--green);
-	transition: all 0.2s ease-in-out;
-}
-
-.btn:hover {
-	background:	#0cc30c;
-	box-shadow: var(--pixelBorder), 5px 0 #0cc30c, -6px 0 #0cc30c, 0 -6px #0cc30c, 0 6px #0cc30c, 0 0 0 3px #0cc30c;
-}
-
 .restart.btn {
 	margin: 1rem auto -2.5rem auto;
 	border: none;
@@ -587,7 +591,7 @@ p.scoringMessage  {
 .time {
 	display: inline-flex;
 	background: var(--red);
-	padding: 5px 10px;
+	padding: 5px 20px;
 	transform: translateY(-16px);
 	color: #FFF;
 	border-top: 3px solid rgb(0 0 0 / 20%);
@@ -598,6 +602,26 @@ p.scoringMessage  {
 	box-shadow: -1px -1px 0 #b22c1e, -2px -2px 0 #b22c1e, -3px -3px #b22c1e, -4px -4px #b22c1e, -5px -5px #b22c1e, -6px -6px #b22c1e; */
 }
 
+.time.fiyahhh {
+	background: var(--green);
+}
+.time.fiyahhh::before, .time.fiyahhh::after {
+	position: absolute;
+	content: '';
+	width: 34px;
+	height: 34px;
+	background: url(/img/fire.gif) no-repeat center center / 100%;
+}
+.time.fiyahhh::before {
+	left: -18px;
+	bottom: -3px;
+	/* transform: rotate(-11deg); */
+}
+.time.fiyahhh::after {
+	right: -18px;
+	bottom: -3px;
+	transform: scaleX(-1);
+}
 .time .icon-clock {
 	margin-right: 10px;
 	transform: translateY(-1px);

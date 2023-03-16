@@ -73,6 +73,14 @@ function formatTime(timestamp:number) {
 	return `${minutes}:${formattedSeconds}`;
 }
 
+function timeToSeconds(time: number | string): number {
+	if (typeof time === 'string') {
+		const [minutes, seconds] = time.split(':');
+		return Number(minutes) * 60 + Number(seconds);
+	} 
+	return time;
+}
+
 const omgConfetti = () => {
 	confetti({
 		particleCount: 300,
@@ -109,4 +117,4 @@ const scoringMessages = (turns: number): string => {
 	return `${rating.padEnd(5, "☆")} ${title}`;
 };
 
-export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, formatTime, TOTAL_GENS };
+export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, formatTime, timeToSeconds, TOTAL_GENS };
