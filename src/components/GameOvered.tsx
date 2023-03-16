@@ -47,11 +47,17 @@ const GameOvered = ({
 	}, [deck, gameState.gameWin]);
 
 	const averageScore = ((TOTAL_GENS * deck.length) / 2 / gameState.totalTurns) * 100;
-	// if time is 20 or under give "fiyahhh flash" class, if 26 or under just give "flash" class, otherwise no class
+
 	const timeClass = () => {
-		if (timeToSeconds(roundTime) <= 20) return "fiyahhh flash";
-		if (timeToSeconds(roundTime) <= 26) return "flash";
-		return;
+		console.log("boardSize", boardSize);
+		if (boardSize <= 12) {
+			if (timeToSeconds(roundTime) <= 20) return "fiyahhh flash";
+			if (timeToSeconds(roundTime) <= 26) return "flash";
+		}
+		if (boardSize <= 16) {
+			if (timeToSeconds(roundTime) < 40) return "fiyahhh flash";
+			if (timeToSeconds(roundTime) <= 43) return "flash";
+		}
 	};
 
 	return (
@@ -79,6 +85,10 @@ const GameOvered = ({
 					</ul>
 				</div>
 				<p className="scoringMessage">{scoringMessages(gameState.turns)}</p>
+				<small className={`time ${timeClass()}`}>
+					<ClockIcon size={24} fill="#FFF" />
+					{roundTime}
+				</small>
 
 				{gameState.gen === TOTAL_GENS ? (
 					<p className="gameOveredMessage">
@@ -90,10 +100,6 @@ const GameOvered = ({
 					</p>
 				) : (
 					<>
-						<small className={`time ${timeClass()}`}>
-							<ClockIcon size={24} fill="#FFF" />
-							{roundTime}
-						</small>
 						<button className={"btn nextGame"} onClick={handleNextGame}>
 							Start Gen {gameState.gen + 1}!
 						</button>
