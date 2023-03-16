@@ -598,13 +598,19 @@ p.scoringMessage  {
 	border-bottom: 3px solid #FFF;
 	border-left: 3px solid #FFF;
 	border-right: 3px solid #FFF;
-	/* border-top: 1px solid rgb(255 255 255 / 20%);
-	box-shadow: -1px -1px 0 #b22c1e, -2px -2px 0 #b22c1e, -3px -3px #b22c1e, -4px -4px #b22c1e, -5px -5px #b22c1e, -6px -6px #b22c1e; */
+}
+
+.time.flash {
+	animation-name: color-flash;
+	animation-duration: 0.5s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
 }
 
 .time.fiyahhh {
 	background: var(--green);
 }
+
 .time.fiyahhh::before, .time.fiyahhh::after {
 	position: absolute;
 	content: '';
@@ -839,6 +845,21 @@ footer a:hover {
 		transform: rotate(360deg);
 	}
 }
+
 .animate-spin {
 	animation: spin 1s linear infinite;
+}
+
+@keyframes color-flash {
+	0% {background: hsl(5deg 100% 49% / 100%);}
+	25% {background: hsl(10deg 100% 49% / 100%);}
+	50% {background: hsl(15deg 100% 49% / 100%);}
+	75% {background: hsl(20deg 100% 49% / 100%);}
+	100% {background: hsl(25deg 100% 49% / 100%);}
+}
+
+.something {
+	animation-name: color-flash;
+	animation-duration: 0.5s;
+	animation-iteration-count: infinite;
 }

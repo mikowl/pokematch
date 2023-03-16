@@ -47,6 +47,12 @@ const GameOvered = ({
 	}, [deck, gameState.gameWin]);
 
 	const averageScore = ((TOTAL_GENS * deck.length) / 2 / gameState.totalTurns) * 100;
+	// if time is 20 or under give "fiyahhh flash" class, if 26 or under just give "flash" class, otherwise no class
+	const timeClass = () => {
+		if (timeToSeconds(roundTime) <= 20) return "fiyahhh flash";
+		if (timeToSeconds(roundTime) <= 26) return "flash";
+		return;
+	};
 
 	return (
 		<>
@@ -84,7 +90,7 @@ const GameOvered = ({
 					</p>
 				) : (
 					<>
-						<small className={`time ${timeToSeconds(roundTime) <= 20 ? "fiyahhh" : ""}`}>
+						<small className={`time ${timeClass()}`}>
 							<ClockIcon size={24} fill="#FFF" />
 							{roundTime}
 						</small>
