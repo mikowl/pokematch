@@ -17,6 +17,7 @@
 	--green2: #1f7c1f;
 	--green2h: #349c34;
 	--purple: #9b59b6;
+	--purple2: #4338ca;
 	--pink: #f87858;
 	--pixelBorder: 4px 0 transparent, -4px 0 transparent, 0 -4px transparent, 0 4px transparent;
 	--lcolor1: #0000bc;
@@ -300,7 +301,7 @@ h1 i span {
 	letter-spacing: -0.15rem;
 	padding: 7px 23px;
 	box-shadow: var(--pixelBorder), 5px 0 var(--green), -6px 0 var(--green), 0 -6px var(--green), 0 6px var(--green), 0 0 0 3px var(--green);
-	transition: all 0.2s ease-in-out;
+	transition: all 0.3s ease-in-out;
 }
 
 .btn:hover {
@@ -532,7 +533,7 @@ h1 i span {
 	width: 83%;
 	min-width: 210px;
 	letter-spacing: -0.15rem;
-	margin: 0 auto -1.6rem auto;
+	margin: 0 auto;
 	box-shadow: var(--pixelBorder), 5px 0 var(--pink), -6px 0 var(--pink), 0 -6px var(--pink), 0 6px var(--pink), 0 0 0 3px var(--pink);
 }
 
@@ -655,7 +656,7 @@ p.scoringMessage  {
 	flex-wrap: wrap;
 	justify-content: center;
 	list-style: none;
-	padding: 0.5em 0 1.5em 0;
+	padding: 4em 0 1.5em 0;
 	background: rgba(255,255,255,0.4);
 	box-shadow: var(--pixelBorder), 5px 0 var(--pink), -6px 0 var(--pink), 0 -6px var(--pink), 0 6px var(--pink), 0 0 0 3px var(--pink)
 }
@@ -683,12 +684,26 @@ p.scoringMessage  {
 
 .pokeCaught {
 	opacity: 0;
+	cursor: pointer;
 	transform: translateX(-50px);
 	transition: all 0.3s ease-in-out;
 }
 .pokeCaught.active {
 	opacity: 1;
 	transform: translateX(0);
+}
+.pokeCaught.winner p {
+	color: var(--green2);
+}
+.guess {
+	margin-bottom: -5.5rem;
+	font-size: clamp(0.75rem,2vw,1rem);
+}
+.guess.correct {
+	color: var(--green2);
+}
+.not-allowed, .not-allowed li {
+	cursor: not-allowed;
 }
 .poke-load {
 	display: block;
@@ -747,15 +762,6 @@ p.scoringMessage  {
 	transform: rotateY(0deg);
 }
 
-footer a {
-	color: #c7ed8d;
-	text-decoration: underline;
-}
-
-footer a:hover {
-	color: #edf9da;
-}
-
 @media screen and (min-width: 600px) {
 	body { background-attachment: fixed; }
 	#pokematch {
@@ -793,20 +799,51 @@ footer a:hover {
 		flex-basis: 23%;
 		margin-bottom: 1.5rem;
 	}
+
+	.footerkinda {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		opacity: 1;
+		transition: all 0.5s ease-in-out;
+	}
+	.footerkinda p, .footerkinda button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 220px;
+		height: 34px;
+		text-align: center;
+	}
+	
 	.turns {
 		display: block;
 		font-size: 1.125rem;
 		color: var(--darkblue);
-		color: #33512b;
+		/* color: #33512b; */
+		background: var(--yellow);
 		text-shadow: 0 1px 0 rgba(255 255 255 / 0.2);
 		text-align: center;
 		text-transform: uppercase;
-		padding: 7px 10px;
-		width: 180px;
-		margin: 2rem auto 0 auto;
 		transition: all 0.5s ease-in-out;
+		box-shadow: var(--pixelBorder), 5px 0 var(--yellow), -6px 0 var(--yellow), 0 -6px var(--yellow), 0 6px var(--yellow), 0 0 0 3px var(--yellow);
 	}
-	.turns.hide {opacity: 0;}
+	.hide {opacity: 0;}
+	.power-ups {
+		border: none;
+		font-family: inherit;
+		font-size: 1.125rem;
+		background: var(--green);
+		color: #FFF;
+		box-shadow: var(--pixelBorder), 5px 0 var(--green), -6px 0 var(--green), 0 -6px var(--green), 0 6px var(--green), 0 0 0 3px var(--green);
+	}
+	.power-ups .icon-pokeball {
+		cursor: pointer;
+		fill: var(--lcolor8);
+		cursor: pointer;
+	}
+	
 	.muteBtn {
 		top: 20px;
 		right: 15px;
@@ -856,6 +893,17 @@ footer a:hover {
 	50% {background: hsl(15deg 100% 49% / 100%);}
 	75% {background: hsl(20deg 100% 49% / 100%);}
 	100% {background: hsl(25deg 100% 49% / 100%);}
+}
+
+@keyframes contrast-flash {
+	0% {filter: contrast(1);}
+	100% {filter: contrast(1.75);}
+}
+.animate-contrast {
+	animation-name: contrast-flash;
+	animation-duration: 0.5s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
 }
 
 .something {

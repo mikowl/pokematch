@@ -6,31 +6,51 @@ import ClockIcon from "./Icons/Clock";
 
 const GameOvered = ({
 	gameState,
+	setGameState,
 	deck,
 	handleNextGame,
 	handleRestart,
-	boardSize,
 	roundTime,
 }: {
 	gameState: GameData;
+	setGameState: Function;
 	deck: Pokemon[];
 	handleNextGame: () => void;
 	handleRestart: () => void;
-	boardSize: number;
 	roundTime: number | string;
 }) => {
-	const [activeIndex, setActiveIndex] = useState(-1);
-	const successSound = new Audio("/success.mp3");
+	const { boardSize, powerUps } = gameState;
+	console.log("powerUps", powerUps);
+	// 0 = no guess, 1 = correct guess, 2 = incorrect guess
+	const [batttleGuess, setBattleGuess] = useState<number>(0);
+	const averageScore = ((TOTAL_GENS * deck.length) / 2 / gameState.totalTurns) * 100;
 
 	useEffect(() => {
+		gameState.gen === TOTAL_GENS && pewpewpew();
+		const successSound = new Audio("/success.mp3");
 		if (gameState.gameWin && !gameState.mute) {
 			successSound.currentTime = 0;
 			successSound.play();
 		}
-		{
-			gameState.gen === TOTAL_GENS && pewpewpew();
+		const lis = document.querySelectorAll<HTMLLIElement>(".pokeCaught");
+
+		// add winner class to poke with highest stats
+		let highestStat = -Infinity;
+		let winner: HTMLLIElement | undefined;
+		for (const pc of lis) {
+			const stats = pc.dataset.stats;
+			if (stats) {
+				const statNum = parseInt(stats, 10);
+				if (statNum > highestStat) {
+					highestStat = statNum;
+					winner = pc;
+				}
+			}
 		}
-		const lis = document.querySelectorAll(".pokeCaught");
+		if (winner) {
+			winner.dataset.winner = "true";
+		}
+
 		let i = 0;
 		const intervalId = setInterval(() => {
 			setTimeout(() => {
@@ -39,25 +59,45 @@ const GameOvered = ({
 					return;
 				}
 				lis[i].classList.add("active");
-				setActiveIndex(activeIndex + 1);
 				i++;
 			}, 500);
 		}, 300);
 		return () => clearInterval(intervalId);
-	}, [deck, gameState.gameWin]);
-
-	const averageScore = ((TOTAL_GENS * deck.length) / 2 / gameState.totalTurns) * 100;
+	}, [gameState]);
 
 	const timeClass = () => {
 		console.log("boardSize", boardSize);
 		if (boardSize <= 12) {
 			if (timeToSeconds(roundTime) <= 20) return "fiyahhh flash";
 			if (timeToSeconds(roundTime) <= 26) return "flash";
+			return;
 		}
 		if (boardSize <= 16) {
 			if (timeToSeconds(roundTime) < 40) return "fiyahhh flash";
 			if (timeToSeconds(roundTime) <= 43) return "flash";
 		}
+	};
+
+	const handleWinnerGuess = (e: MouseEvent) => {
+		const currentTarget = e.currentTarget as HTMLLIElement;
+		if (currentTarget && currentTarget.dataset.winner === "true" && batttleGuess === 0) {
+			currentTarget.classList.add("animate-contrast", "winner");
+			setBattleGuess(1);
+			setGameState({ ...gameState, powerUps: powerUps + 1 });
+		} else {
+			// user can only guess once
+			setBattleGuess(2);
+		}
+	};
+
+	const getBattleMessage = () => {
+		if (batttleGuess === 0) {
+			return <p className="guess">Can you guess who'd win in a battle?</p>;
+		}
+		if (batttleGuess === 1) {
+			return <p className="guess correct">Correct! You get a power up next game!</p>;
+		}
+		return <p className="guess incorrect">Incorrect, try again next round</p>;
 	};
 
 	return (
@@ -66,23 +106,28 @@ const GameOvered = ({
 				<h2>{gameState.gen === TOTAL_GENS ? "Game Over!" : "You caught 'em all!"}</h2>
 				<div className="pokemonList">
 					<h3>Pokemon's Caught: </h3>
-					<ul className={`pokesCaught bs-${boardSize}`}>
-						{deck &&
-							[...new Set(deck)].map((pokemon) => (
-								<li
-									key={pokemon.id}
-									className={`pokeCaught${activeIndex === pokemon.id ? " active" : ""}`}
-								>
-									<img
-										src={pokemon.sprites.front_default}
-										alt={pokemon.name}
-										width="96"
-										height="96"
-									/>
-									<p>{pokemon.name}</p>
-								</li>
-							))}
-					</ul>
+					<div className={`battle ${batttleGuess === 2 ? "not-allowed" : ""}`}>
+						{getBattleMessage()}
+						<ul className={`pokesCaught bs-${boardSize}`}>
+							{deck &&
+								[...new Set(deck)].map((pokemon) => (
+									<li
+										key={pokemon.id}
+										className={`pokeCaught`}
+										data-stats={pokemon.stats.reduce((acc, curr) => acc + curr.base_stat, 0)}
+										onClick={handleWinnerGuess}
+									>
+										<img
+											src={pokemon.sprites.front_default}
+											alt={pokemon.name}
+											width="96"
+											height="96"
+										/>
+										<p>{pokemon.name}</p>
+									</li>
+								))}
+						</ul>
+					</div>
 				</div>
 				<p className="scoringMessage">{scoringMessages(gameState.turns)}</p>
 				<small className={`time ${timeClass()}`}>
