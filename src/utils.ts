@@ -65,6 +65,23 @@ const shuffle = (array: any[]) => {
 	return array.sort(() => Math.random() - 0.5);
 };
 
+// range utility
+// example:
+// {range(5).map((i) => (
+// 	<Comp key={i + 1} value={squares[i]} /> 
+// ))}
+const range = (start: number, end?: number, step = 1) => {
+	const output = [];
+	if (typeof end === 'undefined') {
+		end = start;
+		start = 0;
+	}
+	for (let i = start; i < end; i += step) {
+		output.push(i);
+	}
+	return output;
+};
+
 // format time to minutes and seconds function
 function formatTime(timestamp:number) {
 	const minutes = Math.floor(timestamp / 60000); // 1 minute = 60000 ms
@@ -102,19 +119,35 @@ type Rating = {
 	title: string;
 };
 
-const ratingThresholds: Rating[] = [
-	{ turns: 9, rating: "★★★★★", title: "-Pokematch Master-" },
-	{ turns: 13, rating: "★★★★☆", title: "-Pokematch Trainer-" },
-	{ turns: 15, rating: "★★★☆☆", title: "-Pokematch Rookie-" },
-	{ turns: 17, rating: "★★☆☆☆", title: "-Pokematch Beginner-" },
-	{ turns: Infinity, rating: "★☆☆☆☆", title: "-Pokematch Noob-" },
-];
+const ratingThresholds: { [key: number]: Rating[] } = {
+	4: [
+		{ turns: 2, rating: "★★★★★", title: "-Pokematch Master-" },
+		{ turns: 4, rating: "★★★☆☆", title: "-Pokematch Rookie-" },
+		{ turns: Infinity, rating: "★☆☆☆☆", title: "-Pokematch Noob-" },
+	],
+	12: [
+		{ turns: 9, rating: "★★★★★", title: "-Pokematch Master-" },
+		{ turns: 13, rating: "★★★★☆", title: "-Pokematch Trainer-" },
+		{ turns: 15, rating: "★★★☆☆", title: "-Pokematch Rookie-" },
+		{ turns: 17, rating: "★★☆☆☆", title: "-Pokematch Beginner-" },
+		{ turns: Infinity, rating: "★☆☆☆☆", title: "-Pokematch Noob-" },
+	],
+	16: [
+		{ turns: 12, rating: "★★★★★", title: "-Pokematch Master-" },
+		{ turns: 18, rating: "★★★★☆", title: "-Pokematch Trainer-" },
+		{ turns: 21, rating: "★★★☆☆", title: "-Pokematch Rookie-" },
+		{ turns: 24, rating: "★★☆☆☆", title: "-Pokematch Beginner-" },
+		{ turns: Infinity, rating: "★☆☆☆☆", title: "-Pokematch Noob-" },
+	]
+};
 
-const scoringMessages = (turns: number): string => {
-	const { rating, title } = ratingThresholds.find(
+const scoringMessages = (turns: number, boardSize: number): string => {
+	const size = boardSize === 12 ? 12 : 16;
+	const { rating, title } = ratingThresholds[size].find(
 		(threshold) => turns <= threshold.turns
 	)!;
 	return `${rating.padEnd(5, "☆")} ${title}`;
 };
 
-export { usePokemon, usePokemonById, shuffle, pewpewpew, scoringMessages, formatTime, timeToSeconds, TOTAL_GENS };
+
+export { usePokemon, usePokemonById, range, shuffle, pewpewpew, scoringMessages, formatTime, timeToSeconds, TOTAL_GENS };

@@ -8,19 +8,16 @@ const GameOvered = ({
 	gameState,
 	setGameState,
 	deck,
-	handleNextGame,
 	handleRestart,
 	roundTime,
 }: {
 	gameState: GameData;
 	setGameState: Function;
 	deck: Pokemon[];
-	handleNextGame: () => void;
 	handleRestart: () => void;
 	roundTime: number | string;
 }) => {
-	const { boardSize, powerUps } = gameState;
-	console.log("powerUps", powerUps);
+	const { boardSize, powerUps, gen, turns } = gameState;
 	// 0 = no guess, 1 = correct guess, 2 = incorrect guess
 	const [batttleGuess, setBattleGuess] = useState<number>(0);
 	const averageScore = ((TOTAL_GENS * deck.length) / 2 / gameState.totalTurns) * 100;
@@ -66,7 +63,6 @@ const GameOvered = ({
 	}, [gameState]);
 
 	const timeClass = () => {
-		console.log("boardSize", boardSize);
 		if (boardSize <= 12) {
 			if (timeToSeconds(roundTime) <= 20) return "fiyahhh flash";
 			if (timeToSeconds(roundTime) <= 26) return "flash";
@@ -83,21 +79,50 @@ const GameOvered = ({
 		if (currentTarget && currentTarget.dataset.winner === "true" && batttleGuess === 0) {
 			currentTarget.classList.add("animate-contrast", "winner");
 			setBattleGuess(1);
-			setGameState({ ...gameState, powerUps: powerUps + 1 });
+			setTimeout(() => {
+				setGameState({
+					...gameState,
+					startTime: Date.now(),
+					gen: gen + 1,
+					powerUps: powerUps + 1,
+				});
+			}, 3000);
 		} else {
 			// user can only guess once
+			setTimeout(() => {
+				setGameState({
+					...gameState,
+					startTime: Date.now(),
+					gen: gen + 1,
+				});
+			}, 3000);
 			setBattleGuess(2);
 		}
 	};
 
 	const getBattleMessage = () => {
 		if (batttleGuess === 0) {
-			return <p className="guess">Can you guess who'd win in a battle?</p>;
+			return (
+				<p className="guess guessimate wave">
+					<i>Guess</i> <i>who'd</i> <i>win</i> <i>in</i> <i>a</i> <i>battle</i> <i>to</i>{" "}
+					<i>receive</i> <i>a</i> <i>powerup</i>
+				</p>
+			);
 		}
 		if (batttleGuess === 1) {
-			return <p className="guess correct">Correct! You get a power up next game!</p>;
+			return (
+				<p className="guess correct">
+					Correct!
+					<br /> Reveal powerup obtained!
+				</p>
+			);
 		}
-		return <p className="guess incorrect">Incorrect, try again next round</p>;
+		return (
+			<p className="guess incorrect">
+				Incorrect.
+				<br /> Try again next round!
+			</p>
+		);
 	};
 
 	return (
@@ -129,13 +154,13 @@ const GameOvered = ({
 						</ul>
 					</div>
 				</div>
-				<p className="scoringMessage">{scoringMessages(gameState.turns)}</p>
+				<p className="scoringMessage">{scoringMessages(turns, boardSize)}</p>
 				<small className={`time ${timeClass()}`}>
 					<ClockIcon size={24} fill="#FFF" />
 					{roundTime}
 				</small>
 
-				{gameState.gen === TOTAL_GENS ? (
+				{gameState.gen === TOTAL_GENS && (
 					<p className="gameOveredMessage">
 						You have completed all 9 generations of Pokemon! <br /> score:{" "}
 						<strong>{(averageScore * 1.5).toFixed()}%</strong>
@@ -143,12 +168,6 @@ const GameOvered = ({
 							Play again?
 						</button>
 					</p>
-				) : (
-					<>
-						<button className={"btn nextGame"} onClick={handleNextGame}>
-							Start Gen {gameState.gen + 1}!
-						</button>
-					</>
 				)}
 			</div>
 		</>

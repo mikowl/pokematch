@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { usePokemon, TOTAL_GENS, formatTime } from "../utils";
+import { usePokemon, TOTAL_GENS, formatTime, range } from "../utils";
 import PokeCard from "./PokeCard";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
@@ -74,14 +74,6 @@ export default function Pokematch() {
 		});
 	}, [boardSize]);
 
-	const handleNextGame = () => {
-		setGameState({
-			...gameState,
-			startTime: Date.now(),
-			gen: gen + 1,
-		});
-	};
-
 	const handleRestart = () => {
 		setGameState({
 			...gameState,
@@ -107,20 +99,25 @@ export default function Pokematch() {
 		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
 	}, [gameWin]);
 
-	console.log("powerUps", powerUps);
-
 	const handlePowerUp = () => {
 		// power up will temporarily show all cards
 		const cards = document.querySelectorAll(".card-btn");
-		cards.forEach((card) => card.classList.add("flipped"));
+		// only add reveal class to cards that are not flipped
+		cards.forEach((card) => {
+			if (!card.classList.contains("flipped")) {
+				card.classList.add("reveal");
+			}
+		});
 		setGameState({
 			...gameState,
 			powerUps: powerUps - 1,
 		});
+
 		setTimeout(() => {
-			cards.forEach((card) => card.classList.remove("flipped"));
+			cards.forEach((card) => card.classList.remove("reveal"));
 		}, 1500);
 	};
+
 	let content;
 
 	if (boardSize === 0) {
@@ -161,14 +158,15 @@ export default function Pokematch() {
 						onClick={handlePowerUp}
 						{...(powerUps === 0 ? { disabled: true } : {})}
 					>
+						<span>Powerups</span>
 						{powerUps > 0 ? (
 							<>
-								Powerup: <Pokeball styles={{ marginRight: "6px" }} />
+								{range(powerUps).map((i) => (
+									<Pokeball key={i + 1} />
+								))}
 							</>
 						) : (
-							<>
-								No <Pokeball styles={{ marginRight: "6px" }} /> left
-							</>
+							0
 						)}
 					</button>
 					{deck && <p className="turns">Turns: {turns}</p>}
@@ -178,7 +176,6 @@ export default function Pokematch() {
 						gameState={gameState}
 						setGameState={setGameState}
 						deck={deck}
-						handleNextGame={handleNextGame}
 						handleRestart={handleRestart}
 						roundTime={roundTime}
 					/>
