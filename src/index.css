@@ -841,7 +841,7 @@ p.scoringMessage  {
 	#pokematch {
 		padding-top: 2rem;
 	}
-	h1 {margin: 1rem 0 2.5rem 0;}
+	h1 {margin: 1rem 0 4rem 0;}
 	h1 i {
 		transform: translate(11%, -4%);
 		min-width: 95px;

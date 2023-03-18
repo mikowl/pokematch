@@ -131,20 +131,27 @@ export default function Pokematch() {
 
 	if (boardSize === 0) {
 		content = (
-			<div className={"difficulty"}>
-				<h2>Choose Difficulty:</h2>
-				<button className={"btn easy"} onClick={handleDifficulty} value="12">
-					Easy
-				</button>
-				<button className={"btn hard"} onClick={handleDifficulty} value="16">
-					Hard
-				</button>
-				{import.meta.env.VITE_DEBUG == "TRUE" && (
-					<button className={"btn dbg"} onClick={handleDifficulty} value="4">
-						Dumb
+			<>
+				<p className={"instructions"}>
+					Match the Pokemon, complete all {TOTAL_GENS} generations to win!
+					<br />
+					Every round is unique!
+				</p>
+				<div className={"difficulty"}>
+					<h2>Choose Difficulty:</h2>
+					<button className={"btn easy"} onClick={handleDifficulty} value="12">
+						Easy
 					</button>
-				)}
-			</div>
+					<button className={"btn hard"} onClick={handleDifficulty} value="16">
+						Hard
+					</button>
+					{import.meta.env.VITE_DEBUG == "TRUE" && (
+						<button className={"btn dbg"} onClick={handleDifficulty} value="4">
+							Dumb
+						</button>
+					)}
+				</div>
+			</>
 		);
 	} else if (isFetching || isLoading) {
 		content = <Loader pokeball={true} />;
@@ -204,11 +211,6 @@ export default function Pokematch() {
 					GEN <span>{gen}</span>
 				</i>
 			</h1>
-			<p className={"instructions"}>
-				Match the Pokemon, complete all {TOTAL_GENS} generations to win!
-				<br />
-				Every round is unique!
-			</p>
 			{content}
 		</div>
 	);
