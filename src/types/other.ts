@@ -3,6 +3,7 @@ import { PokemonGeneration } from './pokemon';
 export type IconProps = {
 	size?: number;
 	fill?: string;
+	styles?: any;
 };
 
 export type GameData = {
@@ -14,6 +15,7 @@ export type GameData = {
 	difficulty: number;
 	boardSize: number;
 	startTime: number;
+	powerUps: number;
 }
 
 // export type BoardSize = { [key: number]: number } 

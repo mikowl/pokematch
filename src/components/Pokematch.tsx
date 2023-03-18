@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { usePokemon, TOTAL_GENS, formatTime } from "../utils";
+import { usePokemon, TOTAL_GENS, formatTime, range } from "../utils";
 import PokeCard from "./PokeCard";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
@@ -7,6 +7,7 @@ import { UseQueryResult } from "@tanstack/react-query";
 import Loader from "./Loader";
 import GameOvered from "./GameOvered";
 import MuteButton from "./MuteButton";
+import Pokeball from "./Icons/Pokeball";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
 
@@ -25,11 +26,12 @@ export default function Pokematch() {
 			difficulty: 0,
 			boardSize: 0,
 			startTime: 0,
+			powerUps: 0,
 		};
 	};
 
 	const [gameState, setGameState] = useState<GameData>(getInitialGameState());
-	const { gen, turns, gameWin, boardSize } = gameState;
+	const { gen, turns, gameWin, boardSize, powerUps } = gameState;
 
 	const { data, isLoading, isFetching, error, refetch }: PokemonData = usePokemon(gen, boardSize);
 	const [deck, setDeck] = useState<Pokemon[]>([]);
@@ -39,6 +41,7 @@ export default function Pokematch() {
 	const refetchData = async () => {
 		await refetch();
 	};
+
 	if (data && !isLoading) {
 		setDeck(data);
 	}
@@ -51,15 +54,7 @@ export default function Pokematch() {
 			startTime: Date.now(),
 			boardSize: board_size,
 		});
-		if (data) setDeck(data);
 	};
-
-	// after difficulty is chosen and board size is set, get data
-	useEffect(() => {
-		refetchData().then(() => {
-			reset();
-		});
-	}, [boardSize]);
 
 	const reset = () => {
 		if (data) setDeck(data);
@@ -72,13 +67,12 @@ export default function Pokematch() {
 		cards.forEach((card) => card.classList.remove("flipped"));
 	};
 
-	const handleNextGame = () => {
-		setGameState({
-			...gameState,
-			startTime: Date.now(),
-			gen: gen + 1,
+	// after difficulty is chosen and board size is set, get data
+	useEffect(() => {
+		refetchData().then(() => {
+			reset();
 		});
-	};
+	}, [boardSize]);
 
 	const handleRestart = () => {
 		setGameState({
@@ -104,6 +98,25 @@ export default function Pokematch() {
 		const body = document.querySelector("body");
 		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
 	}, [gameWin]);
+
+	const handlePowerUp = () => {
+		// power up will temporarily show all cards
+		const cards = document.querySelectorAll(".card-btn");
+		// only add reveal class to cards that are not flipped
+		cards.forEach((card) => {
+			if (!card.classList.contains("flipped")) {
+				card.classList.add("reveal");
+			}
+		});
+		setGameState({
+			...gameState,
+			powerUps: powerUps - 1,
+		});
+
+		setTimeout(() => {
+			cards.forEach((card) => card.classList.remove("reveal"));
+		}, 1500);
+	};
 
 	let content;
 
@@ -139,14 +152,33 @@ export default function Pokematch() {
 				<div className={`card-container deckgen-${gen} bs-${boardSize}`}>
 					{deck && <PokeCard pokemons={deck} gameState={gameState} setGameState={setGameState} />}
 				</div>
-				{deck && <p className={`turns ${gameWin ? "hide" : ""}`}>Turns: {turns}</p>}
+				{deck && (
+					<div className={`footerkinda ${gameWin ? "hide" : ""}`}>
+						<button
+							className={"power-ups"}
+							onClick={handlePowerUp}
+							{...(powerUps === 0 ? { disabled: true } : {})}
+						>
+							<span>Powerups</span>
+							{powerUps > 0 ? (
+								<>
+									{range(powerUps).map((i) => (
+										<Pokeball key={i + 1} />
+									))}
+								</>
+							) : (
+								0
+							)}
+						</button>
+						<p className="turns">Turns: {turns}</p>
+					</div>
+				)}
 				{gameWin && (
 					<GameOvered
 						gameState={gameState}
+						setGameState={setGameState}
 						deck={deck}
-						handleNextGame={handleNextGame}
 						handleRestart={handleRestart}
-						boardSize={boardSize}
 						roundTime={roundTime}
 					/>
 				)}

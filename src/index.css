@@ -6,6 +6,7 @@
 	--eggshell: #fffdcf;
 	--black: #2e2e2e;
 	--yellow: #f8b800;
+	--yellowtran: rgb(248 184 0 / 85%);
 	--yellowshade: #c7a008;
 	--blue: #0078f8;
 	--darkblue: #0000bc;
@@ -13,10 +14,12 @@
 	--red: #e74c3c;
 	--red2: #b64438;
 	--green: #00a800;
+	--greentran: rgb(26 195 20 / 90%);
 	--greenh: #0cc30c;
 	--green2: #1f7c1f;
 	--green2h: #349c34;
 	--purple: #9b59b6;
+	--purple2: #4338ca;
 	--pink: #f87858;
 	--pixelBorder: 4px 0 transparent, -4px 0 transparent, 0 -4px transparent, 0 4px transparent;
 	--lcolor1: #0000bc;
@@ -101,7 +104,7 @@ body {
 	background-repeat: no-repeat;
 	transition: opacity 0.5s ease-in-out;
 }
-body.game-over {
+body.game-over, html {
 	background: rgb(10 47 81);
 } 
 
@@ -139,7 +142,7 @@ body.game-over {
 .card-container.bs-16 .front .pokeCard img {
 	width: 60%;
 }
-.game-over .card-container {
+.game-over .card-container, .game-over h1 {
 	filter: blur(5px);
 }
 
@@ -300,7 +303,7 @@ h1 i span {
 	letter-spacing: -0.15rem;
 	padding: 7px 23px;
 	box-shadow: var(--pixelBorder), 5px 0 var(--green), -6px 0 var(--green), 0 -6px var(--green), 0 6px var(--green), 0 0 0 3px var(--green);
-	transition: all 0.2s ease-in-out;
+	transition: all 0.3s ease-in-out;
 }
 
 .btn:hover {
@@ -310,7 +313,7 @@ h1 i span {
 .instructions {
 	font-size: clamp(0.75rem, 1.5vw + 0.5rem, 1rem);
 	text-align: center;
-	color: var(--blue);
+	color: var(--darkblue);
 	text-transform: uppercase;
 	margin-top: -1rem;
 	line-height: 1.3;
@@ -476,7 +479,7 @@ h1 i span {
 
 .gameOvered {
 	position: fixed;
-	top: 1.75rem;
+	top: 50%;
 	left: 0;
 	right: 0;
 	color: var(--darkblue);
@@ -484,22 +487,22 @@ h1 i span {
 	text-align: center;
 	padding: 30px 20px 10px 20px;
 	width: calc(100% - 30px);
-	max-width: 570px;
+	max-width: 600px;
 	margin: 0 auto;
 	/* border: 7px solid var(--eggshell); */
 	box-shadow: var(--pixelBorder),
 	8px 0 #FFF, -8px 0 #FFF, 0 -8px #FFF, 0 8px #FFF, 0 0 0 4px #FFF;
 	/* border-radius: 0.75rem; */
-	transform: translateY(-120%);
+	transform: translateY(-180%);
 	transition: transform 0.75s ease-in;
 	z-index: 200;
 }
 .game-over .gameOvered {
-	transform: translateY(0);
+	transform: translateY(-50%);
 }
 .gameOvered.game-complete {
 	position: absolute;
-	background: #00fcfc;
+	background: var(--lcolorb6);
 }
 
 .gameOvered h2 {
@@ -513,6 +516,12 @@ h1 i span {
 }
 .gameOvered.game-complete h2 {
 	color: var(--red);
+}
+.gameOvered.game-complete h3 {
+	margin-bottom: -1.75rem;
+}
+.gameOvered.game-complete .pokesCaught {
+	padding: 1em 0 1.5em 0;
 }
 .gameOvered h2 span::before {
 	content: "'";
@@ -532,7 +541,7 @@ h1 i span {
 	width: 83%;
 	min-width: 210px;
 	letter-spacing: -0.15rem;
-	margin: 0 auto -1.6rem auto;
+	margin: 0 auto;
 	box-shadow: var(--pixelBorder), 5px 0 var(--pink), -6px 0 var(--pink), 0 -6px var(--pink), 0 6px var(--pink), 0 0 0 3px var(--pink);
 }
 
@@ -546,8 +555,13 @@ h1 i span {
 }
 
 .gameOveredMessage strong {
-	color: var(--lcolor3);
-	font-size: 1.2em;
+	color: var(--green2);
+	line-height: 1;
+	transform: translate(-7px);
+	display: inline-block;
+	background: rgb(255 206 52);
+	padding: 13px 10px;
+	border-radius: 100%;
 }
 p.scoringMessage  {
 	position: relative;
@@ -560,11 +574,64 @@ p.scoringMessage  {
 	margin: -21px -32px 1rem -32px;
 	letter-spacing: -0.15rem;
 }
-
-.turns {
-	display: none;
+.scoringMessage span {
+	color: var(--lcolorb9);
+	transform: translateY(-2px);
+	display: inline-block;
+	letter-spacing: 0.05rem;
 }
 
+
+.footerkinda {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	padding: 0 10px;
+	margin-top: 3.5rem;
+	opacity: 1;
+	transition: all 0.5s ease-in-out;
+}
+.hide {opacity: 0;}
+.footerkinda p, .footerkinda button {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 190px;
+	height: 34px;
+	text-align: center;
+}
+.footerkinda .turns {
+	display: none;
+}
+.power-ups {
+	border: none;
+	font-family: inherit;
+	font-size: 1.125rem;
+	background: var(--greentran);
+	color: #FFF;
+	box-shadow: var(--pixelBorder), 5px 0 var(--greentran), -6px 0 var(--greentran), 0 -6px var(--greentran), 0 6px var(--greentran), 0 0 0 3px var(--greentran);
+}
+.power-ups .icon-pokeball {
+	cursor: pointer;
+	fill: var(--lcolor8);
+	margin: 0 3px;
+}
+
+.power-ups span {
+	position: absolute;
+	top: -4px;
+	padding: 2px 10px;
+	background: var(--greentran);
+	transform: translateY(-100%);
+	color: #1a761c;
+	color: var(--eggshell);
+	border-bottom: 1px solid rgb(255 255 255 / 50%);
+	box-shadow: inset 0 -2px 0 rgb(0 0 0 / 20%);
+	font-size: 1rem;
+}
+	
 .restart.btn {
 	margin: 1rem auto -2.5rem auto;
 	border: none;
@@ -655,7 +722,7 @@ p.scoringMessage  {
 	flex-wrap: wrap;
 	justify-content: center;
 	list-style: none;
-	padding: 0.5em 0 1.5em 0;
+	padding: 4em 0 1.5em 0;
 	background: rgba(255,255,255,0.4);
 	box-shadow: var(--pixelBorder), 5px 0 var(--pink), -6px 0 var(--pink), 0 -6px var(--pink), 0 6px var(--pink), 0 0 0 3px var(--pink)
 }
@@ -667,7 +734,7 @@ p.scoringMessage  {
 	height: 100%;
 }
 .pokesCaught li {
-	flex-basis: calc(99.25% / 3);
+	flex-basis: calc(97.5% / 3);
 	margin-bottom: 1.5rem;
 }
 
@@ -683,12 +750,34 @@ p.scoringMessage  {
 
 .pokeCaught {
 	opacity: 0;
+	cursor: pointer;
 	transform: translateX(-50px);
 	transition: all 0.3s ease-in-out;
 }
 .pokeCaught.active {
 	opacity: 1;
 	transform: translateX(0);
+}
+.pokeCaught.winner p {
+	color: var(--green2);
+}
+.guess {
+	margin-bottom: -5.5rem;
+	font-size: clamp(0.75rem,2vw,1.25rem);
+	padding: 0 5px;
+	line-height: 1.4;
+}
+.guess.guessimate {
+	animation: blue-flash 0.75s ease-in-out infinite;
+}
+.guess.correct {
+	color: var(--green2);
+}
+.guess.incorrect {
+	color: var(--red);
+}
+.not-allowed, .not-allowed li {
+	cursor: not-allowed;
 }
 .poke-load {
 	display: block;
@@ -739,21 +828,12 @@ p.scoringMessage  {
 	height: 100%;
 	transform: rotateY(-180deg);
 }
-.flip.flipped > .front {
+.flip.flipped > .front,.flip.reveal > .front {
 	transform: rotateY(180deg);
 }
-.flip.flipped > .back {
+.flip.flipped > .back,.flip.reveal > .back  {
 	opacity: 1;
 	transform: rotateY(0deg);
-}
-
-footer a {
-	color: #c7ed8d;
-	text-decoration: underline;
-}
-
-footer a:hover {
-	color: #edf9da;
 }
 
 @media screen and (min-width: 600px) {
@@ -793,20 +873,22 @@ footer a:hover {
 		flex-basis: 23%;
 		margin-bottom: 1.5rem;
 	}
-	.turns {
-		display: block;
-		font-size: 1.125rem;
+	.guess {padding: 0 15px;}
+	.footerkinda {
+		justify-content: space-between;
+	}
+	.footerkinda .turns {
+		display: flex;
+		/* font-size: 1.125rem; */
 		color: var(--darkblue);
-		color: #33512b;
+		/* color: #33512b; */
+		background: var(--yellowtran);
 		text-shadow: 0 1px 0 rgba(255 255 255 / 0.2);
 		text-align: center;
 		text-transform: uppercase;
-		padding: 7px 10px;
-		width: 180px;
-		margin: 2rem auto 0 auto;
 		transition: all 0.5s ease-in-out;
+		box-shadow: var(--pixelBorder), 5px 0 var(--yellowtran), -6px 0 var(--yellowtran), 0 -6px var(--yellowtran), 0 6px var(--yellowtran), 0 0 0 3px var(--yellowtran);
 	}
-	.turns.hide {opacity: 0;}
 	.muteBtn {
 		top: 20px;
 		right: 15px;
@@ -856,6 +938,58 @@ footer a:hover {
 	50% {background: hsl(15deg 100% 49% / 100%);}
 	75% {background: hsl(20deg 100% 49% / 100%);}
 	100% {background: hsl(25deg 100% 49% / 100%);}
+}
+
+
+@keyframes blue-flash {
+	0% {color: hsl(240deg 70% 36.85%);}
+	100% {color: hsl(210deg 100% 36.85%);}
+}
+
+@keyframes wave {
+	0%,40%,100% {
+		transform: translateY(0)
+	}
+	20% {
+		transform: translateY(-3px)
+	}
+}
+
+.wave i {
+	display: inline-block;
+	animation: wave 1s infinite;
+	animation-delay: calc(.1s * var(--i));
+}
+.wave i:nth-child(1) {--i: 1;}
+.wave i:nth-child(2) {--i: 2;}
+.wave i:nth-child(3) {--i: 3;}
+.wave i:nth-child(4) {--i: 4;}
+.wave i:nth-child(5) {--i: 5;}
+.wave i:nth-child(6) {--i: 6;}
+.wave i:nth-child(7) {--i: 7;}
+.wave i:nth-child(8) {--i: 8;}
+.wave i:nth-child(9) {--i: 9;}
+.wave i:nth-child(10) {--i: 10;}
+.wave i:nth-child(11) {--i: 11;}
+.wave i:nth-child(12) {--i: 12;}
+.wave i:nth-child(13) {--i: 13;}
+
+.blue-flash {
+	animation-name: blue-flash;
+	animation-duration: 0.5s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+@keyframes contrast-flash {
+	0% {filter: contrast(1); transform: translateY(0)}
+	100% {filter: contrast(1.75); transform: translateY(-7px)}
+}
+.animate-contrast {
+	animation-name: contrast-flash;
+	animation-duration: 0.5s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
 }
 
 .something {
