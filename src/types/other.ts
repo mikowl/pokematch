@@ -7,6 +7,7 @@ export type IconProps = {
 };
 
 export type GameData = {
+	appVersion: string;
 	turns: number;
 	totalTurns: number;
 	gameWin: boolean;
