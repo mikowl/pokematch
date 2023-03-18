@@ -22,11 +22,9 @@ export default function Pokematch() {
 				localStorage.clear();
 				console.log("app updated, clearing localStorage...");
 			}
-		}
-
-		if (gameStateFromLocalStorage !== null) {
 			return JSON.parse(gameStateFromLocalStorage);
 		}
+
 		return {
 			appVersion: "1.5",
 			turns: 0,

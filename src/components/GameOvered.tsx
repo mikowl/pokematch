@@ -20,13 +20,7 @@ const GameOvered = ({
 	const { boardSize, powerUps, gen, turns } = gameState;
 	// 0 = no guess, 1 = correct guess, 2 = incorrect guess
 	const [batttleGuess, setBattleGuess] = useState<number>(0);
-	// const averageScore: number = (
-	// 	((TOTAL_GENS * deck.length) / 2 / gameState.totalTurns) *
-	// 	100 *
-	// 	1.5
-	// ).toFixed();
 	const averageScore: number = ((TOTAL_GENS * deck.length) / 2 / gameState.totalTurns) * 100 * 1.5;
-	console.log("averageScore", averageScore);
 	const convertScoreToGrade = (score: number) => {
 		if (score >= 96) return "A+";
 		if (score >= 93) return "A";
