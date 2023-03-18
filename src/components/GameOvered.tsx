@@ -1,4 +1,5 @@
-import { scoringMessages, pewpewpew, timeToSeconds, TOTAL_GENS } from "../utils";
+import { scoringMessages, pewpewpew, timeToSeconds } from "../utils";
+import { TOTAL_GENS } from "../api";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
 import { useEffect, useState } from "preact/hooks";
