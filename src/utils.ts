@@ -142,11 +142,14 @@ const ratingThresholds: { [key: number]: Rating[] } = {
 };
 
 const scoringMessages = (turns: number, boardSize: number): string => {
-	const size = boardSize === 12 ? 12 : 16;
-	const { rating, title } = ratingThresholds[size].find(
+	// const size = boardSize === 12 ? 12 : 16;
+	const { rating, title } = ratingThresholds[boardSize].find(
 		(threshold) => turns <= threshold.turns
 	)!;
-	return `${rating.padEnd(5, "☆")} ${title}`;
+	// wrap stars in span tag
+	// return `${rating.padEnd(5, "☆")} ${title}`;
+	return `<span>${rating}</span> ${title}`;
+	
 };
 
 

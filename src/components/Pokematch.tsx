@@ -152,25 +152,27 @@ export default function Pokematch() {
 				<div className={`card-container deckgen-${gen} bs-${boardSize}`}>
 					{deck && <PokeCard pokemons={deck} gameState={gameState} setGameState={setGameState} />}
 				</div>
-				<div className={`footerkinda ${gameWin ? "hide" : ""}`}>
-					<button
-						className={"power-ups"}
-						onClick={handlePowerUp}
-						{...(powerUps === 0 ? { disabled: true } : {})}
-					>
-						<span>Powerups</span>
-						{powerUps > 0 ? (
-							<>
-								{range(powerUps).map((i) => (
-									<Pokeball key={i + 1} />
-								))}
-							</>
-						) : (
-							0
-						)}
-					</button>
-					{deck && <p className="turns">Turns: {turns}</p>}
-				</div>
+				{deck && (
+					<div className={`footerkinda ${gameWin ? "hide" : ""}`}>
+						<button
+							className={"power-ups"}
+							onClick={handlePowerUp}
+							{...(powerUps === 0 ? { disabled: true } : {})}
+						>
+							<span>Powerups</span>
+							{powerUps > 0 ? (
+								<>
+									{range(powerUps).map((i) => (
+										<Pokeball key={i + 1} />
+									))}
+								</>
+							) : (
+								0
+							)}
+						</button>
+						<p className="turns">Turns: {turns}</p>
+					</div>
+				)}
 				{gameWin && (
 					<GameOvered
 						gameState={gameState}

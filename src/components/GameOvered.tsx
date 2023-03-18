@@ -20,12 +20,41 @@ const GameOvered = ({
 	const { boardSize, powerUps, gen, turns } = gameState;
 	// 0 = no guess, 1 = correct guess, 2 = incorrect guess
 	const [batttleGuess, setBattleGuess] = useState<number>(0);
-	const averageScore = ((TOTAL_GENS * deck.length) / 2 / gameState.totalTurns) * 100;
+	// const averageScore: number = (
+	// 	((TOTAL_GENS * deck.length) / 2 / gameState.totalTurns) *
+	// 	100 *
+	// 	1.5
+	// ).toFixed();
+	const averageScore: number = ((TOTAL_GENS * deck.length) / 2 / gameState.totalTurns) * 100 * 1.5;
+	console.log("averageScore", averageScore);
+	const convertScoreToGrade = (score: number) => {
+		if (score >= 96) return "A+";
+		if (score >= 93) return "A";
+		if (score >= 90) return "A-";
+		if (score >= 86) return "B+";
+		if (score >= 83) return "B";
+		if (score >= 80) return "B-";
+		if (score >= 76) return "C+";
+		if (score >= 73) return "C";
+		if (score >= 70) return "C-";
+		if (score >= 66) return "D+";
+		if (score >= 63) return "D";
+		if (score >= 60) return "D-";
+		return "F";
+	};
 
 	useEffect(() => {
-		gameState.gen === TOTAL_GENS && pewpewpew();
+		const gameOverSound = new Audio("/gameover.mp3");
+		if (gameState.gen === TOTAL_GENS) {
+			pewpewpew();
+			if (!gameState.mute) {
+				gameOverSound.currentTime = 0;
+				gameOverSound.play();
+			}
+		}
+
 		const successSound = new Audio("/success.mp3");
-		if (gameState.gameWin && !gameState.mute) {
+		if (gameState.gameWin && !gameState.mute && gameState.gen !== TOTAL_GENS) {
 			successSound.currentTime = 0;
 			successSound.play();
 		}
@@ -79,6 +108,12 @@ const GameOvered = ({
 		if (currentTarget && currentTarget.dataset.winner === "true" && batttleGuess === 0) {
 			currentTarget.classList.add("animate-contrast", "winner");
 			setBattleGuess(1);
+			// play success2 sound
+			const successSound = new Audio("/success2.mp3");
+			if (!gameState.mute) {
+				successSound.currentTime = 0;
+				successSound.play();
+			}
 			setTimeout(() => {
 				setGameState({
 					...gameState,
@@ -132,7 +167,7 @@ const GameOvered = ({
 				<div className="pokemonList">
 					<h3>Pokemon's Caught: </h3>
 					<div className={`battle ${batttleGuess === 2 ? "not-allowed" : ""}`}>
-						{getBattleMessage()}
+						{gameState.gen !== TOTAL_GENS && getBattleMessage()}
 						<ul className={`pokesCaught bs-${boardSize}`}>
 							{deck &&
 								[...new Set(deck)].map((pokemon) => (
@@ -154,16 +189,19 @@ const GameOvered = ({
 						</ul>
 					</div>
 				</div>
-				<p className="scoringMessage">{scoringMessages(turns, boardSize)}</p>
+				<p
+					className="scoringMessage"
+					dangerouslySetInnerHTML={{ __html: scoringMessages(turns, boardSize) }}
+				/>
 				<small className={`time ${timeClass()}`}>
 					<ClockIcon size={24} fill="#FFF" />
 					{roundTime}
 				</small>
-
+				{/* GAME COMPLETE */}
 				{gameState.gen === TOTAL_GENS && (
 					<p className="gameOveredMessage">
-						You have completed all 9 generations of Pokemon! <br /> score:{" "}
-						<strong>{(averageScore * 1.5).toFixed()}%</strong>
+						All 9 generations complete! <br /> score:{" "}
+						<strong>{convertScoreToGrade(averageScore)}</strong>
 						<button className={"btn restart"} onClick={handleRestart}>
 							Play again?
 						</button>

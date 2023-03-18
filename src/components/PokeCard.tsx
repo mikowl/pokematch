@@ -47,7 +47,7 @@ export default function PokeCard({
 						setTimeout(() => {
 							beep.currentTime = 0;
 							beep.play();
-						}, 500);
+						}, 300);
 					}
 					// Check if the game has been won
 					if (matchedCards.length === pokemons.length - 2) {
