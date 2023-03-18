@@ -360,7 +360,7 @@ h1 i span {
 }
 
 .btn.dbg {filter: hue-rotate(315deg);}
-
+.footerkinda .btn.dbg {margin: 0;}
 .error {
 	font-size: 1.25rem;
 	color: var(--darkblue);
@@ -581,7 +581,25 @@ p.scoringMessage  {
 	letter-spacing: 0.05rem;
 }
 
+/* to add in header:
+Pokematching: ★★★☆☆ / Pokemon caught: 22/54 / Avg. Time: ):41 */
 
+header {
+	width: 100%;
+	background: var(--darkblue);
+	padding: 8px 0;
+	position: absolute;
+	font-size: 1rem;
+	top: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+header p {
+	margin: 0;
+	font-size: 0.9375rem;
+	line-height: 1;
+}
 .footerkinda {
 	display: flex;
 	justify-content: center;
@@ -751,6 +769,7 @@ p.scoringMessage  {
 .pokeCaught {
 	opacity: 0;
 	cursor: pointer;
+	touch-action: manipulation;
 	transform: translateX(-50px);
 	transition: all 0.3s ease-in-out;
 }

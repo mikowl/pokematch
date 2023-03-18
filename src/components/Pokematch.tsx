@@ -1,5 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
-import { usePokemon, TOTAL_GENS, formatTime, range } from "../utils";
+import { formatTime, range } from "../utils";
+import { usePokemon, TOTAL_GENS } from "../api";
 import PokeCard from "./PokeCard";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
@@ -87,9 +88,11 @@ export default function Pokematch() {
 		setGameState({
 			...gameState,
 			difficulty: 0,
+			turns: 0,
 			totalTurns: 0,
 			gen: 1,
 			boardSize: 0,
+			powerUps: 0,
 		});
 	};
 
@@ -186,6 +189,11 @@ export default function Pokematch() {
 								0
 							)}
 						</button>
+						{import.meta.env.VITE_DEBUG == "TRUE" && (
+							<button className={"btn dbg"} onClick={handleRestart}>
+								Restart
+							</button>
+						)}
 						<p className="turns">Turns: {turns}</p>
 					</div>
 				)}
