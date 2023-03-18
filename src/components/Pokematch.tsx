@@ -13,20 +13,20 @@ type PokemonData = UseQueryResult<Pokemon[], Error>;
 
 export default function Pokematch() {
 	const getInitialGameState = (): GameData => {
+		const APP_VERSION = "1.5";
+		if (localStorage.getItem("appVersion") !== String(APP_VERSION)) {
+			// Clear localStorage
+			localStorage.clear();
+			console.log("game updated, clearing local storage...");
+			// Update app version
+			localStorage.setItem("appVersion", String(APP_VERSION));
+		}
 		const gameStateFromLocalStorage = localStorage.getItem("gameState");
-
-		// check if localStorage contains powerUps
 		if (gameStateFromLocalStorage !== null) {
-			const localPower = JSON.parse(gameStateFromLocalStorage).powerUps;
-			if (localPower === undefined) {
-				localStorage.clear();
-				console.log("app updated, clearing localStorage...");
-			}
 			return JSON.parse(gameStateFromLocalStorage);
 		}
 
 		return {
-			appVersion: "1.5",
 			turns: 0,
 			totalTurns: 0,
 			gameWin: false,
