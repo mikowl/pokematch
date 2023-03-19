@@ -9,6 +9,7 @@ import Loader from "./Loader";
 import GameOvered from "./GameOvered";
 import MuteButton from "./MuteButton";
 import Pokeball from "./Icons/Pokeball";
+import Refresh from "./Icons/Refresh";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
 
@@ -189,11 +190,14 @@ export default function Pokematch() {
 								0
 							)}
 						</button>
-						{import.meta.env.VITE_DEBUG == "TRUE" && (
-							<button className={"btn dbg"} onClick={handleRestart}>
-								Restart
+						<MuteButton gameState={gameState} setGameState={setGameState} />
+						<div class="restart-container">
+							<button className={"btn refresh"} onClick={handleRestart}>
+								<Refresh size={26} fill="#fff" />
+								<br />
 							</button>
-						)}
+							<span>Restart</span>
+						</div>
 						<p className="turns">Turns: {turns}</p>
 					</div>
 				)}
@@ -212,7 +216,6 @@ export default function Pokematch() {
 
 	return (
 		<div className={`gcolor${gen}`}>
-			<MuteButton gameState={gameState} setGameState={setGameState} />
 			<h1>
 				Pokematch{" "}
 				<i class={`gcolor${gen}`}>
