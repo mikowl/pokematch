@@ -19,10 +19,11 @@
   - ~~End game screen for passing gen 9~~
   - ~~Local storage to save current level and mute state~~
   - ~~Powerups~~
-  - Since introducing the pokemon battle after round we can probably get rid of the "Next" game button and instead progress to the next round after choosing, I think this will be a better ux
+  - ~~Since introducing the pokemon battle after round we can probably get rid of the "Next" game button and instead progress to the next round after choosing, I think this will be a better ux~~
   - Improve "game over" screen
 
 - Powerup ideas
   - Time freeze
   - Double points
   - Hint (flip over one matching pair)
+  - "Milk" the reveal powerup, give user 3 chances to choose the winning pokemon, based on how good they do, the reveal will be longer or shorter 

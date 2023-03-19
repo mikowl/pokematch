@@ -190,15 +190,14 @@ export default function Pokematch() {
 								0
 							)}
 						</button>
-						{import.meta.env.VITE_DEBUG == "TRUE" && (
-							<div class="restart-container">
-								<button className={"btn refresh"} onClick={handleRestart}>
-									<Refresh size={26} fill="#fff" />
-									<br />
-								</button>
-								<span>Restart</span>
-							</div>
-						)}
+						<MuteButton gameState={gameState} setGameState={setGameState} />
+						<div class="restart-container">
+							<button className={"btn refresh"} onClick={handleRestart}>
+								<Refresh size={26} fill="#fff" />
+								<br />
+							</button>
+							<span>Restart</span>
+						</div>
 						<p className="turns">Turns: {turns}</p>
 					</div>
 				)}
@@ -217,7 +216,6 @@ export default function Pokematch() {
 
 	return (
 		<div className={`gcolor${gen}`}>
-			<MuteButton gameState={gameState} setGameState={setGameState} />
 			<h1>
 				Pokematch{" "}
 				<i class={`gcolor${gen}`}>

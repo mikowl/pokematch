@@ -50,6 +50,7 @@
 	--gcolor7: #feb472;
 	--gcolor8: #5e3f89;
 	--gcolor9: #a56868;
+	--muteBtnBg: var(--eggshell);
 	font-family: 'Gameboy', Helvetica, Arial, sans-serif;
 	font-size: 16px;
 	line-height: 24px;
@@ -376,8 +377,7 @@ h1 i span {
 	8px 0 var(--blue), -8px 0 var(--blue), 0 -8px var(--blue), 0 8px var(--blue), 0 0 0 4px var(--blue);
 }
 .restart-container {
-	margin-top: 11px;
-	transform: translateY(6px);
+	transform: translateY(13px);
 }
 .restart-container span {
 	display: inline-block;
@@ -681,21 +681,19 @@ header p {
 	border-radius: 0;
 	box-shadow: var(--pixelBorder), 5px 0 #FFF, -6px 0 #FFF, 0 -6px #FFF, 0 6px #FFF, 0 0 0 3px #FFF;
 }
-.muteBtn {
-	position: absolute;
-	bottom: 8px;
-	right: 10px;
+.muteBtn button {
+	cursor: pointer;
+	border: none;
+	background: var(--muteBtnBg);
+	padding: 6px 15px;
+	min-width: auto;
+	box-shadow: var(--pixelBorder),
+	8px 0 var(--muteBtnBg), -8px 0 var(--muteBtnBg), 0 -8px var(--muteBtnBg), 0 8px var(--muteBtnBg), 0 0 0 4px var(--muteBtnBg);
 }
 
 .muteBtn svg {
 	width: 24px;
 	height: 24px;
-}
-
-.muteBtn button {
-	cursor: pointer;
-	background: none;
-	border: none;
 }
 
 .time {
@@ -925,9 +923,6 @@ header p {
 		text-transform: uppercase;
 		transition: all 0.5s ease-in-out;
 		box-shadow: var(--pixelBorder), 5px 0 var(--yellowtran), -6px 0 var(--yellowtran), 0 -6px var(--yellowtran), 0 6px var(--yellowtran), 0 0 0 3px var(--yellowtran);
-	}
-	.restart-container {
-		transform: translateY(0);
 	}
 	.muteBtn {
 		top: 20px;
