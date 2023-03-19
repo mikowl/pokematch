@@ -2,6 +2,7 @@ import { useState } from "preact/hooks";
 import { GameData } from "../types/other";
 import { Pokemon } from "../types/pokemon";
 import { Fragment } from "preact/jsx-runtime";
+import Pokeball2 from "./Icons/Pokeball2";
 
 export default function PokeCard({
 	pokemons,
@@ -94,7 +95,8 @@ export default function PokeCard({
 						<div className="front">
 							<div className="pokeCard">
 								<div className="inner">
-									<img src={"/pokeball.png"} alt="Pokeball" width="73" height="73" />
+									{/* <img src={"/pokeball.png"} alt="Pokeball" width="73" height="73" /> */}
+									<Pokeball2 size={73} />
 								</div>
 							</div>
 						</div>
