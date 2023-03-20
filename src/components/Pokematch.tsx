@@ -142,17 +142,26 @@ export default function Pokematch() {
 					Every round is unique!
 				</p>
 				<div className={"difficulty"}>
-					<h2>Choose Difficulty:</h2>
+					<h2 className={"blue-flash"}>Choose Difficulty:</h2>
 					<button className={"btn easy"} onClick={handleDifficulty} value="12">
 						Easy
 					</button>
-					<button className={"btn hard"} onClick={handleDifficulty} value="16">
+					<button className={"btn medium"} onClick={handleDifficulty} value="16">
+						Medium
+					</button>
+					<button className={"btn hard"} onClick={handleDifficulty} value="20">
 						Hard
 					</button>
+					<p>Hard recommended for desktop only</p>
 					{import.meta.env.VITE_DEBUG == "TRUE" && (
-						<button className={"btn dbg"} onClick={handleDifficulty} value="4">
-							Dumb
-						</button>
+						<>
+							<br />
+							<br />
+							<br />
+							<button className={"btn dbg"} onClick={handleDifficulty} value="4">
+								Debug
+							</button>
+						</>
 					)}
 				</div>
 			</>

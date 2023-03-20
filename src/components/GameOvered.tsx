@@ -95,6 +95,11 @@ const GameOvered = ({
 		if (boardSize <= 16) {
 			if (timeToSeconds(roundTime) < 40) return "fiyahhh flash";
 			if (timeToSeconds(roundTime) <= 43) return "flash";
+			return;
+		}
+		if (boardSize <= 20) {
+			if (timeToSeconds(roundTime) < 60) return "fiyahhh flash";
+			if (timeToSeconds(roundTime) <= 70) return "flash";
 		}
 	};
 

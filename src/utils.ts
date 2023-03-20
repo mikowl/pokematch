@@ -1,5 +1,4 @@
 import confetti from "canvas-confetti";
-import { Rating } from "./types/other";
 
 export const shuffle = (array: any[]) => {
 	return array.sort(() => Math.random() - 0.5);
@@ -53,36 +52,21 @@ export const pewpewpew = () => {
 	setTimeout(omgConfetti, 2000);
 };
 
-export const ratingThresholds: { [key: number]: Rating[] } = {
-	4: [
-		{ turns: 2, rating: "★★★★★", title: "-Pokematch Master-" },
-		{ turns: 4, rating: "★★★☆☆", title: "-Pokematch Rookie-" },
-		{ turns: Infinity, rating: "★☆☆☆☆", title: "-Pokematch Noob-" },
-	],
-	12: [
-		{ turns: 9, rating: "★★★★★", title: "-Pokematch Master-" },
-		{ turns: 13, rating: "★★★★☆", title: "-Pokematch Trainer-" },
-		{ turns: 15, rating: "★★★☆☆", title: "-Pokematch Rookie-" },
-		{ turns: 17, rating: "★★☆☆☆", title: "-Pokematch Beginner-" },
-		{ turns: Infinity, rating: "★☆☆☆☆", title: "-Pokematch Noob-" },
-	],
-	16: [
-		{ turns: 12, rating: "★★★★★", title: "-Pokematch Master-" },
-		{ turns: 18, rating: "★★★★☆", title: "-Pokematch Trainer-" },
-		{ turns: 21, rating: "★★★☆☆", title: "-Pokematch Rookie-" },
-		{ turns: 24, rating: "★★☆☆☆", title: "-Pokematch Beginner-" },
-		{ turns: Infinity, rating: "★☆☆☆☆", title: "-Pokematch Noob-" },
-	]
-};
+
+export const ratingThresholds = (boardSize: number) => [
+	{ turns: Math.floor(boardSize * 0.75), rating: "★★★★★", title: "-Pokematch Master-" },
+	{ turns: Math.floor(boardSize * 1.1), rating: "★★★★☆", title: "-Pokematch Trainer-" },
+	{ turns: Math.floor(boardSize * 1.25), rating: "★★★☆☆", title: "-Pokematch Rookie-" },
+	{ turns: Math.floor(boardSize * 1.5), rating: "★★☆☆☆", title: "-Pokematch Beginner-" },
+	{ turns: Infinity, rating: "★☆☆☆☆", title: "-Pokematch Noob-" },
+];
 
 export const scoringMessages = (turns: number, boardSize: number): string => {
-	// const size = boardSize === 12 ? 12 : 16;
-	const { rating, title } = ratingThresholds[boardSize].find(
+	const { rating, title } = ratingThresholds(boardSize).find(
 		(threshold) => turns <= threshold.turns
 	)!;
-	// wrap stars in span tag
-	// return `${rating.padEnd(5, "☆")} ${title}`;
 	return `<span>${rating}</span> ${title}`;
 };
+
 
 

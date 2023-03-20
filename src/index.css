@@ -12,7 +12,8 @@
 	--darkblue: #0000bc;
 	--skyblue: #3cbcfc;
 	--red: #e74c3c;
-	--red2: #b64438;
+	--red2: #9f1111;
+	--orange: #d54217;
 	--green: #00a800;
 	--greentran: rgb(26 195 20 / 90%);
 	--greenh: #0cc30c;
@@ -251,6 +252,9 @@ i.gcolor9 { text-shadow: var(--blue) -4px -4px 0, var(--blue) 4px -4px 0, var(--
 .bs-16 .card-btn {
 	flex: calc(25% - 1.5rem);
 }
+.bs-20 .card-btn {
+	flex: calc(20% - 1.75rem)
+}
 h1 {
 	position: relative;
 	font-size: clamp(1.75rem, 5vw + 0.5rem, 3rem);
@@ -337,24 +341,19 @@ h1 i span {
 .difficulty h2 {
 	color: var(--darkblue);
 }
+.difficulty p {
+	color: var(--red2);
+	font-size: 1rem;
+}
 .difficulty .btn {
 	display: inline-block;
 	margin: 1rem;
 	padding: 6px 27px;
 	border: none;
 	border-radius: 0;
+	width: calc(100% - 32px);
 }
 
-.btn.hard {
-	background: var(--red2);
-	box-shadow: var(--pixelBorder),
-	8px 0 var(--red2), -8px 0 var(--red2), 0 -8px var(--red2), 0 8px var(--red2), 0 0 0 4px var(--red2);
-}
-
-.btn.hard:hover {
-	background: var(--red2);
-	filter: contrast(1.3);
-}
 .btn.easy {
 	background: var(--green2);
 	box-shadow: var(--pixelBorder),
@@ -365,6 +364,25 @@ h1 i span {
 	filter: contrast(1.3) brightness(1.2);
 }
 
+.btn.medium {
+	background: var(--orange);
+	box-shadow: var(--pixelBorder),
+	8px 0 var(--orange), -8px 0 var(--orange), 0 -8px var(--orange), 0 8px var(--orange), 0 0 0 4px var(--orange);
+}
+.btn.medium:hover {
+	background: var(--orange);
+	filter: contrast(1.3) brightness(1.2);
+}
+.btn.hard {
+	background: var(--red2);
+	box-shadow: var(--pixelBorder),
+	8px 0 var(--red2), -8px 0 var(--red2), 0 -8px var(--red2), 0 8px var(--red2), 0 0 0 4px var(--red2);
+}
+
+.btn.hard:hover {
+	background: var(--red2);
+	filter: contrast(1.3);
+}
 .btn.dbg {filter: hue-rotate(315deg);}
 
 .footerkinda .btn.dbg,.footerkinda .btn.refresh {margin: 0;}
@@ -917,10 +935,12 @@ header p {
 		width: 20vh;
 		width: 20dvh;
 	}
-	.pokesCaught.bs-16 li {
+	.pokesCaught.bs-16 li,
+	.pokesCaught.bs-20 li {
 		flex-basis: 23%;
 		margin-bottom: 1.5rem;
 	}
+	.difficulty .btn { width: auto; }
 	.guess {padding: 0 15px;}
 	.footerkinda {
 		justify-content: space-between;
@@ -1031,6 +1051,12 @@ header p {
 .wave i:nth-child(11) {--i: 11;}
 .wave i:nth-child(12) {--i: 12;}
 .wave i:nth-child(13) {--i: 13;}
+.wave i:nth-child(14) {--i: 14;}
+.wave i:nth-child(15) {--i: 15;}
+.wave i:nth-child(16) {--i: 16;}
+.wave i:nth-child(17) {--i: 17;}
+.wave i:nth-child(18) {--i: 17;}
+.wave i:nth-child(19) {--i: 19;}
 
 .blue-flash {
 	animation-name: blue-flash;
@@ -1048,10 +1074,4 @@ header p {
 	animation-duration: 0.5s;
 	animation-iteration-count: infinite;
 	animation-direction: alternate;
-}
-
-.something {
-	animation-name: color-flash;
-	animation-duration: 0.5s;
-	animation-iteration-count: infinite;
 }
