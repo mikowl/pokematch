@@ -1,4 +1,4 @@
-import { scoringMessages, pewpewpew, sleep, timeToSeconds } from "../utils";
+import { scoringMessages, pewpewpew, timeToSeconds } from "../utils";
 import { TOTAL_GENS } from "../api";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
