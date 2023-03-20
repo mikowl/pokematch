@@ -313,7 +313,7 @@ h1 i span {
 	letter-spacing: -0.15rem;
 	padding: 7px 23px;
 	box-shadow: var(--pixelBorder), 5px 0 var(--green), -6px 0 var(--green), 0 -6px var(--green), 0 6px var(--green), 0 0 0 3px var(--green);
-	transition: all 0.3s ease-in-out;
+	transition: filter 0.3s ease-in-out;
 }
 
 .btn:hover {

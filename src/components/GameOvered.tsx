@@ -171,7 +171,11 @@ const GameOvered = ({
 				<h2>{gameState.gen === TOTAL_GENS ? "Game Over!" : "You caught 'em all!"}</h2>
 				<div className="pokemonList">
 					<h3>Pokemon's Caught: </h3>
-					<div className={`battle ${batttleGuess === 2 ? "not-allowed" : ""}`}>
+					<div
+						className={`battle ${
+							batttleGuess === 2 || gameState.gen === TOTAL_GENS ? "not-allowed" : ""
+						}`}
+					>
 						{gameState.gen !== TOTAL_GENS && getBattleMessage()}
 						<ul className={`pokesCaught bs-${boardSize}`}>
 							{deck &&
@@ -180,7 +184,11 @@ const GameOvered = ({
 										key={pokemon.id}
 										className={`pokeCaught`}
 										data-stats={pokemon.stats.reduce((acc, curr) => acc + curr.base_stat, 0)}
-										onClick={batttleGuess === 0 ? handleWinnerGuess : undefined}
+										onClick={
+											batttleGuess === 0 && TOTAL_GENS !== gameState.gen
+												? handleWinnerGuess
+												: undefined
+										}
 									>
 										<img
 											src={pokemon.sprites.front_default}

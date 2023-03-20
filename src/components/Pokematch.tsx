@@ -15,7 +15,7 @@ type PokemonData = UseQueryResult<Pokemon[], Error>;
 
 export default function Pokematch() {
 	const getInitialGameState = (): GameData => {
-		const APP_VERSION = "1.5";
+		const APP_VERSION = "1.6";
 		if (localStorage.getItem("appVersion") !== String(APP_VERSION)) {
 			// Clear localStorage
 			localStorage.clear();
