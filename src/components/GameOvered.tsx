@@ -1,4 +1,4 @@
-import { scoringMessages, pewpewpew, timeToSeconds } from "../utils";
+import { scoringMessages, pewpewpew, sleep, timeToSeconds } from "../utils";
 import { TOTAL_GENS } from "../api";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
@@ -100,7 +100,7 @@ const GameOvered = ({
 
 	const handleWinnerGuess = (e: MouseEvent) => {
 		const currentTarget = e.currentTarget as HTMLLIElement;
-		if (currentTarget && currentTarget.dataset.winner === "true" && batttleGuess === 0) {
+		if (currentTarget && currentTarget.dataset.winner === "true") {
 			currentTarget.classList.add("animate-contrast", "winner");
 			setBattleGuess(1);
 			// play success2 sound
@@ -118,6 +118,11 @@ const GameOvered = ({
 				});
 			}, 3000);
 		} else {
+			const failSound = new Audio("/fail.mp3");
+			if (!gameState.mute) {
+				failSound.currentTime = 0;
+				failSound.play();
+			}
 			// user can only guess once
 			setTimeout(() => {
 				setGameState({
@@ -170,7 +175,7 @@ const GameOvered = ({
 										key={pokemon.id}
 										className={`pokeCaught`}
 										data-stats={pokemon.stats.reduce((acc, curr) => acc + curr.base_stat, 0)}
-										onClick={handleWinnerGuess}
+										onClick={batttleGuess === 0 ? handleWinnerGuess : undefined}
 									>
 										<img
 											src={pokemon.sprites.front_default}

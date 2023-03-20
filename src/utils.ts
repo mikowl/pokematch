@@ -83,7 +83,6 @@ export const scoringMessages = (turns: number, boardSize: number): string => {
 	// wrap stars in span tag
 	// return `${rating.padEnd(5, "☆")} ${title}`;
 	return `<span>${rating}</span> ${title}`;
-	
 };
 
 

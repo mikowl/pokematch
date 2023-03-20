@@ -377,6 +377,7 @@ h1 i span {
 	8px 0 var(--blue), -8px 0 var(--blue), 0 -8px var(--blue), 0 8px var(--blue), 0 0 0 4px var(--blue);
 }
 .restart-container {
+	display: none;
 	transform: translateY(13px);
 }
 .restart-container span {
@@ -924,6 +925,7 @@ header p {
 		transition: all 0.5s ease-in-out;
 		box-shadow: var(--pixelBorder), 5px 0 var(--yellowtran), -6px 0 var(--yellowtran), 0 -6px var(--yellowtran), 0 6px var(--yellowtran), 0 0 0 3px var(--yellowtran);
 	}
+	.restart-container { display: block; }
 	.muteBtn {
 		top: 20px;
 		right: 15px;
