@@ -117,6 +117,7 @@ const GameOvered = ({
 			setTimeout(() => {
 				setGameState({
 					...gameState,
+					gameWin: false,
 					startTime: Date.now(),
 					gen: gen + 1,
 					powerUps: powerUps + 1,
@@ -132,6 +133,7 @@ const GameOvered = ({
 			setTimeout(() => {
 				setGameState({
 					...gameState,
+					gameWin: false,
 					startTime: Date.now(),
 					gen: gen + 1,
 				});
@@ -165,6 +167,13 @@ const GameOvered = ({
 		);
 	};
 
+	// we need to do this funky thing to ensure we only show unique pokemon
+	// we stringify the pokemon object and then parse it back to an object
+	// this way we can compare the objects
+	const uniquePokemon = [...new Set(deck.map((pokemon) => JSON.stringify(pokemon)))].map(
+		(pokemon) => JSON.parse(pokemon)
+	);
+
 	return (
 		<>
 			<div className={`gameOvered ${gameState.gen === 9 ? "game-complete" : ""}`}>
@@ -178,27 +187,29 @@ const GameOvered = ({
 					>
 						{gameState.gen !== TOTAL_GENS && getBattleMessage()}
 						<ul className={`pokesCaught bs-${boardSize}`}>
-							{deck &&
-								[...new Set(deck)].map((pokemon) => (
-									<li
-										key={pokemon.id}
-										className={`pokeCaught`}
-										data-stats={pokemon.stats.reduce((acc, curr) => acc + curr.base_stat, 0)}
-										onClick={
-											batttleGuess === 0 && TOTAL_GENS !== gameState.gen
-												? handleWinnerGuess
-												: undefined
-										}
-									>
-										<img
-											src={pokemon.sprites.front_default}
-											alt={pokemon.name}
-											width="96"
-											height="96"
-										/>
-										<p>{pokemon.name}</p>
-									</li>
-								))}
+							{uniquePokemon.map((pokemon, i) => (
+								<li
+									key={`${pokemon.id}-${i}`}
+									className={`pokeCaught`}
+									data-stats={pokemon.stats.reduce(
+										(acc: number, curr: { base_stat: number }) => acc + curr.base_stat,
+										0
+									)}
+									onClick={
+										batttleGuess === 0 && TOTAL_GENS !== gameState.gen
+											? handleWinnerGuess
+											: undefined
+									}
+								>
+									<img
+										src={pokemon.sprites.front_default}
+										alt={pokemon.name}
+										width="96"
+										height="96"
+									/>
+									<p>{pokemon.name}</p>
+								</li>
+							))}
 						</ul>
 					</div>
 				</div>

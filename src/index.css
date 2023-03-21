@@ -261,7 +261,7 @@ h1 {
 	color: var(--yellow);
 	font-weight: 800;
 	text-transform: uppercase;
-	margin: 0.75rem 0 2rem -1em;
+	margin: 2.5rem 0 2rem -1em;
 	text-shadow:rgba(0, 0, 0, 0.9) 0px 1px 0;
 	text-shadow:
 		var(--lcolor1) -4px -4px 0,
@@ -394,17 +394,16 @@ h1 i span {
 	box-shadow: var(--pixelBorder),
 	8px 0 var(--blue), -8px 0 var(--blue), 0 -8px var(--blue), 0 8px var(--blue), 0 0 0 4px var(--blue);
 }
-.restart-container {
-	/* display: none; */
-	transform: translateY(13px);
+.restart-container { 
+	transform: translate(0, 13px);
 }
 .restart-container span {
-    display: inline-block;
-    font-size: 0.7rem;
-    letter-spacing: -0.05rem;
-    transform: translate(-8px, 4px);
-    color: var(--blue);
-    margin-right: -9px;
+	display: inline-block;
+	font-size: 0.7rem;
+	letter-spacing: -0.05rem;
+	transform: translate(-8px, 4px);
+	color: var(--blue);
+	margin-right: -13px;
 }
 .error {
 	font-size: 1.25rem;
@@ -645,6 +644,12 @@ header p {
 	font-size: 0.9375rem;
 	line-height: 1;
 }
+header .timer {
+	background: var(--lcolorb5);
+	padding: 8px 5px 6px 5px;
+	transform: translateY(1px);
+}
+.header-turns {display:none;}
 .footerkinda {
 	display: flex;
 	justify-content: space-between;
@@ -914,7 +919,7 @@ header p {
 	#pokematch {
 		padding-top: 2rem;
 	}
-	h1 {margin: 1rem 0 4rem 0;}
+	h1 {margin: 2rem 0 4rem 0;}
 	h1 i {
 		transform: translate(11%, -4%);
 		min-width: 100px;
@@ -942,6 +947,7 @@ header p {
 	}
 	.difficulty .btn { width: auto; }
 	.guess {padding: 0 15px;}
+	.header-turns {display:inline;}
 	.footerkinda {
 		justify-content: space-between;
 	}
@@ -958,7 +964,9 @@ header p {
 		transition: all 0.5s ease-in-out;
 		box-shadow: var(--pixelBorder), 5px 0 var(--yellowtran), -6px 0 var(--yellowtran), 0 -6px var(--yellowtran), 0 6px var(--yellowtran), 0 0 0 3px var(--yellowtran);
 	}
-	.restart-container { display: block; }
+	.restart-container { 
+		transform: translate(-100%, 13px);
+	}
 	.muteBtn {
 		top: 20px;
 		right: 15px;

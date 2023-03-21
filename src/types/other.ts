@@ -9,6 +9,7 @@ export type IconProps = {
 export type GameData = {
 	turns: number;
 	totalTurns: number;
+	totalCaught: number;
 	gameWin: boolean;
 	gen: PokemonGeneration;
 	mute: boolean;

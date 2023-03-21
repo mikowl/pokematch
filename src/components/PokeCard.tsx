@@ -18,7 +18,7 @@ export default function PokeCard({
 	const [flippedCards, setFlippedCards] = useState<HTMLButtonElement[]>([]);
 	const [matchedCards, setMatchedCards] = useState<Cards>([]);
 	const [isProcessing, setIsProcessing] = useState<boolean>(false);
-	const { turns, totalTurns, mute } = gameState;
+	const { turns, totalTurns, totalCaught, mute } = gameState;
 	const beep = new Audio("/beepalt.mp3");
 
 	const handleCardFlip = (e: MouseEvent) => {
@@ -42,6 +42,12 @@ export default function PokeCard({
 					// Match found
 					setMatchedCards([...matchedCards, card, card1]);
 					setFlippedCards([]);
+					setGameState({
+						...gameState,
+						turns: turns + 1,
+						totalTurns: totalTurns + 1,
+						totalCaught: totalCaught + 1,
+					});
 					// Play sound on card match
 					if (!mute) {
 						// delay the sound so it doesn't play too fast
@@ -57,6 +63,7 @@ export default function PokeCard({
 								...gameState,
 								turns: turns + 1,
 								totalTurns: totalTurns + 1,
+								totalCaught: totalCaught + 1,
 								gameWin: true,
 							});
 							setMatchedCards([]);
@@ -65,6 +72,11 @@ export default function PokeCard({
 					}
 				} else {
 					// No match found
+					setGameState({
+						...gameState,
+						turns: turns + 1,
+						totalTurns: totalTurns + 1,
+					});
 					setIsProcessing(true);
 					setTimeout(() => {
 						card1.classList.remove("flipped");
@@ -73,11 +85,6 @@ export default function PokeCard({
 						setIsProcessing(false);
 					}, 1000);
 				}
-				setGameState({
-					...gameState,
-					turns: turns + 1,
-					totalTurns: totalTurns + 1,
-				});
 			}
 		}
 	};
