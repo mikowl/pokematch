@@ -191,7 +191,10 @@ const GameOvered = ({
 								<li
 									key={`${pokemon.id}-${i}`}
 									className={`pokeCaught`}
-									data-stats={pokemon.stats.reduce((acc, curr) => acc + curr.base_stat, 0)}
+									data-stats={pokemon.stats.reduce(
+										(acc: number, curr: { base_stat: number }) => acc + curr.base_stat,
+										0
+									)}
 									onClick={
 										batttleGuess === 0 && TOTAL_GENS !== gameState.gen
 											? handleWinnerGuess
