@@ -10,12 +10,13 @@ import GameOvered from "./GameOvered";
 import MuteButton from "./MuteButton";
 import Pokeball from "./Icons/Pokeball";
 import Refresh from "./Icons/Refresh";
+import Header from "./Header";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
 
 export default function Pokematch() {
 	const getInitialGameState = (): GameData => {
-		const APP_VERSION = "1.6";
+		const APP_VERSION = "1.7";
 		if (localStorage.getItem("appVersion") !== String(APP_VERSION)) {
 			// Clear localStorage
 			localStorage.clear();
@@ -31,6 +32,7 @@ export default function Pokematch() {
 		return {
 			turns: 0,
 			totalTurns: 0,
+			totalCaught: 0,
 			gameWin: false,
 			gen: 1,
 			mute: false,
@@ -42,7 +44,7 @@ export default function Pokematch() {
 	};
 
 	const [gameState, setGameState] = useState<GameData>(getInitialGameState());
-	const { gen, turns, gameWin, boardSize, powerUps } = gameState;
+	const { gen, gameWin, boardSize, powerUps } = gameState;
 
 	const { data, isLoading, isFetching, error, refetch }: PokemonData = usePokemon(gen, boardSize);
 	const [deck, setDeck] = useState<Pokemon[]>([]);
@@ -91,6 +93,7 @@ export default function Pokematch() {
 			difficulty: 0,
 			turns: 0,
 			totalTurns: 0,
+			totalCaught: 0,
 			gen: 1,
 			boardSize: 0,
 			powerUps: 0,
@@ -110,7 +113,7 @@ export default function Pokematch() {
 		setRoundTime(roundTime);
 		const body = document.querySelector("body");
 		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
-	}, [gameWin]);
+	}, [gameState.startTime, gameWin]);
 
 	const handlePowerUp = () => {
 		// power up will temporarily show all cards
@@ -199,7 +202,6 @@ export default function Pokematch() {
 								0
 							)}
 						</button>
-						<MuteButton gameState={gameState} setGameState={setGameState} />
 						<div class="restart-container">
 							<button className={"btn refresh"} onClick={handleRestart}>
 								<Refresh size={26} fill="#fff" />
@@ -207,7 +209,7 @@ export default function Pokematch() {
 							</button>
 							<span>Restart</span>
 						</div>
-						<p className="turns">Turns: {turns}</p>
+						<MuteButton gameState={gameState} setGameState={setGameState} />
 					</div>
 				)}
 				{gameWin && (
@@ -224,14 +226,17 @@ export default function Pokematch() {
 	}
 
 	return (
-		<div className={`gcolor${gen}`}>
-			<h1>
-				Pokematch{" "}
-				<i class={`gcolor${gen}`}>
-					GEN <span>{gen}</span>
-				</i>
-			</h1>
-			{content}
-		</div>
+		<>
+			<Header gameState={gameState} />
+			<div className={`gcolor${gen}`}>
+				<h1>
+					Pokematch{" "}
+					<i class={`gcolor${gen}`}>
+						GEN <span>{gen}</span>
+					</i>
+				</h1>
+				{content}
+			</div>
+		</>
 	);
 }
