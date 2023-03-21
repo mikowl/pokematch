@@ -345,6 +345,15 @@ h1 i span {
 	color: var(--red2);
 	font-size: 1rem;
 }
+.difficulty .tip {
+	position: absolute;
+	bottom: 25px;
+	padding: 0 15px;
+	text-align: center;
+	width: 100%;
+	left: 0;
+	color: #39642d;
+}
 .difficulty .btn {
 	display: inline-block;
 	margin: 1rem;
@@ -649,7 +658,12 @@ header .timer {
 	padding: 8px 5px 6px 5px;
 	transform: translateY(1px);
 }
-.header-turns {display:none;}
+.header-turns {display:none; transition: all 0.3s ease-in-out;}
+.header-turns.highlight {
+	background: var(--yellow);
+	color: var(--darkblue);
+	padding: 8px 5px 6px 5px;
+}
 .footerkinda {
 	display: flex;
 	justify-content: space-between;
@@ -919,7 +933,7 @@ header .timer {
 	#pokematch {
 		padding-top: 2rem;
 	}
-	h1 {margin: 2rem 0 4rem 0;}
+	h1 {margin: 3rem 0 4rem 0;}
 	h1 i {
 		transform: translate(11%, -4%);
 		min-width: 100px;

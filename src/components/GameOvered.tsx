@@ -1,9 +1,10 @@
-import { scoringMessages, pewpewpew, timeToSeconds } from "../utils";
+import { scoringMessages, convertScoreToGrade, pewpewpew, timeClass } from "../utils";
 import { TOTAL_GENS } from "../api";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
 import { useEffect, useState } from "preact/hooks";
 import ClockIcon from "./Icons/Clock";
+import { playSoundEffect } from "../sounds";
 
 const GameOvered = ({
 	gameState,
@@ -18,40 +19,19 @@ const GameOvered = ({
 	handleRestart: () => void;
 	roundTime: number | string;
 }) => {
-	const { boardSize, powerUps, gen, turns } = gameState;
+	const { boardSize, powerUps, gen, turns, mute } = gameState;
 	// 0 = no guess, 1 = correct guess, 2 = incorrect guess
 	const [batttleGuess, setBattleGuess] = useState<number>(0);
 	const averageScore: number = ((TOTAL_GENS * deck.length) / 2 / gameState.totalTurns) * 100 * 1.5;
-	const convertScoreToGrade = (score: number) => {
-		if (score >= 96) return "A+";
-		if (score >= 93) return "A";
-		if (score >= 90) return "A-";
-		if (score >= 86) return "B+";
-		if (score >= 83) return "B";
-		if (score >= 80) return "B-";
-		if (score >= 76) return "C+";
-		if (score >= 73) return "C";
-		if (score >= 70) return "C-";
-		if (score >= 66) return "D+";
-		if (score >= 63) return "D";
-		if (score >= 60) return "D-";
-		return "F";
-	};
 
 	useEffect(() => {
-		const gameOverSound = new Audio("/gameover.mp3");
 		if (gameState.gen === TOTAL_GENS) {
 			pewpewpew();
-			if (!gameState.mute) {
-				gameOverSound.currentTime = 0;
-				gameOverSound.play();
-			}
+			playSoundEffect("gameOver", mute);
 		}
 
-		const successSound = new Audio("/success.mp3");
-		if (gameState.gameWin && !gameState.mute && gameState.gen !== TOTAL_GENS) {
-			successSound.currentTime = 0;
-			successSound.play();
+		if (gameState.gameWin && gameState.gen !== TOTAL_GENS) {
+			playSoundEffect("success", mute);
 		}
 		const lis = document.querySelectorAll<HTMLLIElement>(".pokeCaught");
 
@@ -86,55 +66,28 @@ const GameOvered = ({
 		return () => clearInterval(intervalId);
 	}, [gameState]);
 
-	const timeClass = () => {
-		if (boardSize <= 12) {
-			if (timeToSeconds(roundTime) <= 20) return "fiyahhh flash";
-			if (timeToSeconds(roundTime) <= 26) return "flash";
-			return;
-		}
-		if (boardSize <= 16) {
-			if (timeToSeconds(roundTime) < 40) return "fiyahhh flash";
-			if (timeToSeconds(roundTime) <= 43) return "flash";
-			return;
-		}
-		if (boardSize <= 20) {
-			if (timeToSeconds(roundTime) < 60) return "fiyahhh flash";
-			if (timeToSeconds(roundTime) <= 70) return "flash";
-		}
-	};
-
 	const handleWinnerGuess = (e: MouseEvent) => {
 		const currentTarget = e.currentTarget as HTMLLIElement;
 		if (currentTarget && currentTarget.dataset.winner === "true") {
 			currentTarget.classList.add("animate-contrast", "winner");
 			setBattleGuess(1);
 			// play success2 sound
-			const successSound = new Audio("/success2.mp3");
-			if (!gameState.mute) {
-				successSound.currentTime = 0;
-				successSound.play();
-			}
+			playSoundEffect("success2", mute);
 			setTimeout(() => {
 				setGameState({
 					...gameState,
 					gameWin: false,
-					startTime: Date.now(),
 					gen: gen + 1,
 					powerUps: powerUps + 1,
 				});
 			}, 3000);
 		} else {
-			const failSound = new Audio("/fail.mp3");
-			if (!gameState.mute) {
-				failSound.currentTime = 0;
-				failSound.play();
-			}
+			playSoundEffect("fail", mute);
 			// user can only guess once
 			setTimeout(() => {
 				setGameState({
 					...gameState,
 					gameWin: false,
-					startTime: Date.now(),
 					gen: gen + 1,
 				});
 			}, 3000);
@@ -217,7 +170,7 @@ const GameOvered = ({
 					className="scoringMessage"
 					dangerouslySetInnerHTML={{ __html: scoringMessages(turns, boardSize) }}
 				/>
-				<small className={`time ${timeClass()}`}>
+				<small className={`time ${timeClass(boardSize, roundTime)}`}>
 					<ClockIcon size={24} fill="#FFF" />
 					{roundTime}
 				</small>

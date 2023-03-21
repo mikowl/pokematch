@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useCallback, useEffect, useState } from "preact/hooks";
 import { formatTime, range } from "../utils";
 import { usePokemon, TOTAL_GENS } from "../api";
 import PokeCard from "./PokeCard";
@@ -50,7 +50,7 @@ export default function Pokematch() {
 	const [deck, setDeck] = useState<Pokemon[]>([]);
 
 	const [roundTime, setRoundTime] = useState<number | string>(0);
-
+	console.log("is fetching: ", isFetching, "is loading: ", isLoading);
 	const refetchData = async () => {
 		await refetch();
 	};
@@ -73,6 +73,7 @@ export default function Pokematch() {
 		if (data) setDeck(data);
 		setGameState({
 			...gameState,
+			startTime: Date.now(),
 			turns: 0,
 			gameWin: false,
 		});
@@ -115,7 +116,7 @@ export default function Pokematch() {
 		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
 	}, [gameState.startTime, gameWin]);
 
-	const handlePowerUp = () => {
+	const handlePowerUp = useCallback(() => {
 		// power up will temporarily show all cards
 		const cards = document.querySelectorAll(".card-btn");
 		// only add reveal class to cards that are not flipped
@@ -132,7 +133,21 @@ export default function Pokematch() {
 		setTimeout(() => {
 			cards.forEach((card) => card.classList.remove("reveal"));
 		}, 1500);
-	};
+	}, [gameState, powerUps]);
+
+	// use power up on spacebar press
+	useEffect(() => {
+		const handleSpacebar = (e: KeyboardEvent) => {
+			if (e.code === "Space" && powerUps > 0 && gameWin === false) {
+				e.preventDefault();
+				handlePowerUp();
+			}
+		};
+		document.addEventListener("keydown", handleSpacebar);
+		return () => {
+			document.removeEventListener("keydown", handleSpacebar);
+		};
+	}, [gameWin, handlePowerUp, powerUps]);
 
 	let content;
 
@@ -143,6 +158,7 @@ export default function Pokematch() {
 					Match the Pokemon, complete all {TOTAL_GENS} generations to win!
 					<br />
 					Every round is unique!
+					<br />
 				</p>
 				<div className={"difficulty"}>
 					<h2 className={"blue-flash"}>Choose Difficulty:</h2>
@@ -166,6 +182,7 @@ export default function Pokematch() {
 							</button>
 						</>
 					)}
+					<p className="tip">Tip: Press spacebar to use power ups</p>
 				</div>
 			</>
 		);
@@ -227,7 +244,7 @@ export default function Pokematch() {
 
 	return (
 		<>
-			<Header gameState={gameState} />
+			<Header gameState={gameState} isFetching={isFetching} />
 			<div className={`gcolor${gen}`}>
 				<h1>
 					Pokematch{" "}
