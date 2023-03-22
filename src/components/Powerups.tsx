@@ -11,7 +11,6 @@ export const randomPower = () => {
 
 const Powerups = ({ gameState, setGameState }: { gameState: GameData; setGameState: Function }) => {
 	const { mute, powerUps2, turns, totalTurns } = gameState;
-	console.log(powerUps2);
 
 	const revealPower = (i: number) => {
 		playSoundEffect("success2", mute);
@@ -34,7 +33,6 @@ const Powerups = ({ gameState, setGameState }: { gameState: GameData; setGameSta
 	};
 
 	const turnsPower = (i: number) => {
-		console.log("turns power", turns, totalTurns);
 		const turnsEl = document.querySelector(".header-turns");
 		turnsEl?.classList.add("animate-turns");
 		setTimeout(() => {

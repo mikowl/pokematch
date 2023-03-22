@@ -61,7 +61,6 @@ export default function Pokematch() {
 	if (data && !isLoading) {
 		setDeck(data);
 	}
-	console.log(gameState);
 	const handleDifficulty = (e: MouseEvent) => {
 		const target = e.target as HTMLInputElement;
 		const board_size = parseInt(target.value, 10);

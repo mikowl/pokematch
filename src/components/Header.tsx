@@ -6,8 +6,7 @@ import Timer from "./Timer";
 const Header = ({ gameState, isFetching }: { gameState: GameData; isFetching: boolean }) => {
 	const { gameWin, boardSize, turns, totalTurns, gen, totalCaught } = gameState;
 	const roundTime = formatTime(Date.now() - gameState.startTime);
-	const averageScore: number = ((gen * boardSize) / 2 / totalTurns) * 100 * 1.5;
-	console.log(averageScore);
+	// const averageScore: number = ((gen * boardSize) / 2 / totalTurns) * 100 * 1.5;
 	// To add: Pokematching: ★★★☆☆
 	return (
 		<header>
