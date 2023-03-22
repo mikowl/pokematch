@@ -682,6 +682,13 @@ header .timer {
 }
 .power-ups {
 	position: relative;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 34px;
+	text-align: center;
+
 	border: none;
 	font-family: inherit;
 	font-size: 1.125rem;
