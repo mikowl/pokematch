@@ -19,20 +19,21 @@ const GameOvered = ({
 	handleRestart: () => void;
 	roundTime: number | string;
 }) => {
-	const { boardSize, powerUps, gen, turns, mute } = gameState;
+	const { boardSize, gameWin, powerUps, gen, turns, totalTurns, mute } = gameState;
 	// 0 = no guess, 1 = correct guess, 2 = incorrect guess
 	const [batttleGuess, setBattleGuess] = useState<number>(0);
-	const averageScore: number = ((TOTAL_GENS * deck.length) / 2 / gameState.totalTurns) * 100 * 1.5;
+	const averageScore: number = ((TOTAL_GENS * deck.length) / 2 / totalTurns) * 100 * 1.5;
 
 	useEffect(() => {
-		if (gameState.gen === TOTAL_GENS) {
+		if (gameWin && gen !== TOTAL_GENS) {
+			playSoundEffect("success", mute);
+		}
+		// game over music and fireworks
+		if (gen === TOTAL_GENS) {
 			pewpewpew();
 			playSoundEffect("gameOver", mute);
 		}
 
-		if (gameState.gameWin && gameState.gen !== TOTAL_GENS) {
-			playSoundEffect("success", mute);
-		}
 		const lis = document.querySelectorAll<HTMLLIElement>(".pokeCaught");
 
 		// add winner class to poke with highest stats
@@ -70,9 +71,9 @@ const GameOvered = ({
 		const currentTarget = e.currentTarget as HTMLLIElement;
 		if (currentTarget && currentTarget.dataset.winner === "true") {
 			currentTarget.classList.add("animate-contrast", "winner");
-			setBattleGuess(1);
 			// play success2 sound
 			playSoundEffect("success2", mute);
+			setBattleGuess(1);
 			setTimeout(() => {
 				setGameState({
 					...gameState,
@@ -129,16 +130,14 @@ const GameOvered = ({
 
 	return (
 		<>
-			<div className={`gameOvered ${gameState.gen === 9 ? "game-complete" : ""}`}>
-				<h2>{gameState.gen === TOTAL_GENS ? "Game Over!" : "You caught 'em all!"}</h2>
+			<div className={`gameOvered ${gen === 9 ? "game-complete" : ""}`}>
+				<h2>{gen === TOTAL_GENS ? "Game Over!" : "You caught 'em all!"}</h2>
 				<div className="pokemonList">
 					<h3>Pokemon's Caught: </h3>
 					<div
-						className={`battle ${
-							batttleGuess === 2 || gameState.gen === TOTAL_GENS ? "not-allowed" : ""
-						}`}
+						className={`battle ${batttleGuess === 2 || gen === TOTAL_GENS ? "not-allowed" : ""}`}
 					>
-						{gameState.gen !== TOTAL_GENS && getBattleMessage()}
+						{gen !== TOTAL_GENS && getBattleMessage()}
 						<ul className={`pokesCaught bs-${boardSize}`}>
 							{uniquePokemon.map((pokemon, i) => (
 								<li
@@ -148,11 +147,7 @@ const GameOvered = ({
 										(acc: number, curr: { base_stat: number }) => acc + curr.base_stat,
 										0
 									)}
-									onClick={
-										batttleGuess === 0 && TOTAL_GENS !== gameState.gen
-											? handleWinnerGuess
-											: undefined
-									}
+									onClick={batttleGuess === 0 && TOTAL_GENS !== gen ? handleWinnerGuess : undefined}
 								>
 									<img
 										src={pokemon.sprites.front_default}
@@ -176,7 +171,7 @@ const GameOvered = ({
 					{roundTime}
 				</small>
 				{/* GAME COMPLETE */}
-				{gameState.gen === TOTAL_GENS && (
+				{gen === TOTAL_GENS && (
 					<p className="gameOveredMessage">
 						All 9 generations complete! <br /> score:{" "}
 						<strong>{convertScoreToGrade(averageScore)}</strong>
