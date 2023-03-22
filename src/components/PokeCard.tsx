@@ -3,6 +3,7 @@ import { GameData } from "../types/other";
 import { Pokemon } from "../types/pokemon";
 import { Fragment } from "preact/jsx-runtime";
 import Pokeball2 from "./Icons/Pokeball2";
+import { playSoundEffect } from "../sounds";
 
 export default function PokeCard({
 	pokemons,
@@ -19,7 +20,6 @@ export default function PokeCard({
 	const [matchedCards, setMatchedCards] = useState<Cards>([]);
 	const [isProcessing, setIsProcessing] = useState<boolean>(false);
 	const { turns, totalTurns, totalCaught, mute } = gameState;
-	const beep = new Audio("/beepalt.mp3");
 
 	const handleCardFlip = (e: MouseEvent) => {
 		// Get the clicked card
@@ -49,13 +49,10 @@ export default function PokeCard({
 						totalCaught: totalCaught + 1,
 					});
 					// Play sound on card match
-					if (!mute) {
-						// delay the sound so it doesn't play too fast
-						setTimeout(() => {
-							beep.currentTime = 0;
-							beep.play();
-						}, 300);
-					}
+					// delay the sound so it doesn't play too fast
+					setTimeout(() => {
+						playSoundEffect("beep", mute);
+					}, 200);
 					// Check if the game has been won
 					if (matchedCards.length === pokemons.length - 2) {
 						setTimeout(() => {

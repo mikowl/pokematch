@@ -3,6 +3,7 @@ interface SoundEffects {
 }
 
 export const soundEffects: SoundEffects = {
+	beep: new Audio("/beepalt.mp3"),
 	gameOver: new Audio("/gameover.mp3"),
 	success: new Audio("/success.mp3"),
 	success2: new Audio("/success2.mp3"),
