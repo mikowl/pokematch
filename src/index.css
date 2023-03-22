@@ -346,13 +346,7 @@ h1 i span {
 	font-size: 1rem;
 }
 .difficulty .tip {
-	position: absolute;
-	bottom: 25px;
-	padding: 0 15px;
-	text-align: center;
-	width: 100%;
-	left: 0;
-	color: #39642d;
+	display: none;
 }
 .difficulty .btn {
 	display: inline-block;
@@ -984,6 +978,16 @@ header .timer {
 	.muteBtn {
 		top: 20px;
 		right: 15px;
+	}
+	.difficulty .tip {
+		display: block;
+		position: absolute;
+		bottom: 18px;
+		padding: 0 15px;
+		text-align: center;
+		width: 100%;
+		left: 0;
+		color: #39642d;
 	}
 }
 @media screen and (min-width: 768px) {

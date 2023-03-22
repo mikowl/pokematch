@@ -1,4 +1,3 @@
-import { BoardSize } from './types/other';
 import confetti from "canvas-confetti";
 
 export const shuffle = (array: any[]) => {

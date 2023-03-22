@@ -168,6 +168,7 @@ const GameOvered = ({
 				</div>
 				<p
 					className="scoringMessage"
+					// eslint-disable-next-line react/no-danger
 					dangerouslySetInnerHTML={{ __html: scoringMessages(turns, boardSize) }}
 				/>
 				<small className={`time ${timeClass(boardSize, roundTime)}`}>

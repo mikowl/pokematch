@@ -11,12 +11,15 @@ import MuteButton from "./MuteButton";
 import Pokeball from "./Icons/Pokeball";
 import Refresh from "./Icons/Refresh";
 import Header from "./Header";
+import { createContext } from "preact";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
 
+export const GameStateContext = createContext({} as GameData);
+
 export default function Pokematch() {
 	const getInitialGameState = (): GameData => {
-		const APP_VERSION = "1.7";
+		const APP_VERSION = "1.8";
 		if (localStorage.getItem("appVersion") !== String(APP_VERSION)) {
 			// Clear localStorage
 			localStorage.clear();
@@ -34,12 +37,12 @@ export default function Pokematch() {
 			totalTurns: 0,
 			totalCaught: 0,
 			gameWin: false,
+			startTime: 0,
+			powerUps: 0,
 			gen: 1,
 			mute: false,
 			difficulty: 0,
 			boardSize: 0,
-			startTime: 0,
-			powerUps: 0,
 		};
 	};
 
@@ -50,7 +53,6 @@ export default function Pokematch() {
 	const [deck, setDeck] = useState<Pokemon[]>([]);
 
 	const [roundTime, setRoundTime] = useState<number | string>(0);
-	console.log("is fetching: ", isFetching, "is loading: ", isLoading);
 	const refetchData = async () => {
 		await refetch();
 	};
