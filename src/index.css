@@ -669,7 +669,7 @@ header .timer {
 	transition: all 0.5s ease-in-out;
 }
 .hide {opacity: 0;}
-.footerkinda p, .footerkinda button {
+.footerkinda p {
 	position: relative;
 	display: flex;
 	justify-content: center;
@@ -681,6 +681,7 @@ header .timer {
 	display: none;
 }
 .power-ups {
+	position: relative;
 	border: none;
 	font-family: inherit;
 	font-size: 1.125rem;
@@ -690,12 +691,23 @@ header .timer {
 	padding: 0 10px;
 	box-shadow: var(--pixelBorder), 5px 0 var(--greentran), -6px 0 var(--greentran), 0 -6px var(--greentran), 0 6px var(--greentran), 0 0 0 3px var(--greentran);
 }
+.power-ups button {
+	cursor: pointer;
+	background: none;
+	border: none;
+}
 .power-ups .icon-pokeball {
 	cursor: pointer;
 	fill: var(--lcolor8);
 	margin: 0 3px;
 }
+.icon-pokeball.turns-color {
+	fill: var(--blue);
+}
 
+.icon-pokeball.reveal-color {
+	fill: var(--lcolor8);
+}
 .power-ups span {
 	position: absolute;
 	top: -4px;
@@ -955,7 +967,10 @@ header .timer {
 	}
 	.difficulty .btn { width: auto; }
 	.guess {padding: 0 15px;}
-	.header-turns {display:inline;}
+	.header-turns {
+		display: inline-block;
+    position: relative;
+    z-index: 9;}
 	.footerkinda {
 		justify-content: space-between;
 	}
@@ -1059,6 +1074,16 @@ header .timer {
 	}
 }
 
+@keyframes cray {
+	0% { 
+		transform: scale(1) translate(0, 0);
+		background: transparent;
+	}
+	100% {     
+		transform: scale(2) translate(55%, 135%);
+    background: var(--green);
+	}
+}
 .wave i {
 	display: inline-block;
 	animation: wave 1s infinite;
@@ -1099,5 +1124,12 @@ header .timer {
 	animation-name: contrast-flash;
 	animation-duration: 0.5s;
 	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+.animate-turns {
+	animation-name: cray;
+	animation-duration: 0.5s;
+	animation-iteration-count: 2;
 	animation-direction: alternate;
 }

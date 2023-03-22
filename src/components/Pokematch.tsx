@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "preact/hooks";
-import { formatTime, range } from "../utils";
+import { formatTime } from "../utils";
 import { usePokemon, TOTAL_GENS } from "../api";
 import PokeCard from "./PokeCard";
 import { Pokemon } from "../types/pokemon";
@@ -8,10 +8,10 @@ import { UseQueryResult } from "@tanstack/react-query";
 import Loader from "./Loader";
 import GameOvered from "./GameOvered";
 import MuteButton from "./MuteButton";
-import Pokeball from "./Icons/Pokeball";
 import Refresh from "./Icons/Refresh";
 import Header from "./Header";
 import { createContext } from "preact";
+import Powerups from "./Powerups";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
 
@@ -33,21 +33,22 @@ export default function Pokematch() {
 		}
 
 		return {
-			turns: 0,
-			totalTurns: 0,
-			totalCaught: 0,
+			boardSize: 0,
+			difficulty: 0,
 			gameWin: false,
-			startTime: 0,
-			powerUps: 0,
 			gen: 1,
 			mute: false,
-			difficulty: 0,
-			boardSize: 0,
+			powerUps: 0,
+			powerUps2: ["turns", "reveal", "reveal", "turns", "reveal"],
+			startTime: 0,
+			totalCaught: 0,
+			totalTurns: 0,
+			turns: 0,
 		};
 	};
 
 	const [gameState, setGameState] = useState<GameData>(getInitialGameState());
-	const { gen, gameWin, boardSize, powerUps } = gameState;
+	const { gen, gameWin, boardSize, powerUps, startTime } = gameState;
 
 	const { data, isLoading, isFetching, error, refetch }: PokemonData = usePokemon(gen, boardSize);
 	const [deck, setDeck] = useState<Pokemon[]>([]);
@@ -60,7 +61,7 @@ export default function Pokematch() {
 	if (data && !isLoading) {
 		setDeck(data);
 	}
-
+	console.log(gameState);
 	const handleDifficulty = (e: MouseEvent) => {
 		const target = e.target as HTMLInputElement;
 		const board_size = parseInt(target.value, 10);
@@ -112,11 +113,11 @@ export default function Pokematch() {
 	}, [gen]);
 
 	useEffect(() => {
-		const roundTime = formatTime(Date.now() - gameState.startTime);
+		const roundTime = formatTime(Date.now() - startTime);
 		setRoundTime(roundTime);
 		const body = document.querySelector("body");
 		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
-	}, [gameState.startTime, gameWin]);
+	}, [startTime, gameWin]);
 
 	const handlePowerUp = useCallback(() => {
 		// power up will temporarily show all cards
@@ -205,22 +206,7 @@ export default function Pokematch() {
 				</div>
 				{deck && (
 					<div className={`footerkinda ${gameWin ? "hide" : ""}`}>
-						<button
-							className={"power-ups"}
-							onClick={handlePowerUp}
-							{...(powerUps === 0 ? { disabled: true } : {})}
-						>
-							<span>Powerups</span>
-							{powerUps > 0 ? (
-								<>
-									{range(powerUps).map((i) => (
-										<Pokeball key={i + 1} />
-									))}
-								</>
-							) : (
-								0
-							)}
-						</button>
+						<Powerups gameState={gameState} setGameState={setGameState} />
 						<div class="restart-container">
 							<button className={"btn refresh"} onClick={handleRestart}>
 								<Refresh size={26} fill="#fff" />
