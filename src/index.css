@@ -682,13 +682,11 @@ header .timer {
 }
 .power-ups {
 	position: relative;
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 34px;
 	text-align: center;
-
 	border: none;
 	font-family: inherit;
 	font-size: 1.125rem;
@@ -699,6 +697,7 @@ header .timer {
 	box-shadow: var(--pixelBorder), 5px 0 var(--greentran), -6px 0 var(--greentran), 0 -6px var(--greentran), 0 6px var(--greentran), 0 0 0 3px var(--greentran);
 }
 .power-ups button {
+	display: contents;
 	cursor: pointer;
 	background: none;
 	border: none;
