@@ -41,10 +41,25 @@ const Powerups = ({ gameState, setGameState }: { gameState: GameData; setGameSta
 		playSoundEffect("success2", mute);
 		setGameState({
 			...gameState,
-			turns: turns - 2,
 			totalTurns: totalTurns - 2,
 			powerUps2: [...gameState.powerUps2.filter((_, index) => index !== i)],
 		});
+		// this feels a bit messy but is an easy way to make countdown effect
+		setTimeout(() => {
+			setGameState({
+				...gameState,
+				turns: turns - 1,
+				powerUps2: [...gameState.powerUps2.filter((_, index) => index !== i)],
+			});
+		}, 500);
+		setTimeout(() => {
+			setGameState({
+				...gameState,
+				turns: turns - 2,
+				powerUps2: [...gameState.powerUps2.filter((_, index) => index !== i)],
+			});
+		}, 1000);
+		console.log(gameState);
 	};
 
 	return (

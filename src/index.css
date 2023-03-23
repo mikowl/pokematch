@@ -652,7 +652,24 @@ header .timer {
 	padding: 8px 5px 6px 5px;
 	transform: translateY(1px);
 }
-.header-turns {display:none; transition: all 0.3s ease-in-out;}
+.header-turns {
+	position:fixed;
+	transition: all 0.3s ease-in-out;
+	width: 100%;
+	left: 0;
+	transform: translateY(-160%);
+	background: var(--green);
+	padding: 20px;
+	z-index: 9;
+	transition: all 0.3s ease-in-out;
+}
+	/* turns animation mobile */
+	.animate-turns {
+		animation-name: dropin;
+		animation-duration: 1s;
+		animation-iteration-count: 2;
+		animation-direction: alternate;
+	}
 .header-turns.highlight {
 	background: var(--yellow);
 	color: var(--darkblue);
@@ -685,7 +702,7 @@ header .timer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 34px;
+	height: 46px;
 	text-align: center;
 	border: none;
 	font-family: inherit;
@@ -974,8 +991,12 @@ header .timer {
 	.difficulty .btn { width: auto; }
 	.guess {padding: 0 15px;}
 	.header-turns {
-		display: inline-block;
     position: relative;
+		display: inline-block;
+		padding: 0;
+		transform: unset;
+		background: transparent;
+		width: auto;
     z-index: 9;}
 	.footerkinda {
 		justify-content: space-between;
@@ -1009,6 +1030,13 @@ header .timer {
 		width: 100%;
 		left: 0;
 		color: #39642d;
+	}
+	/* turns animation desktop */
+	.animate-turns {
+		animation-name: cray;
+		animation-duration: 0.5s;
+		animation-iteration-count: 2;
+		animation-direction: alternate;
 	}
 }
 @media screen and (min-width: 768px) {
@@ -1081,15 +1109,28 @@ header .timer {
 }
 
 @keyframes cray {
-	0% { 
+	0% {
 		transform: scale(1) translate(0, 0);
 		background: transparent;
 	}
-	100% {     
+	100% {
 		transform: scale(2) translate(55%, 135%);
     background: var(--green);
 	}
 }
+
+@keyframes dropin {
+	0% {
+		transform: translateY(-160%);
+	}
+	50% {
+		transform: translateY(210%);
+	}
+	100% {
+		transform: translateY(210%);
+	}
+}
+
 .wave i {
 	display: inline-block;
 	animation: wave 1s infinite;
@@ -1128,14 +1169,7 @@ header .timer {
 }
 .animate-contrast {
 	animation-name: contrast-flash;
-	animation-duration: 0.5s;
+	animation-duration: 0.75s;
 	animation-iteration-count: infinite;
-	animation-direction: alternate;
-}
-
-.animate-turns {
-	animation-name: cray;
-	animation-duration: 0.5s;
-	animation-iteration-count: 2;
 	animation-direction: alternate;
 }
