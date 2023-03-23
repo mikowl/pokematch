@@ -4,7 +4,7 @@ const Pokeball = (props: IconProps) => {
 	const size = props.size ?? 32;
 	return (
 		<svg
-			className="icon-pokeball"
+			className={`icon-pokeball${props.className ? ` ${props.className}` : ""}`}
 			version="1.0"
 			xmlns="http://www.w3.org/2000/svg"
 			width={size}

@@ -5,6 +5,7 @@ import { GameData } from "../types/other";
 import { useEffect, useState } from "preact/hooks";
 import ClockIcon from "./Icons/Clock";
 import { playSoundEffect } from "../sounds";
+import { randomPower } from "./Powerups";
 
 const GameOvered = ({
 	gameState,
@@ -19,7 +20,7 @@ const GameOvered = ({
 	handleRestart: () => void;
 	roundTime: number | string;
 }) => {
-	const { boardSize, gameWin, powerUps, gen, turns, totalTurns, mute } = gameState;
+	const { boardSize, gameWin, powerUps2, gen, turns, totalTurns, mute } = gameState;
 	// 0 = no guess, 1 = correct guess, 2 = incorrect guess
 	const [batttleGuess, setBattleGuess] = useState<number>(0);
 	const averageScore: number = ((TOTAL_GENS * deck.length) / 2 / totalTurns) * 100 * 1.5;
@@ -79,7 +80,7 @@ const GameOvered = ({
 					...gameState,
 					gameWin: false,
 					gen: gen + 1,
-					powerUps: powerUps + 1,
+					powerUps2: [...powerUps2, randomPower()],
 				});
 			}, 3000);
 		} else {

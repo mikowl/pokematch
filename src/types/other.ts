@@ -4,6 +4,7 @@ export type IconProps = {
 	size?: number;
 	fill?: string;
 	styles?: any;
+	className?: string;
 };
 
 export type GameData = {
@@ -17,6 +18,7 @@ export type GameData = {
 	boardSize: number;
 	startTime: number;
 	powerUps: number;
+	powerUps2: string[];
 }
 
 // export type BoardSize = { [key: number]: number } 

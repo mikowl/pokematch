@@ -25,5 +25,6 @@
 - Powerup ideas
   - Time freeze
   - Double points
+  - Free turns (take away 2 turns)
   - Hint (flip over one matching pair)
   - "Milk" the reveal powerup, give user 3 chances to choose the winning pokemon, based on how good they do, the reveal will be longer or shorter 
