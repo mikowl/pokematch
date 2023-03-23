@@ -107,6 +107,7 @@ body {
 	background-position: center 18dvh;
 	background-repeat: no-repeat;
 	transition: opacity 0.5s ease-in-out;
+	overscroll-behavior: none;
 }
 body.game-over, html {
 	background: rgb(10 47 81);
@@ -631,15 +632,23 @@ p.scoringMessage  {
 Pokematching: ★★★☆☆ / Pokemon caught: 22/54 / Avg. Time: ):41 */
 
 header {
+	position: absolute;
 	width: 100%;
 	background: var(--darkblue);
-	padding: 8px 0;
-	position: absolute;
+	padding: 5px;
 	font-size: 1rem;
 	top: 0;
 	left: 0;
 	right: 0;
 	text-align: center;
+}
+.hdr-container {
+	display: flex;
+	justify-content: space-between;
+	max-width: 650px;
+	width: 100%;
+	margin: 0 auto;
+	padding: 0 15px;
 }
 header p {
 	margin: 0;
@@ -647,9 +656,16 @@ header p {
 	line-height: 1;
 }
 header .timer {
-	background: var(--lcolorb5);
-	padding: 8px 5px 6px 5px;
-	transform: translateY(1px);
+	background: rgb(228 0 88 / 80%);
+	padding: 9px 8px 7px 8px;
+	margin: 5px;
+	transition: all 0.3s ease-in-out;
+}
+header .timer.off {
+	background: rgb(228 0 88 / 30%);
+}
+header .icon-clock {
+	transform: translate(-5px, 4px);
 }
 .header-turns {
 	position:fixed;

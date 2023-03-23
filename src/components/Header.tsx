@@ -2,6 +2,7 @@ import { GameData } from "../types/other";
 import { TOTAL_GENS } from "../api";
 import { formatTime } from "../utils";
 import Timer from "./Timer";
+import ClockIcon from "./Icons/Clock";
 
 const Header = ({ gameState, isFetching }: { gameState: GameData; isFetching: boolean }) => {
 	const { boardSize, gameWin, totalCaught, turns } = gameState;
@@ -10,13 +11,22 @@ const Header = ({ gameState, isFetching }: { gameState: GameData; isFetching: bo
 	// To add: Pokematching: ★★★☆☆
 	return (
 		<header>
-			<p>
+			<div className="hdr-container">
+				<span className={`clock-time`}>
+					<ClockIcon size={20} fill="#FFF" />
+					{gameWin ? (
+						roundTime
+					) : boardSize === 0 ? (
+						<span className={`timer off`}>0:00</span>
+					) : (
+						!isFetching && <Timer />
+					)}
+				</span>
 				<span className={`header-turns`}>Turns: {turns}</span>
-				{" ~ "}
-				{totalCaught}/{(TOTAL_GENS * boardSize) / 2} caught ~ Time:{" "}
-				{/* eslint-disable-next-line no-nested-ternary */}
-				{gameWin ? roundTime : boardSize === 0 ? "0:00" : !isFetching && <Timer />}
-			</p>
+				<span className={`caught`}>
+					{totalCaught}/{(TOTAL_GENS * boardSize) / 2} caught
+				</span>
+			</div>
 		</header>
 	);
 };
