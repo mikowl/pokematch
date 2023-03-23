@@ -720,6 +720,7 @@ header .timer {
 	border: none;
 }
 .power-up-btn.aintgotnone {
+	color: #FFF;
 	font-size: 1.75rem;
 	font-family: inherit;
 	letter-spacing: -6px;

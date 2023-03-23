@@ -8,17 +8,16 @@ export type IconProps = {
 };
 
 export type GameData = {
-	turns: number;
-	totalTurns: number;
-	totalCaught: number;
+	boardSize: number;
+	difficulty: number;
 	gameWin: boolean;
 	gen: PokemonGeneration;
 	mute: boolean;
-	difficulty: number;
-	boardSize: number;
+	powerUps: string[];
 	startTime: number;
-	powerUps: number;
-	powerUps2: string[];
+	totalCaught: number;
+	totalTurns: number;
+	turns: number;
 }
 
 // export type BoardSize = { [key: number]: number } 
