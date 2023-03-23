@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { formatTime } from "../utils";
 import { usePokemon, TOTAL_GENS } from "../api";
 import PokeCard from "./PokeCard";
@@ -19,7 +19,7 @@ export const GameStateContext = createContext({} as GameData);
 
 export default function Pokematch() {
 	const getInitialGameState = (): GameData => {
-		const APP_VERSION = "1.9";
+		const APP_VERSION = "2.0";
 		if (localStorage.getItem("appVersion") !== String(APP_VERSION)) {
 			// Clear localStorage
 			localStorage.clear();
@@ -38,8 +38,7 @@ export default function Pokematch() {
 			gameWin: false,
 			gen: 1,
 			mute: false,
-			powerUps: 0,
-			powerUps2: [],
+			powerUps: [],
 			startTime: 0,
 			totalCaught: 0,
 			totalTurns: 0,
@@ -48,7 +47,7 @@ export default function Pokematch() {
 	};
 
 	const [gameState, setGameState] = useState<GameData>(getInitialGameState());
-	const { gen, gameWin, boardSize, powerUps, startTime } = gameState;
+	const { boardSize, gameWin, gen, startTime } = gameState;
 
 	const { data, isLoading, isFetching, error, refetch }: PokemonData = usePokemon(gen, boardSize);
 	const [deck, setDeck] = useState<Pokemon[]>([]);
@@ -71,7 +70,7 @@ export default function Pokematch() {
 		});
 	};
 
-	const reset = () => {
+	const nextGame = () => {
 		if (data) setDeck(data);
 		setGameState({
 			...gameState,
@@ -86,7 +85,7 @@ export default function Pokematch() {
 	// after difficulty is chosen and board size is set, get data
 	useEffect(() => {
 		refetchData().then(() => {
-			reset();
+			nextGame();
 		});
 	}, [boardSize]);
 
@@ -99,13 +98,13 @@ export default function Pokematch() {
 			totalCaught: 0,
 			gen: 1,
 			boardSize: 0,
-			powerUps: 0,
+			powerUps: [],
 		});
 	};
 
 	useEffect(() => {
 		refetchData().then(() => {
-			reset();
+			nextGame();
 		});
 		// update game state in local storage
 		localStorage.setItem("gameState", JSON.stringify(gameState));
@@ -117,39 +116,6 @@ export default function Pokematch() {
 		const body = document.querySelector("body");
 		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
 	}, [startTime, gameWin]);
-
-	const handlePowerUp = useCallback(() => {
-		// power up will temporarily show all cards
-		const cards = document.querySelectorAll(".card-btn");
-		// only add reveal class to cards that are not flipped
-		cards.forEach((card) => {
-			if (!card.classList.contains("flipped")) {
-				card.classList.add("reveal");
-			}
-		});
-		setGameState({
-			...gameState,
-			powerUps: powerUps - 1,
-		});
-
-		setTimeout(() => {
-			cards.forEach((card) => card.classList.remove("reveal"));
-		}, 1500);
-	}, [gameState, powerUps]);
-
-	// use power up on spacebar press
-	useEffect(() => {
-		const handleSpacebar = (e: KeyboardEvent) => {
-			if (e.code === "Space" && powerUps > 0 && gameWin === false) {
-				e.preventDefault();
-				handlePowerUp();
-			}
-		};
-		document.addEventListener("keydown", handleSpacebar);
-		return () => {
-			document.removeEventListener("keydown", handleSpacebar);
-		};
-	}, [gameWin, handlePowerUp, powerUps]);
 
 	let content;
 

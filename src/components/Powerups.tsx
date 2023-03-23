@@ -10,7 +10,7 @@ export const randomPower = () => {
 };
 
 const Powerups = ({ gameState, setGameState }: { gameState: GameData; setGameState: Function }) => {
-	const { mute, powerUps2, turns, totalTurns } = gameState;
+	const { mute, powerUps, totalTurns, turns } = gameState;
 
 	const revealPower = (i: number) => {
 		playSoundEffect("success2", mute);
@@ -24,7 +24,7 @@ const Powerups = ({ gameState, setGameState }: { gameState: GameData; setGameSta
 		});
 		setGameState({
 			...gameState,
-			powerUps2: [...gameState.powerUps2.filter((_, index) => index !== i)],
+			powerUps: [...gameState.powerUps.filter((_, index) => index !== i)],
 		});
 
 		setTimeout(() => {
@@ -42,33 +42,46 @@ const Powerups = ({ gameState, setGameState }: { gameState: GameData; setGameSta
 		setGameState({
 			...gameState,
 			totalTurns: totalTurns - 2,
-			powerUps2: [...gameState.powerUps2.filter((_, index) => index !== i)],
+			powerUps: [...gameState.powerUps.filter((_, index) => index !== i)],
 		});
 		// this feels a bit messy but is an easy way to make countdown effect
 		setTimeout(() => {
 			setGameState({
 				...gameState,
 				turns: turns - 1,
-				powerUps2: [...gameState.powerUps2.filter((_, index) => index !== i)],
+				powerUps: [...gameState.powerUps.filter((_, index) => index !== i)],
 			});
 		}, 500);
 		setTimeout(() => {
 			setGameState({
 				...gameState,
 				turns: turns - 2,
-				powerUps2: [...gameState.powerUps2.filter((_, index) => index !== i)],
+				powerUps: [...gameState.powerUps.filter((_, index) => index !== i)],
 			});
 		}, 1000);
-		console.log(gameState);
 	};
+
+	// TODO: use power up on spacebar press
+	// useEffect(() => {
+	// 	const handleSpacebar = (e: KeyboardEvent) => {
+	// 		if (e.code === "Space" && powerUps > 0 && gameWin === false) {
+	// 			e.preventDefault();
+	// 			handlePowerUp();
+	// 		}
+	// 	};
+	// 	document.addEventListener("keydown", handleSpacebar);
+	// 	return () => {
+	// 		document.removeEventListener("keydown", handleSpacebar);
+	// 	};
+	// }, []);
 
 	return (
 		<div className={"power-ups"}>
 			<span>Powerups</span>
-			{powerUps2.length === 0 ? (
+			{powerUps.length === 0 ? (
 				<button className={`power-up-btn aintgotnone`}>0</button>
 			) : (
-				powerUps2.map((powerUp, index) => {
+				powerUps.map((powerUp, index) => {
 					const powerFunction = () => {
 						if (powerUp === "reveal") {
 							revealPower(index);

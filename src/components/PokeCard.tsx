@@ -19,7 +19,7 @@ export default function PokeCard({
 	const [flippedCards, setFlippedCards] = useState<HTMLButtonElement[]>([]);
 	const [matchedCards, setMatchedCards] = useState<Cards>([]);
 	const [isProcessing, setIsProcessing] = useState<boolean>(false);
-	const { turns, totalTurns, totalCaught, mute } = gameState;
+	const { mute, totalCaught, totalTurns, turns } = gameState;
 
 	const handleCardFlip = (e: MouseEvent) => {
 		// Get the clicked card
@@ -53,6 +53,7 @@ export default function PokeCard({
 					setTimeout(() => {
 						playSoundEffect("beep", mute);
 					}, 200);
+
 					// Check if the game has been won
 					if (matchedCards.length === pokemons.length - 2) {
 						setTimeout(() => {

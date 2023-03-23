@@ -20,7 +20,7 @@ const GameOvered = ({
 	handleRestart: () => void;
 	roundTime: number | string;
 }) => {
-	const { boardSize, gameWin, powerUps2, gen, turns, totalTurns, mute } = gameState;
+	const { boardSize, gameWin, gen, mute, powerUps, totalTurns, turns } = gameState;
 	// 0 = no guess, 1 = correct guess, 2 = incorrect guess
 	const [batttleGuess, setBattleGuess] = useState<number>(0);
 	const averageScore: number = ((TOTAL_GENS * deck.length) / 2 / totalTurns) * 100 * 1.5;
@@ -80,7 +80,7 @@ const GameOvered = ({
 					...gameState,
 					gameWin: false,
 					gen: gen + 1,
-					powerUps2: [...powerUps2, randomPower()],
+					powerUps: [...powerUps, randomPower()],
 				});
 			}, 3000);
 		} else {
