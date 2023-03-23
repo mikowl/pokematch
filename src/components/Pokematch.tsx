@@ -150,7 +150,7 @@ export default function Pokematch() {
 							</button>
 						</>
 					)}
-					<p className="tip">Tip: Press spacebar to use power ups</p>
+					{/* <p className="tip">Tip: Press spacebar to use power ups</p> */}
 				</div>
 			</>
 		);
