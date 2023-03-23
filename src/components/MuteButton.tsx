@@ -18,9 +18,7 @@ const MuteButton = ({
 
 	return (
 		<div className={`muteBtn`}>
-			<button onClick={handleMute}>
-				{!gameState.mute ? <MuteIcon fill={"#d12428"} /> : <UnmuteIcon />}
-			</button>
+			<button onClick={handleMute}>{!gameState.mute ? <MuteIcon /> : <UnmuteIcon />}</button>
 		</div>
 	);
 };

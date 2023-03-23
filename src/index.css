@@ -51,7 +51,8 @@
 	--gcolor7: #feb472;
 	--gcolor8: #5e3f89;
 	--gcolor9: #a56868;
-	--muteBtnBg: var(--eggshell);
+	--muteBtnBg: var(--red);
+	--footerBtnHeight: 42px;
 	font-family: 'Gameboy', Helvetica, Arial, sans-serif;
 	font-size: 16px;
 	line-height: 24px;
@@ -394,11 +395,9 @@ h1 i span {
 	background: var(--blue);
 	padding: 6px 15px;
 	min-width: auto;
+	height: var(--footerBtnHeight);
 	box-shadow: var(--pixelBorder),
 	8px 0 var(--blue), -8px 0 var(--blue), 0 -8px var(--blue), 0 8px var(--blue), 0 0 0 4px var(--blue);
-}
-.restart-container { 
-	transform: translate(0, 13px);
 }
 .restart-container span {
 	display: inline-block;
@@ -682,6 +681,7 @@ header .timer {
 	width: 100%;
 	padding: 0 10px;
 	margin-top: 3.5rem;
+	padding-bottom: 1.5rem;
 	opacity: 1;
 	transition: all 0.5s ease-in-out;
 }
@@ -702,7 +702,7 @@ header .timer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 46px;
+	height: var(--footerBtnHeight);
 	text-align: center;
 	border: none;
 	font-family: inherit;
@@ -719,6 +719,12 @@ header .timer {
 	background: none;
 	border: none;
 }
+.power-up-btn.aintgotnone {
+	font-size: 1.75rem;
+	font-family: inherit;
+	letter-spacing: -6px;
+}
+
 .power-ups .icon-pokeball {
 	cursor: pointer;
 	fill: var(--lcolor8);
@@ -754,6 +760,7 @@ header .timer {
 	cursor: pointer;
 	border: none;
 	background: var(--muteBtnBg);
+	height: var(--footerBtnHeight);
 	padding: 6px 15px;
 	min-width: auto;
 	box-shadow: var(--pixelBorder),
@@ -811,9 +818,12 @@ header .timer {
 }
 
 .icon-mute {
-	fill: var(--darkblue);
+	fill: #FFF;
 }
 
+.icon-unmute {
+	fill: #FFF;
+}
 .upNext {
 	font-size: 1.125rem;
 	margin: 1rem 0 0;
@@ -1015,7 +1025,7 @@ header .timer {
 		box-shadow: var(--pixelBorder), 5px 0 var(--yellowtran), -6px 0 var(--yellowtran), 0 -6px var(--yellowtran), 0 6px var(--yellowtran), 0 0 0 3px var(--yellowtran);
 	}
 	.restart-container { 
-		transform: translate(-100%, 13px);
+		transform: translateX(-100%);
 	}
 	.muteBtn {
 		top: 20px;

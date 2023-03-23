@@ -65,20 +65,24 @@ const Powerups = ({ gameState, setGameState }: { gameState: GameData; setGameSta
 	return (
 		<div className={"power-ups"}>
 			<span>Powerups</span>
-			{powerUps2.map((powerUp, index) => {
-				const powerFunction = () => {
-					if (powerUp === "reveal") {
-						revealPower(index);
-					} else if (powerUp === "turns") {
-						turnsPower(index);
-					}
-				};
-				return (
-					<button onClick={() => powerFunction()} className={`power-up-btn`} key={index}>
-						<Pokeball className={`${powerUp}-color`} />
-					</button>
-				);
-			})}
+			{powerUps2.length === 0 ? (
+				<button className={`power-up-btn aintgotnone`}>0</button>
+			) : (
+				powerUps2.map((powerUp, index) => {
+					const powerFunction = () => {
+						if (powerUp === "reveal") {
+							revealPower(index);
+						} else if (powerUp === "turns") {
+							turnsPower(index);
+						}
+					};
+					return (
+						<button onClick={() => powerFunction()} className={`power-up-btn`} key={index}>
+							<Pokeball className={`${powerUp}-color`} />
+						</button>
+					);
+				})
+			)}
 		</div>
 	);
 };

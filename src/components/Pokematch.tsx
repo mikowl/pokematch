@@ -39,7 +39,7 @@ export default function Pokematch() {
 			gen: 1,
 			mute: false,
 			powerUps: 0,
-			powerUps2: ["turns", "reveal", "reveal", "turns", "reveal"],
+			powerUps2: [],
 			startTime: 0,
 			totalCaught: 0,
 			totalTurns: 0,
@@ -211,7 +211,6 @@ export default function Pokematch() {
 								<Refresh size={26} fill="#fff" />
 								<br />
 							</button>
-							<span>Restart</span>
 						</div>
 						<MuteButton gameState={gameState} setGameState={setGameState} />
 					</div>
