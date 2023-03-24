@@ -140,10 +140,6 @@ body.game-over, html {
 .card-container.bs-16 {
 	gap:  1.375rem;
 }
-.card-container.bs-16 .pokeCard {
-	height: 15vh;
-	height: 15dvh;	
-}
 .card-container.bs-16 .frontCardImg {
 	width: 60%;
 }
@@ -159,8 +155,8 @@ body.game-over, html {
 	/* border-radius: 0.75rem; */
 	background: #FFF;
 	width: 100%;
-	height: 16vh;
-	height: 16dvh;
+	height: 15vh;
+	height: 15dvh;
 	color: rgb(var(--blue));
 	background: rgb(53,106,150);
 	/* border-color: var(--darkblue);
