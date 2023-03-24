@@ -48,11 +48,14 @@ export default function PokeCard({
 						totalTurns: totalTurns + 1,
 						totalCaught: totalCaught + 1,
 					});
+
 					// Play sound on card match
-					// delay the sound so it doesn't play too fast
-					setTimeout(() => {
-						playSoundEffect("beep", mute);
-					}, 200);
+					// don't play sound if last match
+					if (matchedCards.length !== pokemons.length - 2) {
+						setTimeout(() => {
+							playSoundEffect("click", mute);
+						}, 300);
+					}
 
 					// Check if the game has been won
 					if (matchedCards.length === pokemons.length - 2) {

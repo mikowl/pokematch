@@ -522,7 +522,7 @@ h1 i span {
 
 .gameOvered {
 	position: fixed;
-	top: 50%;
+	top: 47%;
 	left: 0;
 	right: 0;
 	color: var(--darkblue);
