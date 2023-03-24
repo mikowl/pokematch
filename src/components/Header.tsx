@@ -15,7 +15,7 @@ const Header = ({ gameState, isFetching }: { gameState: GameData; isFetching: bo
 				<span className={`clock-time`}>
 					<ClockIcon size={20} fill="#FFF" />
 					{gameWin ? (
-						roundTime
+						<span className={`timer off`}>{roundTime}</span>
 					) : boardSize === 0 ? (
 						<span className={`timer off`}>0:00</span>
 					) : (
