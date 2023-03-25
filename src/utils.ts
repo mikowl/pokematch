@@ -21,6 +21,10 @@ export const range = (start: number, end?: number, step = 1) => {
 	return output;
 };
 
+export const isMobile = () => {
+	return window.innerWidth <= 768;
+};
+
 // format time to minutes and seconds function
 export function formatTime(timestamp:number) {
 	const minutes = Math.floor(timestamp / 60000); // 1 minute = 60000 ms

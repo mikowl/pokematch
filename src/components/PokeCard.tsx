@@ -4,6 +4,7 @@ import { Pokemon } from "../types/pokemon";
 import { Fragment } from "preact/jsx-runtime";
 import Pokeball2 from "./Icons/Pokeball2";
 import { playSoundEffect } from "../sounds";
+import { isMobile } from "../utils";
 
 export default function PokeCard({
 	pokemons,
@@ -52,9 +53,14 @@ export default function PokeCard({
 					// Play sound on card match
 					// don't play sound if last match
 					if (matchedCards.length !== pokemons.length - 2) {
-						setTimeout(() => {
+						const isMob = isMobile();
+						if (isMob) {
 							playSoundEffect("click", mute);
-						}, 150);
+						} else {
+							setTimeout(() => {
+								playSoundEffect("click", mute);
+							}, 300);
+						}
 					}
 
 					// Check if the game has been won
