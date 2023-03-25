@@ -12,7 +12,6 @@ import Refresh from "./Icons/Refresh";
 import Header from "./Header";
 import { createContext } from "preact";
 import Powerups from "./Powerups";
-import { preloadSoundEffects } from "../sounds";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
 
@@ -20,7 +19,7 @@ export const GameStateContext = createContext({} as GameData);
 
 export default function Pokematch() {
 	const getInitialGameState = (): GameData => {
-		const APP_VERSION = "2.1";
+		const APP_VERSION = "2.2";
 		if (localStorage.getItem("appVersion") !== String(APP_VERSION)) {
 			// Clear localStorage
 			localStorage.clear();
@@ -117,8 +116,6 @@ export default function Pokematch() {
 		const body = document.querySelector("body");
 		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
 	}, [startTime, gameWin]);
-
-	preloadSoundEffects();
 
 	let content;
 

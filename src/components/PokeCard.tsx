@@ -54,11 +54,14 @@ export default function PokeCard({
 					if (matchedCards.length !== pokemons.length - 2) {
 						setTimeout(() => {
 							playSoundEffect("click", mute);
-						}, 300);
+						}, 150);
 					}
 
 					// Check if the game has been won
 					if (matchedCards.length === pokemons.length - 2) {
+						setTimeout(() => {
+							playSoundEffect("success", mute);
+						}, 500);
 						setTimeout(() => {
 							setGameState({
 								...gameState,

@@ -20,21 +20,24 @@ const GameOvered = ({
 	handleRestart: () => void;
 	roundTime: number | string;
 }) => {
-	const { boardSize, gameWin, gen, mute, powerUps, totalTurns, turns } = gameState;
+	const { boardSize, gen, mute, powerUps, totalTurns, turns } = gameState;
 	// 0 = no guess, 1 = correct guess, 2 = incorrect guess
 	const [batttleGuess, setBattleGuess] = useState<number>(0);
+	// const [averageTime, setAverageTime] = useState<string[]>([]);
+
 	const averageScore: number = ((TOTAL_GENS * deck.length) / 2 / totalTurns) * 100 * 1.5;
 
 	useEffect(() => {
-		if (gameWin && gen !== TOTAL_GENS) {
-			playSoundEffect("success", mute);
-		}
+		// if (gen !== TOTAL_GENS) {
+		// 	playSoundEffect("success", mute);
+		// }
 		// game over music and fireworks
 		if (gen === TOTAL_GENS) {
 			pewpewpew();
 			playSoundEffect("gameOver", mute);
 		}
-
+		// setAverageTime((prev) => [...prev, String(roundTime)]);
+		// console.log(averageTime);
 		const lis = document.querySelectorAll<HTMLLIElement>(".pokeCaught");
 
 		// add winner class to poke with highest stats
@@ -66,7 +69,7 @@ const GameOvered = ({
 			}, 500);
 		}, 300);
 		return () => clearInterval(intervalId);
-	}, [gameState]);
+	}, [gameState, gen, mute]);
 
 	const handleWinnerGuess = (e: MouseEvent) => {
 		const currentTarget = e.currentTarget as HTMLLIElement;
