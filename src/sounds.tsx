@@ -12,6 +12,12 @@ export const soundEffects: SoundEffects = {
 	fail: new Audio("/sounds/fail.mp3"),
 };
 
+export const preloadSoundEffects = () => {
+	Object.values(soundEffects).forEach((soundEffect) => {
+		soundEffect.preload = "auto";
+	});
+};
+
 export const playSoundEffect = (name: keyof SoundEffects, mute: boolean) => {
 	const soundEffect = soundEffects[name];
 	if (soundEffect && !mute) {
