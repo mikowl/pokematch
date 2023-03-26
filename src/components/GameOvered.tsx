@@ -1,4 +1,4 @@
-import { scoringMessages, convertScoreToGrade, omgConfetti, timeClass } from "../utils";
+import { scoringMessages, convertScoreToGrade, timeClass } from "../utils";
 import { TOTAL_GENS } from "../api";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
@@ -6,6 +6,7 @@ import { useEffect, useState } from "preact/hooks";
 import ClockIcon from "./Icons/Clock";
 import { randomPower } from "./Powerups";
 import useSound from "use-sound";
+import ConfettiExplosion from "react-confetti-explosion";
 
 const GameOvered = ({
 	gameState,
@@ -33,14 +34,9 @@ const GameOvered = ({
 	const averageScore: number = ((TOTAL_GENS * deck.length) / 2 / totalTurns) * 100 * 1.5;
 
 	useEffect(() => {
-		// game over music and fireworks
+		// game over music
 		if (gen === TOTAL_GENS) {
-			console.log("game over");
-			setTimeout(() => {
-				if (!mute) playGameOver();
-			}, 500);
-			setTimeout(omgConfetti, 1000);
-			setTimeout(omgConfetti, 2000);
+			if (!mute) playGameOver();
 		}
 		// setAverageTime((prev) => [...prev, String(roundTime)]);
 		// console.log(averageTime);
@@ -141,6 +137,15 @@ const GameOvered = ({
 	return (
 		<>
 			<div className={`gameOvered ${gen === 9 ? "game-complete" : ""}`}>
+				{gen === TOTAL_GENS && (
+					<ConfettiExplosion
+						style={{ zIndex: 9999, transform: "translateX(20vw)" }}
+						duration={8000}
+						particleCount={300}
+						width={3000}
+						colors={["#f8b800", "#0078f8"]}
+					/>
+				)}
 				<h2>{gen === TOTAL_GENS ? "Game Over!" : "You caught 'em all!"}</h2>
 				<div className="pokemonList">
 					<h3>Pokemon's Caught: </h3>

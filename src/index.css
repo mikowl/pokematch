@@ -538,7 +538,7 @@ h1 i span {
 	/* border-radius: 0.75rem; */
 	transform: translateY(-180%);
 	transition: transform 0.75s ease-in;
-	z-index: 200;
+	/* z-index: 200; */
 }
 .game-over .gameOvered {
 	transform: translateY(-50%);
