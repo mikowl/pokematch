@@ -1,9 +1,11 @@
 import { useState } from "preact/hooks";
+import useSound from "use-sound";
 import { GameData } from "../types/other";
 import { Pokemon } from "../types/pokemon";
 import { Fragment } from "preact/jsx-runtime";
+import success from "/sounds/success.mp3";
+import click from "/sounds/click.mp3";
 import Pokeball2 from "./Icons/Pokeball2";
-import { playSoundEffect } from "../sounds";
 import { isMobile } from "../utils";
 
 export default function PokeCard({
@@ -21,6 +23,8 @@ export default function PokeCard({
 	const [matchedCards, setMatchedCards] = useState<Cards>([]);
 	const [isProcessing, setIsProcessing] = useState<boolean>(false);
 	const { mute, totalCaught, totalTurns, turns } = gameState;
+	const [playClick] = useSound(click, { volume: 0.8 });
+	const [playSuccess] = useSound(success, { volume: 0.8 });
 
 	const handleCardFlip = (e: MouseEvent) => {
 		// Get the clicked card
@@ -54,11 +58,11 @@ export default function PokeCard({
 					// don't play sound if last match
 					if (matchedCards.length !== pokemons.length - 2) {
 						const isMob = isMobile();
-						if (isMob) {
-							playSoundEffect("click", mute);
+						if (isMob && !mute) {
+							playClick();
 						} else {
 							setTimeout(() => {
-								playSoundEffect("click", mute);
+								if (!mute) playClick();
 							}, 300);
 						}
 					}
@@ -66,7 +70,7 @@ export default function PokeCard({
 					// Check if the game has been won
 					if (matchedCards.length === pokemons.length - 2) {
 						setTimeout(() => {
-							playSoundEffect("success", mute);
+							playSuccess();
 						}, 500);
 						setTimeout(() => {
 							setGameState({

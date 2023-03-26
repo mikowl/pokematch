@@ -1,6 +1,6 @@
+import useSound from "use-sound";
 import { GameData } from "../types/other";
 import Pokeball from "./Icons/Pokeball";
-import { playSoundEffect } from "../sounds";
 
 const powerUpList = ["reveal", "turns"];
 
@@ -11,9 +11,10 @@ export const randomPower = () => {
 
 const Powerups = ({ gameState, setGameState }: { gameState: GameData; setGameState: Function }) => {
 	const { mute, powerUps, totalTurns, turns } = gameState;
+	const [playSuccess2] = useSound("/sounds/success2.mp3", { volume: 0.5 });
 
 	const revealPower = (i: number) => {
-		playSoundEffect("success2", mute);
+		if (!mute) playSuccess2();
 		// power up will temporarily show all cards
 		const cards = document.querySelectorAll(".card-btn");
 		// only add reveal class to cards that are not flipped
@@ -38,7 +39,7 @@ const Powerups = ({ gameState, setGameState }: { gameState: GameData; setGameSta
 		setTimeout(() => {
 			turnsEl?.classList.remove("animate-turns");
 		}, 3000);
-		playSoundEffect("success2", mute);
+		if (!mute) playSuccess2();
 		setGameState({
 			...gameState,
 			totalTurns: totalTurns - 2,
