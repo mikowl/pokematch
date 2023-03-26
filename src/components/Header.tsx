@@ -3,10 +3,9 @@ import { TOTAL_GENS } from "../api";
 import { formatTime } from "../utils";
 import Timer from "./Timer";
 import ClockIcon from "./Icons/Clock";
-import ConfettiExplosion from "react-confetti-explosion";
 
 const Header = ({ gameState, isFetching }: { gameState: GameData; isFetching: boolean }) => {
-	const { boardSize, gameWin, gen, totalCaught, turns } = gameState;
+	const { boardSize, gameWin, totalCaught, turns } = gameState;
 	const roundTime = formatTime(Date.now() - gameState.startTime);
 	// const averageScore: number = ((gen * boardSize) / 2 / totalTurns) * 100 * 1.5;
 	// To add: Pokematching: ★★★☆☆
