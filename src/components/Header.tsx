@@ -10,24 +10,26 @@ const Header = ({ gameState, isFetching }: { gameState: GameData; isFetching: bo
 	// const averageScore: number = ((gen * boardSize) / 2 / totalTurns) * 100 * 1.5;
 	// To add: Pokematching: ★★★☆☆
 	return (
-		<header>
-			<div className="hdr-container">
-				<span className={`clock-time`}>
-					<ClockIcon size={20} fill="#FFF" />
-					{gameWin ? (
-						<span className={`timer off`}>{roundTime}</span>
-					) : boardSize === 0 ? (
-						<span className={`timer off`}>0:00</span>
-					) : (
-						!isFetching && <Timer />
-					)}
-				</span>
-				<span className={`header-turns`}>Turns: {turns}</span>
-				<span className={`caught`}>
-					{totalCaught}/{(TOTAL_GENS * boardSize) / 2} caught
-				</span>
-			</div>
-		</header>
+		<>
+			<header>
+				<div className="hdr-container">
+					<span className={`clock-time`}>
+						<ClockIcon size={20} fill="#FFF" />
+						{gameWin ? (
+							<span className={`timer off`}>{roundTime}</span>
+						) : boardSize === 0 ? (
+							<span className={`timer off`}>0:00</span>
+						) : (
+							!isFetching && <Timer />
+						)}
+					</span>
+					<span className={`header-turns`}>Turns: {turns}</span>
+					<span className={`caught`}>
+						{totalCaught}/{(TOTAL_GENS * boardSize) / 2} caught
+					</span>
+				</div>
+			</header>
+		</>
 	);
 };
 
