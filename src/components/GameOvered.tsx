@@ -1,11 +1,11 @@
-import { scoringMessages, convertScoreToGrade, pewpewpew, timeClass } from "../utils";
+import { scoringMessages, convertScoreToGrade, omgConfetti, timeClass } from "../utils";
 import { TOTAL_GENS } from "../api";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
 import { useEffect, useState } from "preact/hooks";
 import ClockIcon from "./Icons/Clock";
-import { playSoundEffect } from "../sounds";
 import { randomPower } from "./Powerups";
+import useSound from "use-sound";
 
 const GameOvered = ({
 	gameState,
@@ -23,18 +23,24 @@ const GameOvered = ({
 	const { boardSize, gen, mute, powerUps, totalTurns, turns } = gameState;
 	// 0 = no guess, 1 = correct guess, 2 = incorrect guess
 	const [batttleGuess, setBattleGuess] = useState<number>(0);
+	const [playSuccess] = useSound("/sounds/success.mp3");
+	const [playSuccess2] = useSound("/sounds/success2.mp3", { volume: 0.5 });
+	const [playFail] = useSound("/sounds/fail.mp3");
+	const [playGameOver] = useSound("/sounds/gameover.mp3", { volume: 0.75 });
+
 	// const [averageTime, setAverageTime] = useState<string[]>([]);
 
 	const averageScore: number = ((TOTAL_GENS * deck.length) / 2 / totalTurns) * 100 * 1.5;
 
 	useEffect(() => {
-		// if (gen !== TOTAL_GENS) {
-		// 	playSoundEffect("success", mute);
-		// }
 		// game over music and fireworks
 		if (gen === TOTAL_GENS) {
-			pewpewpew();
-			playSoundEffect("gameOver", mute);
+			console.log("game over");
+			setTimeout(() => {
+				if (!mute) playGameOver();
+			}, 500);
+			setTimeout(omgConfetti, 1000);
+			setTimeout(omgConfetti, 2000);
 		}
 		// setAverageTime((prev) => [...prev, String(roundTime)]);
 		// console.log(averageTime);
@@ -69,14 +75,14 @@ const GameOvered = ({
 			}, 500);
 		}, 300);
 		return () => clearInterval(intervalId);
-	}, [gameState, gen, mute]);
+	}, [gen, mute, playGameOver, playSuccess]);
 
 	const handleWinnerGuess = (e: MouseEvent) => {
 		const currentTarget = e.currentTarget as HTMLLIElement;
 		if (currentTarget && currentTarget.dataset.winner === "true") {
 			currentTarget.classList.add("animate-contrast", "winner");
 			// play success2 sound
-			playSoundEffect("success2", mute);
+			if (!mute) playSuccess2();
 			setBattleGuess(1);
 			setTimeout(() => {
 				setGameState({
@@ -87,7 +93,7 @@ const GameOvered = ({
 				});
 			}, 3000);
 		} else {
-			playSoundEffect("fail", mute);
+			if (!mute) playFail();
 			// user can only guess once
 			setTimeout(() => {
 				setGameState({

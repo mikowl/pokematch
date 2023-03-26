@@ -12,7 +12,8 @@
     "@tanstack/react-query": "5.0.0-alpha.0",
     "@types/canvas-confetti": "^1.6.0",
     "canvas-confetti": "^1.6.0",
-    "preact": "10.13.1"
+    "preact": "10.13.1",
+    "use-sound": "^4.0.1"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",

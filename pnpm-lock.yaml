@@ -14,6 +14,7 @@ specifiers:
   eslint-plugin-react: ^7.32.2
   preact: 10.13.1
   typescript: ^4.9.5
+  use-sound: ^4.0.1
   vite: ^4.2.1
 
 dependencies:
@@ -21,6 +22,7 @@ dependencies:
   '@types/canvas-confetti': 1.6.0
   canvas-confetti: 1.6.0
   preact: 10.13.1
+  use-sound: 4.0.1
 
 devDependencies:
   '@preact/preset-vite': 2.5.0_preact@10.13.1+vite@4.2.1
@@ -1816,6 +1818,10 @@ packages:
       function-bind: 1.1.1
     dev: true
 
+  /howler/2.2.3:
+    resolution: {integrity: sha512-QM0FFkw0LRX1PR8pNzJVAY25JhIWvbKMBFM4gqk+QdV+kPXOhleWGCB6AiAF/goGjIHK2e/nIElplvjQwhr0jg==}
+    dev: false
+
   /ignore/5.2.4:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
     engines: {node: '>= 4'}
@@ -2580,6 +2586,14 @@ packages:
     dependencies:
       punycode: 2.3.0
     dev: true
+
+  /use-sound/4.0.1:
+    resolution: {integrity: sha512-hykJ86kNcu6y/FzlSHcQxhjSGMslZx2WlfLpZNoPbvueakv4OF3xPxEtGV2YmculrIaH0tPp9LtG4jgy17xMWg==}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      howler: 2.2.3
+    dev: false
 
   /vite/4.2.1:
     resolution: {integrity: sha512-7MKhqdy0ISo4wnvwtqZkjke6XN4taqQ2TBaTccLIpOKv7Vp2h4Y+NpmWCnGDeSvvn45KxvWgGyb0MkHvY1vgbg==}
