@@ -993,6 +993,9 @@ header .icon-clock {
 	.card-container {
 		margin-top: 3rem;
 	}
+	.gameOvered {
+		top: calc(50%);
+	}
 	.gameOvered h2 { margin: 1rem 0 2rem 0; }
 	.pokeCard { height: 20vh; height: 20dvh; }
 	.card-container.bs-16 {
