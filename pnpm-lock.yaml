@@ -11,7 +11,7 @@ specifiers:
   eslint-plugin-import: ^2.27.5
   eslint-plugin-react: ^7.32.2
   preact: 10.13.1
-  react-confetti-explosion: ^2.0.2
+  react-confetti-explosion: file:../react-confetti-explosion/react-confetti-explosion-2.0.2.tgz
   typescript: ^4.9.5
   use-sound: ^4.0.1
   vite: ^4.2.1
