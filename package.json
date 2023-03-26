@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@tanstack/react-query": "5.0.0-alpha.0",
-    "@types/canvas-confetti": "^1.6.0",
     "preact": "10.13.1",
     "react-confetti-explosion": "^2.0.2",
     "use-sound": "^4.0.1"

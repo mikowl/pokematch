@@ -1,4 +1,3 @@
-import confetti from "canvas-confetti";
 
 export const shuffle = (array: any[]) => {
 	return array.sort(() => Math.random() - 0.5);
@@ -32,22 +31,6 @@ export function formatTime(timestamp:number) {
 	const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
 	return `${minutes}:${formattedSeconds}`;
 }
-
-export const omgConfetti = () => {
-	confetti({
-		particleCount: 300,
-		startVelocity: 50,
-		spread: 360,
-		shapes: ["circle"],
-		disableForReducedMotion: true,
-		colors: ["#222E66", "#4962D6", "#FFCB05", "#CA370B", "#5e3f89", "#f0b7bc", "#b0e0e6"],
-	});
-};
-
-export const pewpewpew = () => {
-	setTimeout(omgConfetti, 1000);
-	setTimeout(omgConfetti, 2000);
-};
 
 export const ratingThresholds = (boardSize: number) => [
 	{ turns: Math.floor(boardSize * 0.75), rating: "★★★★★", title: "-Pokematch Master-" },
