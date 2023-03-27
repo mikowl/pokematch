@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@tanstack/react-query": "5.0.0-alpha.0",
+    "confetti-explosion-react": "^0.1.2",
     "preact": "10.13.1",
-    "react-confetti-explosion": "file:../react-confetti-explosion/react-confetti-explosion-2.0.2.tgz",
     "use-sound": "^4.0.1"
   },
   "devDependencies": {
