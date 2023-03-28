@@ -3,42 +3,26 @@
 	<head>
 		<meta charset="UTF-8" />
 		<link rel="icon" href="/pokeballc.svg" type="image/svg+xml" />
-		<link rel="manifest" href="/manifest.webmanifest" />
-		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffc40d" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-		<link
-			rel="preload"
-			href="/fonts/gameboy-webfont.woff2"
-			as="font"
-			type="font/woff2"
-			crossorigin
-		/>
-		<meta name="title" property="og:title" content="Pokematch" />
-		<meta name="type" property="og:type" content="website" />
-		<meta name="url" property="og:url" content="https://pokematch.vercel.app/" />
-		<meta name="image" property="og:image" content="https://pokematch.vercel.app/pokematchog.png" />
-		<meta
-			name="description"
-			property="og:description"
-			content="The best pokemon memory matching game ever made in the world."
-		/>
-		<meta name="msapplication-TileColor" content="#ffc40d" />
-		<meta name="theme-color" content="#79c9fc" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover"
-		/>
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="#79c9fc" />
-		<meta name="apple-touch-fullscreen" content="yes" />
-		<meta
-			name="description"
-			content="The best pokemon memory matching game ever made in the world."
-		/>
+		<link rel="manifest" href="/manifest.webmanifest">
+		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffc40d">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="preload" href="/fonts/gameboy-webfont.woff2" as="font" type="font/woff2" crossorigin>
+		<meta name="title" property="og:title" content="Pokematch">
+		<meta name="type" property="og:type" content="website">
+		<meta name="url" property="og:url" content="https://pokematch.vercel.app/">
+		<meta name="image" property="og:image" content="https://pokematch.vercel.app/pokematchog.png">
+		<meta name="description" property="og:description" content="The best pokemon memory matching game ever made in the world.">
+		<meta name="msapplication-TileColor" content="#ffc40d">
+		<meta name="theme-color" content="#79c9fc">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="#79c9fc">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="description" content="The best pokemon memory matching game ever made in the world." />
 		<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
 		<script>
 			window.OneSignal = window.OneSignal || [];
-			OneSignal.push(function () {
+			OneSignal.push(function() {
 				OneSignal.init({
 					appId: "dbc82584-9dc2-4f9f-a3ee-09af89ab0aec",
 					safari_web_id: "web.onesignal.auto.5d451968-8243-4fe2-88cd-3c94a5f2a4fc",
@@ -47,23 +31,7 @@
 					},
 				});
 			});
-			if ("serviceWorker" in navigator && "PushManager" in window) {
-				console.log("Service Worker and Push are supported");
-
-				navigator.serviceWorker
-					.register("/OneSignalSDKWorker.js")
-					.then(function (swReg) {
-						console.log("Service Worker is registered", swReg);
-
-						swRegistration = swReg;
-					})
-					.catch(function (error) {
-						console.error("Service Worker Error", error);
-					});
-			} else {
-				console.warn("Push messaging is not supported");
-				pushButton.textContent = "Push Not Supported";
-			}
+			
 		</script>
 		<title>Pokematch</title>
 	</head>
