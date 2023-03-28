@@ -19,6 +19,19 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="#79c9fc">
 		<meta name="apple-touch-fullscreen" content="yes">
 		<meta name="description" content="The best pokemon memory matching game ever made in the world." />
+		<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+		<script>
+			window.OneSignal = window.OneSignal || [];
+			OneSignal.push(function() {
+				OneSignal.init({
+					appId: "dbc82584-9dc2-4f9f-a3ee-09af89ab0aec",
+					safari_web_id: "web.onesignal.auto.5d451968-8243-4fe2-88cd-3c94a5f2a4fc",
+					notifyButton: {
+						enable: true,
+					},
+				});
+			});
+		</script>
 		<title>Pokematch</title>
 	</head>
 	<body>
