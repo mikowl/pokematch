@@ -10,12 +10,9 @@ import GameOvered from "./GameOvered";
 import MuteButton from "./MuteButton";
 import Refresh from "./Icons/Refresh";
 import Header from "./Header";
-import { createContext } from "preact";
 import Powerups from "./Powerups";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
-
-export const GameStateContext = createContext({} as GameData);
 
 export default function Pokematch() {
 	const getInitialGameState = (): GameData => {
@@ -80,6 +77,7 @@ export default function Pokematch() {
 		}));
 		const cards = document.querySelectorAll(".card-btn");
 		cards.forEach((card) => card.classList.remove("flipped"));
+		localStorage.setItem("gameState", JSON.stringify(gameState));
 	};
 
 	const handleRestart = () => {
@@ -98,10 +96,6 @@ export default function Pokematch() {
 	// next game on board size or gen change
 	useEffect(() => {
 		nextGame();
-		console.log("yo");
-
-		// update game state in local storage
-		localStorage.setItem("gameState", JSON.stringify(gameState));
 	}, [gen, boardSize]);
 
 	// update round time
