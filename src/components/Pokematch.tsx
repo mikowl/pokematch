@@ -63,31 +63,24 @@ export default function Pokematch() {
 	const handleDifficulty = (e: MouseEvent) => {
 		const target = e.target as HTMLInputElement;
 		const board_size = parseInt(target.value, 10);
-		setGameState({
-			...gameState,
-			startTime: Date.now(),
+		setGameState((prevState) => ({
+			...prevState,
 			boardSize: board_size,
-		});
+		}));
 	};
 
 	const nextGame = () => {
-		if (data) setDeck(data);
-		setGameState({
-			...gameState,
+		refetchData();
+		if (data && !isLoading) setDeck(data);
+		setGameState((prevState) => ({
+			...prevState,
 			startTime: Date.now(),
 			turns: 0,
 			gameWin: false,
-		});
+		}));
 		const cards = document.querySelectorAll(".card-btn");
 		cards.forEach((card) => card.classList.remove("flipped"));
 	};
-
-	// after difficulty is chosen and board size is set, get data
-	useEffect(() => {
-		refetchData().then(() => {
-			nextGame();
-		});
-	}, [boardSize]);
 
 	const handleRestart = () => {
 		setGameState({
@@ -102,14 +95,16 @@ export default function Pokematch() {
 		});
 	};
 
+	// next game on board size or gen change
 	useEffect(() => {
-		refetchData().then(() => {
-			nextGame();
-		});
+		nextGame();
+		console.log("yo");
+
 		// update game state in local storage
 		localStorage.setItem("gameState", JSON.stringify(gameState));
-	}, [gen]);
+	}, [gen, boardSize]);
 
+	// update round time
 	useEffect(() => {
 		const roundTime = formatTime(Date.now() - startTime);
 		setRoundTime(roundTime);
