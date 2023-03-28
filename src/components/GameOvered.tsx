@@ -61,14 +61,16 @@ const GameOvered = ({
 
 		let i = 0;
 		const intervalId = setInterval(() => {
-			if (i >= lis.length) {
-				clearInterval(intervalId);
-				return;
-			}
-			lis[i].classList.add("active");
-			i++;
+			setTimeout(() => {
+				if (i >= lis.length) {
+					clearInterval(intervalId);
+					return;
+				}
+				lis[i].classList.add("active");
+				i++;
+			}, 500);
 		}, 300);
-		setTimeout(() => clearInterval(intervalId), 500);
+		return () => clearInterval(intervalId);
 	}, [gen, mute, playGameOver, playSuccess]);
 
 	const handleWinnerGuess = (e: MouseEvent) => {
