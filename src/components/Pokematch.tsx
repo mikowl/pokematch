@@ -10,6 +10,7 @@ import MuteButton from "./MuteButton";
 import Refresh from "./Icons/Refresh";
 import Header from "./Header";
 import Powerups from "./Powerups";
+import Pokeball from "./Icons/Pokeball";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
 
@@ -124,6 +125,7 @@ export default function Pokematch() {
 				</p>
 				<div className={"difficulty"}>
 					<h2 className={"blue-flash"}>Choose Difficulty:</h2>
+					{/* <p>Hard recommended for desktop only</p> */}
 					<button className={"btn easy"} onClick={handleDifficulty} value="12">
 						Easy
 					</button>
@@ -133,7 +135,21 @@ export default function Pokematch() {
 					<button className={"btn hard"} onClick={handleDifficulty} value="20">
 						Hard
 					</button>
-					<p>Hard recommended for desktop only</p>
+					<h4>Pokeball powers:</h4>
+					<div className="powerup-descriptions">
+						<div>
+							<Pokeball className="turns-color" />
+							<p>-2 turns</p>
+						</div>
+						<div>
+							<Pokeball className="reveal-color" />
+							<p>Reveal all</p>
+						</div>
+						<div>
+							<Pokeball className="time-color" />
+							<p>-10 seconds</p>
+						</div>
+					</div>
 					{import.meta.env.VITE_DEBUG == "TRUE" && (
 						<>
 							<br />

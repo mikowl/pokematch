@@ -103,8 +103,8 @@ body {
 	background-image: url("/img/pokewp.jpg");
 	image-rendering: pixelated;
 	background-size: cover;
-	background-position: center 18vh;
-	background-position: center 18dvh;
+	background-position: center 22vh;
+	background-position: center 22dvh;
 	background-repeat: no-repeat;
 	transition: opacity 0.5s ease-in-out;
 	overscroll-behavior: none;
@@ -720,10 +720,10 @@ header .icon-clock {
 	border: none;
 	font-family: inherit;
 	font-size: 1.125rem;
-	background: var(--greentran);
 	color: #FFF;
 	width: 175px;
 	padding: 0 10px;
+	background: var(--greentran);
 	box-shadow: var(--pixelBorder), 5px 0 var(--greentran), -6px 0 var(--greentran), 0 -6px var(--greentran), 0 6px var(--greentran), 0 0 0 3px var(--greentran);
 }
 .power-ups button {
@@ -766,9 +766,33 @@ header .icon-clock {
 	box-shadow: inset 0 -2px 0 rgb(0 0 0 / 20%);
 	font-size: 1rem;
 }
+
+.powerup-descriptions {
+	display: flex;
+	margin: 1rem 0;
+	gap: 0.5rem;
+}
+.powerup-descriptions div {
+	padding: 15px;
+	/* background: var(--greentran);
+	box-shadow: var(--pixelBorder), 5px 0 var(--greentran), -6px 0 var(--greentran), 0 -6px var(--greentran), 0 6px var(--greentran), 0 0 0 3px var(--greentran); */
+	flex-basis: 33.333%;
+}
 	
+.powerup-descriptions p {
+	color: var(--darkblue);
+	margin: 0.5rem 0 0;
+	font-size: 0.8375rem;
+	text-shadow: 0 0 20px #FFF;
+}
+h4 {
+	font-size: 1.125rem;
+	color: var(--green2);
+	margin: 2rem 0 0;
+}
 .restart.btn {
 	margin: 1rem auto -2.5rem auto;
+
 	border: none;
 	border-radius: 0;
 	box-shadow: var(--pixelBorder), 5px 0 #FFF, -6px 0 #FFF, 0 -6px #FFF, 0 6px #FFF, 0 0 0 3px #FFF;
