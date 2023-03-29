@@ -188,10 +188,15 @@ export default function Pokematch() {
 			<Header gameState={gameState} isFetching={isFetching} />
 			<div className={`gcolor${gen}`}>
 				<h1>
-					Pokematch{" "}
-					<i class={`gcolor${gen}`}>
-						GEN <span>{gen}</span>
-					</i>
+					Pokematch
+					{boardSize > 0 && (
+						<i class={`gcolor${gen}`}>
+							GEN{" "}
+							<span>
+								{gen} / {TOTAL_GENS}
+							</span>
+						</i>
+					)}
 				</h1>
 				{content}
 			</div>

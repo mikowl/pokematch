@@ -4,6 +4,7 @@ specifiers:
   '@preact/preset-vite': ^2.5.0
   '@tanstack/react-query': 5.0.0-alpha.0
   '@tanstack/react-query-devtools': 5.0.0-alpha.0
+  '@total-typescript/ts-reset': ^0.4.2
   '@typescript-eslint/eslint-plugin': ^5.56.0
   '@typescript-eslint/parser': ^5.56.0
   confetti-explosion-react: ^0.1.2
@@ -26,6 +27,7 @@ dependencies:
 devDependencies:
   '@preact/preset-vite': 2.5.0_preact@10.13.1+vite@4.2.1
   '@tanstack/react-query-devtools': 5.0.0-alpha.0_3aaexqtapwvghpnxbkmjukpfqa
+  '@total-typescript/ts-reset': 0.4.2
   '@typescript-eslint/eslint-plugin': 5.56.0_iskin7c6dxqunwflhstekcjqmq
   '@typescript-eslint/parser': 5.56.0_vgl77cfdswitgr47lm5swmv43m
   eslint: 8.36.0
@@ -837,6 +839,10 @@ packages:
         optional: true
     dependencies:
       '@tanstack/query-core': 5.0.0-alpha.0
+
+  /@total-typescript/ts-reset/0.4.2:
+    resolution: {integrity: sha512-vqd7ZUDSrXFVT1n8b2kc3LnklncDQFPvR58yUS1kEP23/nHPAO9l1lMjUfnPrXYYk4Hj54rrLKMW5ipwk7k09A==}
+    dev: true
 
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
