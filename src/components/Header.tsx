@@ -4,9 +4,25 @@ import { formatTime } from "../utils";
 import Timer from "./Timer";
 import ClockIcon from "./Icons/Clock";
 
-const Header = ({ gameState, isFetching }: { gameState: GameData; isFetching: boolean }) => {
+const Header = ({
+	gameState,
+	isFetching,
+	setMinutes,
+	setSeconds,
+	seconds,
+	minutes,
+	roundTime,
+}: {
+	gameState: GameData;
+	isFetching: boolean;
+	setMinutes: Function;
+	setSeconds: Function;
+	seconds: number;
+	minutes: number;
+	roundTime: number | string;
+}) => {
 	const { boardSize, gameWin, totalCaught, turns } = gameState;
-	const roundTime = formatTime(Date.now() - gameState.startTime);
+	// const roundTime = `${minutes}:${seconds.toString().padStart(2, "0")}`;
 	// const averageScore: number = ((gen * boardSize) / 2 / totalTurns) * 100 * 1.5;
 	// To add: Pokematching: ★★★☆☆
 	return (
@@ -20,7 +36,14 @@ const Header = ({ gameState, isFetching }: { gameState: GameData; isFetching: bo
 						) : boardSize === 0 ? (
 							<span className={`timer off`}>0:00</span>
 						) : (
-							!isFetching && <Timer />
+							!isFetching && (
+								<Timer
+									setMinutes={setMinutes}
+									setSeconds={setSeconds}
+									seconds={seconds}
+									minutes={minutes}
+								/>
+							)
 						)}
 					</span>
 					<span className={`header-turns`}>Turns: {turns}</span>

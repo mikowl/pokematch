@@ -49,6 +49,9 @@ export default function Pokematch() {
 	const { data, isLoading, isFetching, error, refetch }: PokemonData = usePokemon(gen, boardSize);
 	const [deck, setDeck] = useState<Pokemon[]>([]);
 
+	const [seconds, setSeconds] = useState<number>(0);
+	const [minutes, setMinutes] = useState<number>(0);
+
 	const [roundTime, setRoundTime] = useState<number | string>(0);
 	const refetchData = async () => {
 		await refetch();
@@ -60,7 +63,7 @@ export default function Pokematch() {
 	const handleDifficulty = (e: MouseEvent) => {
 		const target = e.target as HTMLInputElement;
 		const board_size = parseInt(target.value, 10);
-		setGameState((prevState) => ({
+		setGameState((prevState: GameData) => ({
 			...prevState,
 			boardSize: board_size,
 		}));
@@ -75,6 +78,8 @@ export default function Pokematch() {
 			turns: 0,
 			gameWin: false,
 		}));
+		setMinutes(0);
+		setSeconds(0);
 		const cards = document.querySelectorAll(".card-btn");
 		cards.forEach((card) => card.classList.remove("flipped"));
 		localStorage.setItem("gameState", JSON.stringify(gameState));
@@ -100,11 +105,12 @@ export default function Pokematch() {
 
 	// update round time
 	useEffect(() => {
-		const roundTime = formatTime(Date.now() - startTime);
+		// const roundTime = formatTime(Date.now() - startTime);
+		const roundTime = `${minutes}:${seconds.toString().padStart(2, "0")}`;
 		setRoundTime(roundTime);
 		const body = document.querySelector("body");
 		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
-	}, [startTime, gameWin]);
+	}, [startTime, gameWin, minutes, seconds]);
 
 	let content;
 
@@ -160,7 +166,12 @@ export default function Pokematch() {
 				</div>
 				{deck && (
 					<div className={`footerkinda ${gameWin ? "hide" : ""}`}>
-						<Powerups gameState={gameState} setGameState={setGameState} />
+						<Powerups
+							gameState={gameState}
+							setGameState={setGameState}
+							setSeconds={setSeconds}
+							seconds={seconds}
+						/>
 						<div class="restart-container">
 							<button className={"btn refresh"} onClick={handleRestart}>
 								<Refresh size={26} fill="#fff" />
@@ -185,7 +196,15 @@ export default function Pokematch() {
 
 	return (
 		<>
-			<Header gameState={gameState} isFetching={isFetching} />
+			<Header
+				gameState={gameState}
+				isFetching={isFetching}
+				setSeconds={setSeconds}
+				setMinutes={setMinutes}
+				seconds={seconds}
+				minutes={minutes}
+				roundTime={roundTime}
+			/>
 			<div className={`gcolor${gen}`}>
 				<h1>
 					Pokematch

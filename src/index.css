@@ -745,11 +745,14 @@ header .icon-clock {
 	margin: 0 3px;
 }
 .icon-pokeball.turns-color {
-	fill: var(--blue);
+	fill: var(--lcolorb9);
 }
 
 .icon-pokeball.reveal-color {
 	fill: var(--lcolor8);
+}
+.icon-pokeball.time-color {
+	fill: var(--lcolorb5);
 }
 .power-ups span {
 	position: absolute;

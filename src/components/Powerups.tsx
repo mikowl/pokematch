@@ -2,14 +2,24 @@ import useSound from "use-sound";
 import { GameData } from "../types/other";
 import Pokeball from "./Icons/Pokeball";
 
-const powerUpList = ["reveal", "turns"];
+const powerUpList = ["reveal", "turns", "time"];
 
 export const randomPower = () => {
 	const randomNum = Math.floor(Math.random() * powerUpList.length);
 	return powerUpList[randomNum];
 };
 
-const Powerups = ({ gameState, setGameState }: { gameState: GameData; setGameState: Function }) => {
+const Powerups = ({
+	gameState,
+	setGameState,
+	setSeconds,
+	seconds,
+}: {
+	gameState: GameData;
+	setGameState: Function;
+	setSeconds: Function;
+	seconds: number;
+}) => {
 	const { mute, powerUps, totalTurns, turns } = gameState;
 	const [playSuccess2] = useSound("/sounds/success2.mp3", { volume: 0.5 });
 
@@ -62,6 +72,13 @@ const Powerups = ({ gameState, setGameState }: { gameState: GameData; setGameSta
 		}, 1000);
 	};
 
+	const timePower = (index: number) => {
+		setGameState((prevState: GameData) => ({
+			...prevState,
+			powerUps: prevState.powerUps.filter((_, i) => i !== index),
+		}));
+		setSeconds((seconds: number) => seconds - 10);
+	};
 	// TODO: use power up on spacebar press
 	// useEffect(() => {
 	// 	const handleSpacebar = (e: KeyboardEvent) => {
@@ -88,6 +105,8 @@ const Powerups = ({ gameState, setGameState }: { gameState: GameData; setGameSta
 							revealPower(index);
 						} else if (powerUp === "turns") {
 							turnsPower(index);
+						} else if (powerUp === "time") {
+							timePower(index);
 						}
 					};
 					return (

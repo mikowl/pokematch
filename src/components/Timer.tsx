@@ -1,23 +1,29 @@
-import { FunctionComponent } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useEffect } from "preact/hooks";
 
-const Timer: FunctionComponent = () => {
-	const [seconds, setSeconds] = useState<number>(0);
-	const [minutes, setMinutes] = useState<number>(0);
-
+const Timer = ({
+	setMinutes,
+	setSeconds,
+	minutes,
+	seconds,
+}: {
+	setMinutes: Function;
+	setSeconds: Function;
+	minutes: number;
+	seconds: number;
+}) => {
 	useEffect(() => {
 		const intervalId = setInterval(() => {
-			setSeconds((seconds) => seconds + 1);
+			setSeconds((seconds: number) => seconds + 1);
 		}, 1000);
 		return () => clearInterval(intervalId);
-	}, []);
+	}, [setSeconds]);
 
 	useEffect(() => {
 		if (seconds === 60) {
 			setSeconds(0);
-			setMinutes((minutes) => minutes + 1);
+			setMinutes((minutes: number) => minutes + 1);
 		}
-	}, [seconds]);
+	}, [seconds, setMinutes, setSeconds]);
 
 	return <span className="timer">{`${minutes}:${seconds.toString().padStart(2, "0")}`}</span>;
 };
