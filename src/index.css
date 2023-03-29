@@ -103,8 +103,8 @@ body {
 	background-image: url("/img/pokewp.jpg");
 	image-rendering: pixelated;
 	background-size: cover;
-	background-position: center 22vh;
-	background-position: center 22dvh;
+	background-position: center 18vh;
+	background-position: center 18dvh;
 	background-repeat: no-repeat;
 	transition: opacity 0.5s ease-in-out;
 	overscroll-behavior: none;
@@ -771,7 +771,15 @@ header .icon-clock {
 	display: flex;
 	margin: 1rem 0;
 	gap: 0.5rem;
+	position: absolute;
+	bottom: -11px;
+	width: 100%;
+	left: 0;
+	right: 0;
+	max-width: 660px;
+	margin: 1rem auto;
 }
+
 .powerup-descriptions div {
 	padding: 15px;
 	/* background: var(--greentran);
@@ -780,10 +788,9 @@ header .icon-clock {
 }
 	
 .powerup-descriptions p {
-	color: var(--darkblue);
+	color: var(--gcolor3);
 	margin: 0.5rem 0 0;
 	font-size: 0.8375rem;
-	text-shadow: 0 0 20px #FFF;
 }
 h4 {
 	font-size: 1.125rem;

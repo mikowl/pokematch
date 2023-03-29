@@ -135,7 +135,6 @@ export default function Pokematch() {
 					<button className={"btn hard"} onClick={handleDifficulty} value="20">
 						Hard
 					</button>
-					<h4>Pokeball powers:</h4>
 					<div className="powerup-descriptions">
 						<div>
 							<Pokeball className="turns-color" />
