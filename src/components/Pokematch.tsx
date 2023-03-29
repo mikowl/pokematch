@@ -1,5 +1,4 @@
 import { useEffect, useState } from "preact/hooks";
-import { formatTime } from "../utils";
 import { usePokemon, TOTAL_GENS } from "../api";
 import PokeCard from "./PokeCard";
 import { Pokemon } from "../types/pokemon";
@@ -166,12 +165,7 @@ export default function Pokematch() {
 				</div>
 				{deck && (
 					<div className={`footerkinda ${gameWin ? "hide" : ""}`}>
-						<Powerups
-							gameState={gameState}
-							setGameState={setGameState}
-							setSeconds={setSeconds}
-							seconds={seconds}
-						/>
+						<Powerups gameState={gameState} setGameState={setGameState} setSeconds={setSeconds} />
 						<div class="restart-container">
 							<button className={"btn refresh"} onClick={handleRestart}>
 								<Refresh size={26} fill="#fff" />

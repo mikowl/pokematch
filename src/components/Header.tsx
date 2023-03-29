@@ -1,6 +1,5 @@
 import { GameData } from "../types/other";
 import { TOTAL_GENS } from "../api";
-import { formatTime } from "../utils";
 import Timer from "./Timer";
 import ClockIcon from "./Icons/Clock";
 
@@ -22,7 +21,6 @@ const Header = ({
 	roundTime: number | string;
 }) => {
 	const { boardSize, gameWin, totalCaught, turns } = gameState;
-	// const roundTime = `${minutes}:${seconds.toString().padStart(2, "0")}`;
 	// const averageScore: number = ((gen * boardSize) / 2 / totalTurns) * 100 * 1.5;
 	// To add: Pokematching: ★★★☆☆
 	return (

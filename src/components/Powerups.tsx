@@ -13,12 +13,10 @@ const Powerups = ({
 	gameState,
 	setGameState,
 	setSeconds,
-	seconds,
 }: {
 	gameState: GameData;
 	setGameState: Function;
 	setSeconds: Function;
-	seconds: number;
 }) => {
 	const { mute, powerUps, totalTurns, turns } = gameState;
 	const [playSuccess2] = useSound("/sounds/success2.mp3", { volume: 0.5 });
