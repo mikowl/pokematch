@@ -124,7 +124,7 @@ export default function Pokematch() {
 					<br />
 				</p>
 				<div className={"difficulty"}>
-					<h2 className={"blue-flash"}>Choose Difficulty:</h2>
+					<h2 className={"gor-animation"}>Choose Difficulty:</h2>
 					{/* <p>Hard recommended for desktop only</p> */}
 					<button className={"btn easy"} onClick={handleDifficulty} value="12">
 						Easy

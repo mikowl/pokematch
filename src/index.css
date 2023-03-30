@@ -647,6 +647,7 @@ header {
 	margin: 0 auto;
 	padding: 0 15px;
 }
+.clock-time {line-height: 1;}
 header p {
 	margin: 0;
 	font-size: 0.9375rem;
@@ -654,15 +655,20 @@ header p {
 }
 header .timer {
 	background: rgb(228 0 88 / 80%);
-	padding: 9px 8px 7px 8px;
-	margin: 5px;
-	transition: all 0.3s ease-in-out;
+	padding: 0 8px;
+	margin: -4px 5px -7px 5px;
+	margin: -6px 5px -11px 5px;
+	transform: translateY(-2px);
+	display: inline-flex;
+	min-width: 80px;
+	height: 34px;
+	align-items: center;
 }
 header .timer.off {
 	background: rgb(228 0 88 / 30%);
 }
 header .icon-clock {
-	transform: translate(-5px, 4px);
+	transform: translate(-5px, 2px);
 }
 .header-turns {
 	position:fixed;
@@ -788,8 +794,9 @@ header .icon-clock {
 }
 	
 .powerup-descriptions p {
+	max-width: 94px;
 	color: var(--gcolor3);
-	margin: 0.5rem 0 0;
+	margin: 0.5rem auto 0;
 	font-size: 0.8375rem;
 }
 h4 {
@@ -1020,7 +1027,7 @@ h4 {
 	#pokematch {
 		padding-top: 2rem;
 	}
-	h1 {margin: 3rem 0 4rem 0;}
+	h1 {margin: 4rem 0 4rem 0;}
 	h1 i {
 		transform: translate(3%, -24%);
 		min-width: 100px;
@@ -1074,6 +1081,9 @@ h4 {
 		text-transform: uppercase;
 		transition: all 0.5s ease-in-out;
 		box-shadow: var(--pixelBorder), 5px 0 var(--yellowtran), -6px 0 var(--yellowtran), 0 -6px var(--yellowtran), 0 6px var(--yellowtran), 0 0 0 3px var(--yellowtran);
+	}
+	.powerup-descriptions p {
+		max-width: none;
 	}
 	.restart-container { 
 		transform: translateX(-100%);
@@ -1158,6 +1168,20 @@ h4 {
 @keyframes blue-flash {
 	0% {color: hsl(240deg 70% 36.85%);}
 	100% {color: hsl(210deg 100% 36.85%);}
+}
+
+@keyframes green-orange-red {
+	0% { color: var(--green2);}
+  33.3% { color: var(--orange);}
+  66.6% { color: var(--red2);}
+  100% { color: var(--red2);}
+}
+
+.gor-animation {
+	animation-name: green-orange-red;
+	animation-duration: 3s;
+	animation-timing-function: steps(1);
+	animation-iteration-count: infinite;
 }
 
 @keyframes wave {

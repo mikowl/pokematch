@@ -25,7 +25,7 @@ const Timer = ({
 		}
 	}, [seconds, setMinutes, setSeconds]);
 
-	return <span className="timer">{`${minutes}:${seconds.toString().padStart(2, "0")}`}</span>;
+	return <i>{`${minutes}:${seconds.toString().padStart(2, "0")}`}</i>;
 };
 
 export default Timer;

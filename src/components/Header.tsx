@@ -23,26 +23,26 @@ const Header = ({
 	const { boardSize, gameWin, totalCaught, turns } = gameState;
 	// const averageScore: number = ((gen * boardSize) / 2 / totalTurns) * 100 * 1.5;
 	// To add: Pokematching: ★★★☆☆
+	let timerContent;
+	if (gameWin) {
+		timerContent = roundTime;
+	} else if (boardSize === 0) {
+		timerContent = "0:00";
+	} else if (!isFetching) {
+		timerContent = (
+			<Timer setMinutes={setMinutes} setSeconds={setSeconds} seconds={seconds} minutes={minutes} />
+		);
+	}
+
 	return (
 		<>
 			<header>
 				<div className="hdr-container">
 					<span className={`clock-time`}>
 						<ClockIcon size={20} fill="#FFF" />
-						{gameWin ? (
-							<span className={`timer off`}>{roundTime}</span>
-						) : boardSize === 0 ? (
-							<span className={`timer off`}>0:00</span>
-						) : (
-							!isFetching && (
-								<Timer
-									setMinutes={setMinutes}
-									setSeconds={setSeconds}
-									seconds={seconds}
-									minutes={minutes}
-								/>
-							)
-						)}
+						<span className={`timer ${gameWin || boardSize === 0 ? "off" : ""}`}>
+							{timerContent}
+						</span>
 					</span>
 					<span className={`header-turns`}>Turns: {turns}</span>
 					<span className={`caught`}>
