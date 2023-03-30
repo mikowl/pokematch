@@ -75,7 +75,7 @@ const Powerups = ({
 			...prevState,
 			powerUps: prevState.powerUps.filter((_, i) => i !== index),
 		}));
-		setSeconds((seconds: number) => seconds - 10);
+		setSeconds((seconds: number) => seconds - 7);
 	};
 	// TODO: use power up on spacebar press
 	// useEffect(() => {

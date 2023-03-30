@@ -146,7 +146,7 @@ export default function Pokematch() {
 						</div>
 						<div>
 							<Pokeball className="time-color" />
-							<p>-10 seconds</p>
+							<p>-7 seconds</p>
 						</div>
 					</div>
 					{import.meta.env.VITE_DEBUG == "TRUE" && (
