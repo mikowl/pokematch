@@ -70,7 +70,7 @@ export default function PokeCard({
 					// Check if the game has been won
 					if (matchedCards.length === pokemons.length - 2) {
 						setTimeout(() => {
-							playSuccess();
+							if (!mute) playSuccess();
 						}, 500);
 						setTimeout(() => {
 							setGameState({
