@@ -1,6 +1,9 @@
 # Pokematch
 
-- An overengineered pokemon memory game
+An overengineered pokemon memory game
+
+![Pokematch](https://raw.githubusercontent.com/mikowl/pokematch/main/screenshots.png)
+
   - MVP:
 	1. ~~Create function that grabs 8 random pokemon from pokeapi~~
 	2. ~~Take the 8, double them, then shuffle~~
