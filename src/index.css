@@ -282,8 +282,13 @@ h1 {
 	letter-spacing: -0.1rem;
 	text-align: center;
 	-webkit-font-smoothing: auto;
+	transition: all 0.3s ease-in-out;
 }
 
+.game-intro h1 {
+	font-size: clamp(2rem, 5vw + 0.5rem, 3rem);
+	margin: 3rem 0 2.5rem;
+}
 
 h1 i {
 	position: absolute;
@@ -1027,10 +1032,13 @@ h4 {
 	#pokematch {
 		padding-top: 2rem;
 	}
-	h1 {margin: 4rem 0 4rem 0;}
+	#pokematch h1 {
+		margin: 4rem 0 4rem 0;
+	}
 	h1 i {
 		transform: translate(3%, -24%);
 		min-width: 100px;
+		max-width: 80px;
 	}
 	.card-container {
 		margin-top: 3rem;

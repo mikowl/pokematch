@@ -214,7 +214,7 @@ export default function Pokematch() {
 				minutes={minutes}
 				roundTime={roundTime}
 			/>
-			<div className={`gcolor${gen}`}>
+			<div className={`gcolor${gen}${boardSize < 1 ? " game-intro" : ""}`}>
 				<h1>
 					Pokematch
 					{boardSize > 0 && (
