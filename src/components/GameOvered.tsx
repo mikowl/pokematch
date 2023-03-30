@@ -184,6 +184,10 @@ const GameOvered = ({
 					<ClockIcon size={24} fill="#FFF" />
 					{roundTime}
 				</small>
+				{timeClass(boardSize, roundTime) === "flash" && <p className="great-time">Great time!</p>}
+				{timeClass(boardSize, roundTime) === "fiyahhh flash" && (
+					<p className="fire-time">You're on fire!</p>
+				)}
 				{/* GAME COMPLETE */}
 				{gen === TOTAL_GENS && (
 					<p className="gameOveredMessage">

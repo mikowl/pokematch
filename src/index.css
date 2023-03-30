@@ -876,7 +876,13 @@ h4 {
 	margin-right: 10px;
 	transform: translateY(-1px);
 }
-
+.great-time, .fire-time {
+	font-size: 0.75rem;
+	letter-spacing: -0.05rem;
+	margin: -1rem 0 0 0;
+}
+.great-time {color: var(--blue)}
+.fire-time {color: var(--lcolor7)}
 .icon-mute {
 	fill: #FFF;
 }
