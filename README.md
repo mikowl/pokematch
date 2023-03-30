@@ -1,6 +1,6 @@
 # Pokematch
 
-An overengineered pokemon memory game
+An overengineered pokemon memory match game you can play [here](https://pokematch.vercel.app/)
 
 ![Pokematch](https://raw.githubusercontent.com/mikowl/pokematch/main/screenshots.png)
 
