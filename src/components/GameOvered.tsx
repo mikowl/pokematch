@@ -115,7 +115,7 @@ const GameOvered = ({
 			return (
 				<p className="guess correct">
 					Correct!
-					<br /> Reveal powerup obtained!
+					<br /> You received a powerup!
 				</p>
 			);
 		}
