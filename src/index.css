@@ -180,11 +180,11 @@ body.game-over, html {
 	transform: translateY(0);
 	padding: 5px 0;
 	margin: 0;
-	font-size: 0.5rem;
+	font-size: 0.1875rem;
 	transition: all 0.5s ease-in-out;
 }
 .animate-matched .pokename {
-	font-size: 1rem;
+	font-size: 0.5625rem;
 	transform: translateY(-50%);
 	opacity: 1;
 }
@@ -941,7 +941,8 @@ h4 {
 	height: 100%;
 }
 .pokesCaught li {
-	flex-basis: calc(97.5% / 3);
+	/* flex-basis: calc(97.5% / 3); */
+	flex-basis: calc(33.333% - 7px);
 	margin-bottom: 1.5rem;
 }
 .pokesCaught.bs-20 li {
@@ -1088,6 +1089,12 @@ h4 {
 	.pokeCard img {
 		width: 20vh;
 		width: 20dvh;
+	}
+	.pokename {
+		font-size: 0.5rem;
+	}
+	.animate-matched .pokename {
+		font-size: 1rem;
 	}
 	.pokesCaught.bs-16 li,
 	.pokesCaught.bs-20 li {
