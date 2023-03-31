@@ -1233,6 +1233,30 @@ h4 {
 	}
 }
 
+@keyframes animate-matched {
+	0% {
+		transform: scale(1);
+		outline: 0 solid rgb(248 184 0 / 70%);
+		border-radius: 1px;
+	}
+	50% {
+		transform: scale(1.1);
+		outline: 15px solid rgb(248 184 0 / 70%);
+		border-radius: 1px;
+	}
+	100% {
+		transform: scale(1);
+		outline: 0 solid rgb(248 184 0 / 70%);
+		border-radius: 1px;
+	}
+}
+
+.animate-matched {
+	animation-name: animate-matched;
+	animation-duration: 0.5s;
+	animation-iteration-count: 1;
+	animation-direction: alternate;
+}
 .wave i {
 	display: inline-block;
 	animation: wave 1s infinite;

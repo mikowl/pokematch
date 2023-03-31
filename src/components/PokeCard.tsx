@@ -47,6 +47,9 @@ export default function PokeCard({
 					// Match found
 					setMatchedCards([...matchedCards, card, card1]);
 					setFlippedCards([]);
+					// temporarily add matched class to the matching cards
+					card.classList.add("animate-matched");
+					card1.classList.add("animate-matched");
 					setGameState({
 						...gameState,
 						turns: turns + 1,
