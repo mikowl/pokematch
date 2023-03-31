@@ -47,9 +47,13 @@ export default function PokeCard({
 					// Match found
 					setMatchedCards([...matchedCards, card, card1]);
 					setFlippedCards([]);
-					// temporarily add matched class to the matching cards
+					// add matched animation to the matching cards
 					card.classList.add("animate-matched");
 					card1.classList.add("animate-matched");
+					setTimeout(() => {
+						card.classList.remove("animate-matched");
+						card1.classList.remove("animate-matched");
+					}, 500);
 					setGameState({
 						...gameState,
 						turns: turns + 1,
@@ -133,6 +137,7 @@ export default function PokeCard({
 										width="96"
 										height="96"
 									/>
+									<p className="pokename">{pokemon.name}</p>
 								</div>
 							</div>
 						</div>

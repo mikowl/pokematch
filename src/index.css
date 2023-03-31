@@ -87,6 +87,7 @@ a:hover {
 }
 
 button {
+	font-family: 'Gameboy';
 	cursor: pointer;
 	-ms-touch-action: manipulation;
 	touch-action: manipulation;
@@ -166,6 +167,26 @@ body.game-over, html {
 	transition: all 0.3s ease-in-out;
 	box-shadow: var(--pixelBorder),
 	8px 0 var(--darkblue), -8px 0 var(--darkblue), 0 -8px var(--darkblue), 0 8px var(--darkblue), 0 0 0 4px var(--darkblue);
+}
+.pokename {
+	opacity: 0;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+	width: 100%;
+	background: var(--yellow);
+	color: var(--darkblue);
+	transform: translateY(0);
+	padding: 5px 0;
+	margin: 0;
+	font-size: 0.5rem;
+	transition: all 0.5s ease-in-out;
+}
+.animate-matched .pokename {
+	font-size: 1rem;
+	transform: translateY(-50%);
+	opacity: 1;
 }
 .frontCardImg {
 	width: 50%;
@@ -1236,17 +1257,17 @@ h4 {
 @keyframes animate-matched {
 	0% {
 		transform: scale(1);
-		outline: 0 solid rgb(248 184 0 / 70%);
+		outline: 0 solid rgb(248 184 0 / 60%);
 		border-radius: 1px;
 	}
 	50% {
 		transform: scale(1.1);
-		outline: 15px solid rgb(248 184 0 / 70%);
+		outline: 15px solid rgb(248 184 0 / 60%);
 		border-radius: 1px;
 	}
 	100% {
 		transform: scale(1);
-		outline: 0 solid rgb(248 184 0 / 70%);
+		outline: 0 solid rgb(248 184 0 / 60%);
 		border-radius: 1px;
 	}
 }
