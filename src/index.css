@@ -1222,6 +1222,17 @@ h4 {
   100% { color: var(--red2);}
 }
 
+@keyframes red-flash {
+	0% {background: var(--red);}
+	100% {background: var(--red2);}
+}
+.animate-time {
+	animation-name: red-flash;
+	animation-duration: 0.5s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
 .gor-animation {
 	animation-name: green-orange-red;
 	animation-duration: 3s;

@@ -71,6 +71,13 @@ const Powerups = ({
 	};
 
 	const timePower = (index: number) => {
+		const timeEl = document.querySelector(".timer");
+		timeEl?.classList.add("animate-time");
+		setTimeout(() => {
+			timeEl?.classList.remove("animate-time");
+		}, 2000);
+		if (!mute) playSuccess2();
+
 		setGameState((prevState: GameData) => ({
 			...prevState,
 			powerUps: prevState.powerUps.filter((_, i) => i !== index),
