@@ -11,6 +11,7 @@ import Refresh from "./Icons/Refresh";
 import Header from "./Header";
 import Powerups from "./Powerups";
 import Pokeball from "./Icons/Pokeball";
+import StartScreen from "./StartScreen";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
 
@@ -115,54 +116,7 @@ export default function Pokematch() {
 	let content;
 
 	if (boardSize === 0) {
-		content = (
-			<>
-				<p className={"instructions"}>
-					Match the Pokemon, complete all {TOTAL_GENS} generations to win!
-					<br />
-					Every round is unique!
-					<br />
-				</p>
-				<div className={"difficulty"}>
-					<h2 className={"gor-animation"}>Choose Difficulty:</h2>
-					{/* <p>Hard recommended for desktop only</p> */}
-					<button className={"btn easy"} onClick={handleDifficulty} value="12">
-						Easy
-					</button>
-					<button className={"btn medium"} onClick={handleDifficulty} value="16">
-						Medium
-					</button>
-					<button className={"btn hard"} onClick={handleDifficulty} value="20">
-						Hard
-					</button>
-					<div className="powerup-descriptions">
-						<div>
-							<Pokeball className="turns-color" />
-							<p>-2 turns</p>
-						</div>
-						<div>
-							<Pokeball className="reveal-color" />
-							<p>Reveal all</p>
-						</div>
-						<div>
-							<Pokeball className="time-color" />
-							<p>-7 seconds</p>
-						</div>
-					</div>
-					{import.meta.env.VITE_DEBUG == "TRUE" && (
-						<>
-							<br />
-							<br />
-							<br />
-							<button className={"btn dbg"} onClick={handleDifficulty} value="4">
-								Debug
-							</button>
-						</>
-					)}
-					{/* <p className="tip">Tip: Press spacebar to use power ups</p> */}
-				</div>
-			</>
-		);
+		content = <StartScreen handleDifficulty={handleDifficulty} />;
 	} else if (isFetching || isLoading) {
 		content = <Loader pokeball={true} />;
 	} else if (error) {
