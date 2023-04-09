@@ -32,6 +32,7 @@ There are 9 "levels" progressing through each pokemon generation, every round is
   - ~~Since introducing the pokemon battle after round we can probably get rid of the "Next" game button and instead progress to the next round after choosing, I think this will be a better ux~~
   - Improve "game over" screen
   - Currently end grading score is only based on the turns/board size ratio, I should factor time in the score somehow
+  - Something something with guessing the pokemon **name**
 
 **Powerup ideas**
   - ~~Time freeze/minus seconds~~
