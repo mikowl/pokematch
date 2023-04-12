@@ -6,7 +6,7 @@ import { useEffect, useState } from "preact/hooks";
 import ClockIcon from "./Icons/Clock";
 import { randomPower } from "./Powerups";
 import useSound from "use-sound";
-import ConfettiExplosion from "confetti-explosion-react";
+import ConfettiExplosion from "react-confetti-explosion";
 
 const GameOvered = ({
 	gameState,
@@ -143,6 +143,7 @@ const GameOvered = ({
 						particleCount={200}
 						width={3000}
 						colors={["#f8b800", "#0078f8"]}
+						zIndex={9999}
 					/>
 				)}
 				<h2>{gen === TOTAL_GENS ? "Game Over!" : "You caught 'em all!"}</h2>
