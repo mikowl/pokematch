@@ -12,9 +12,9 @@ There are 9 "levels" progressing through each pokemon generation, every round is
 ![Pokematch](https://raw.githubusercontent.com/mikowl/pokematch/main/screenshots.png)
 
 **MVP:**
-  - ~~Create function that grabs 8 random pokemon from pokeapi~~
-  - ~~Take the 8, double them, then shuffle~~
-  - ~~Display in nice 4x4 grid~~
+  - ~~Create function that grabs 6 random pokemon from pokeapi~~
+  - ~~Take the 6, double them, then shuffle~~
+  - ~~Display in nice 4x3 grid~~
   - ~~Flip animation and matching logic~~
   - ~~Keep track of guesses~~
   - ~~Confetti when you win~~
