@@ -1,5 +1,6 @@
 import { GameData } from "../types/other";
 import { TOTAL_GENS } from "../api";
+import { FpsView } from "react-fps";
 import Timer from "./Timer";
 import ClockIcon from "./Icons/Clock";
 
@@ -49,6 +50,7 @@ const Header = ({
 						{totalCaught}/{(TOTAL_GENS * boardSize) / 2} caught
 					</span>
 				</div>
+				{import.meta.env.VITE_DEBUG == "TRUE" && <FpsView width={100} height={100} />}
 			</header>
 		</>
 	);

@@ -10,7 +10,6 @@ import MuteButton from "./MuteButton";
 import Refresh from "./Icons/Refresh";
 import Header from "./Header";
 import Powerups from "./Powerups";
-import Pokeball from "./Icons/Pokeball";
 import StartScreen from "./StartScreen";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
