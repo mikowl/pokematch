@@ -18,7 +18,7 @@ type Cards = CardElement[] | HTMLButtonElement[];
 
 export default function Pokematch() {
 	const getInitialGameState = (): GameData => {
-		const APP_VERSION = "2.3.5";
+		const APP_VERSION = "2.4.0";
 		if (localStorage.getItem("appVersion") !== String(APP_VERSION)) {
 			// Clear localStorage
 			localStorage.clear();
