@@ -40,6 +40,10 @@ const StartScreen = ({
 						<Pokeball className="time-color" />
 						<p>-7 seconds</p>
 					</div>
+					<div>
+						<Pokeball className="matchSet-color" />
+						<p>Match a set</p>
+					</div>
 				</div>
 				{import.meta.env.VITE_DEBUG == "TRUE" && (
 					<>
