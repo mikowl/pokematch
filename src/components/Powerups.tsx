@@ -25,6 +25,7 @@ const Powerups = ({
 }) => {
 	const { mute, powerUps, totalTurns, turns } = gameState;
 	const [playSuccess2] = useSound("/sounds/success2.mp3", { volume: 0.5 });
+	const [playClick] = useSound("/sounds/click.mp3", { volume: 0.8 });
 
 	const revealPower = (i: number) => {
 		if (!mute) playSuccess2();
@@ -109,6 +110,7 @@ const Powerups = ({
 			...prevState,
 			powerUps: prevState.powerUps.filter((_, i) => i !== index),
 		}));
+		playClick();
 	}
 
 	return (
