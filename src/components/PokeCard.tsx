@@ -7,20 +7,22 @@ import success from "/sounds/success.mp3";
 import click from "/sounds/click.mp3";
 import Pokeball2 from "./Icons/Pokeball2";
 import { isMobile } from "../utils";
-
+type CardElement = HTMLButtonElement | string;
 export default function PokeCard({
 	pokemons,
 	setGameState,
 	gameState,
+	matchedCards,
+	setMatchedCards,
 }: {
 	pokemons: Pokemon[];
 	setGameState: Function;
 	gameState: GameData;
+	matchedCards: CardElement[];
+	setMatchedCards: Function;
 }) {
-	type CardElement = HTMLButtonElement | string;
-	type Cards = CardElement[] | HTMLButtonElement[];
 	const [flippedCards, setFlippedCards] = useState<HTMLButtonElement[]>([]);
-	const [matchedCards, setMatchedCards] = useState<Cards>([]);
+	// const [matchedCards, setMatchedCards] = useState<Cards>([]);
 	const [isProcessing, setIsProcessing] = useState<boolean>(false);
 	const { mute, totalCaught, totalTurns, turns } = gameState;
 	const [playClick] = useSound(click, { volume: 0.8 });

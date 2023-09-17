@@ -2,8 +2,9 @@ import useSound from "use-sound";
 import { GameData } from "../types/other";
 import Pokeball from "./Icons/Pokeball";
 
-const powerUpList = ["reveal", "turns", "time"];
+const powerUpList = ["reveal", "turns", "time", "matchSet"];
 
+type CardElement = HTMLButtonElement | string;
 export const randomPower = () => {
 	const randomNum = Math.floor(Math.random() * powerUpList.length);
 	return powerUpList[randomNum];
@@ -13,10 +14,14 @@ const Powerups = ({
 	gameState,
 	setGameState,
 	setSeconds,
+	matchedCards,
+	setMatchedCards,
 }: {
 	gameState: GameData;
 	setGameState: Function;
 	setSeconds: Function;
+	matchedCards: CardElement[];
+	setMatchedCards: Function;
 }) => {
 	const { mute, powerUps, totalTurns, turns } = gameState;
 	const [playSuccess2] = useSound("/sounds/success2.mp3", { volume: 0.5 });
@@ -84,19 +89,27 @@ const Powerups = ({
 		}));
 		setSeconds((seconds: number) => seconds - 7);
 	};
-	// TODO: use power up on spacebar press
-	// useEffect(() => {
-	// 	const handleSpacebar = (e: KeyboardEvent) => {
-	// 		if (e.code === "Space" && powerUps > 0 && gameWin === false) {
-	// 			e.preventDefault();
-	// 			handlePowerUp();
-	// 		}
-	// 	};
-	// 	document.addEventListener("keydown", handleSpacebar);
-	// 	return () => {
-	// 		document.removeEventListener("keydown", handleSpacebar);
-	// 	};
-	// }, []);
+
+	const matchSetPower = (index: number) => {
+		// check if .card-btn does not have the class .flipped
+		const cards = document.querySelectorAll(".card-btn:not(.flipped)");
+		// get data-name of first card
+		// add flipped to all cards with the same data-name
+		const firstCard = cards[0].getAttribute("data-name") as HTMLElement | null;
+		cards.forEach((card) => {
+			if (card.getAttribute("data-name") === firstCard) {
+				card.classList.add("flipped", "animate-matched");
+				setMatchedCards([...matchedCards, firstCard, card]);
+				setTimeout(() => {
+					card.classList.remove("animate-matched");
+				}, 500);
+			}
+		});
+		setGameState((prevState: GameData) => ({
+			...prevState,
+			powerUps: prevState.powerUps.filter((_, i) => i !== index),
+		}));
+	}
 
 	return (
 		<div className={"power-ups"}>
@@ -106,12 +119,21 @@ const Powerups = ({
 			) : (
 				powerUps.map((powerUp, index) => {
 					const powerFunction = () => {
-						if (powerUp === "reveal") {
+						switch (powerUp) {
+						case "reveal":
 							revealPower(index);
-						} else if (powerUp === "turns") {
+							break;
+						case "turns":
 							turnsPower(index);
-						} else if (powerUp === "time") {
+							break;
+						case "time":
 							timePower(index);
+							break;
+						case "matchSet":
+							matchSetPower(index);
+							break;
+						default:
+							break;
 						}
 					};
 					return (

@@ -13,6 +13,8 @@ import Powerups from "./Powerups";
 import StartScreen from "./StartScreen";
 
 type PokemonData = UseQueryResult<Pokemon[], Error>;
+type CardElement = HTMLButtonElement | string;
+type Cards = CardElement[] | HTMLButtonElement[];
 
 export default function Pokematch() {
 	const getInitialGameState = (): GameData => {
@@ -53,6 +55,9 @@ export default function Pokematch() {
 	const [minutes, setMinutes] = useState<number>(0);
 
 	const [roundTime, setRoundTime] = useState<number | string>(0);
+
+	const [matchedCards, setMatchedCards] = useState<Cards>([]);
+
 	const refetchData = async () => {
 		await refetch();
 	};
@@ -129,11 +134,11 @@ export default function Pokematch() {
 		content = (
 			<>
 				<div className={`card-container deckgen-${gen} bs-${boardSize}`}>
-					{deck && <PokeCard pokemons={deck} gameState={gameState} setGameState={setGameState} />}
+					{deck && <PokeCard pokemons={deck} gameState={gameState} setGameState={setGameState} matchedCards={matchedCards} setMatchedCards={setMatchedCards} />}
 				</div>
 				{deck && (
 					<div className={`footerkinda ${gameWin ? "hide" : ""}`}>
-						<Powerups gameState={gameState} setGameState={setGameState} setSeconds={setSeconds} />
+						<Powerups gameState={gameState} setGameState={setGameState} setSeconds={setSeconds} matchedCards={matchedCards} setMatchedCards={setMatchedCards} />
 						<div class="restart-container">
 							<button className={"btn refresh"} onClick={handleRestart}>
 								<Refresh size={26} fill="#fff" />
