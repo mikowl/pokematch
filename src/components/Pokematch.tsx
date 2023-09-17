@@ -1,9 +1,8 @@
 import { useEffect, useState } from "preact/hooks";
 import { usePokemon, TOTAL_GENS } from "../api";
 import PokeCard from "./PokeCard";
-import { Pokemon } from "../types/pokemon";
-import { GameData } from "../types/other";
-import { UseQueryResult } from "@tanstack/react-query";
+import { Pokemon, PokemonData } from "../types/pokemon";
+import { GameData, Cards } from "../types/other";
 import Loader from "./Loader";
 import GameOvered from "./GameOvered";
 import MuteButton from "./MuteButton";
@@ -11,10 +10,6 @@ import Refresh from "./Icons/Refresh";
 import Header from "./Header";
 import Powerups from "./Powerups";
 import StartScreen from "./StartScreen";
-
-type PokemonData = UseQueryResult<Pokemon[], Error>;
-type CardElement = HTMLButtonElement | string;
-type Cards = CardElement[] | HTMLButtonElement[];
 
 export default function Pokematch() {
 	const getInitialGameState = (): GameData => {
@@ -47,15 +42,12 @@ export default function Pokematch() {
 
 	const [gameState, setGameState] = useState<GameData>(getInitialGameState());
 	const { boardSize, gameWin, gen, startTime } = gameState;
-
 	const { data, isLoading, isFetching, error, refetch }: PokemonData = usePokemon(gen, boardSize);
-	const [deck, setDeck] = useState<Pokemon[]>([]);
 
+	const [deck, setDeck] = useState<Pokemon[]>([]);
 	const [seconds, setSeconds] = useState<number>(0);
 	const [minutes, setMinutes] = useState<number>(0);
-
 	const [roundTime, setRoundTime] = useState<number | string>(0);
-
 	const [matchedCards, setMatchedCards] = useState<Cards>([]);
 
 	const refetchData = async () => {
@@ -134,11 +126,25 @@ export default function Pokematch() {
 		content = (
 			<>
 				<div className={`card-container deckgen-${gen} bs-${boardSize}`}>
-					{deck && <PokeCard pokemons={deck} gameState={gameState} setGameState={setGameState} matchedCards={matchedCards} setMatchedCards={setMatchedCards} />}
+					{deck && (
+						<PokeCard
+							pokemons={deck}
+							gameState={gameState}
+							setGameState={setGameState}
+							matchedCards={matchedCards}
+							setMatchedCards={setMatchedCards}
+						/>
+					)}
 				</div>
 				{deck && (
 					<div className={`footerkinda ${gameWin ? "hide" : ""}`}>
-						<Powerups gameState={gameState} setGameState={setGameState} setSeconds={setSeconds} matchedCards={matchedCards} setMatchedCards={setMatchedCards} />
+						<Powerups
+							gameState={gameState}
+							setGameState={setGameState}
+							setSeconds={setSeconds}
+							matchedCards={matchedCards}
+							setMatchedCards={setMatchedCards}
+						/>
 						<div class="restart-container">
 							<button className={"btn refresh"} onClick={handleRestart}>
 								<Refresh size={26} fill="#fff" />

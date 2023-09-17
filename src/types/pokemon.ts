@@ -1,3 +1,5 @@
+import { UseQueryResult } from "@tanstack/react-query";
+
 export type PokemonGeneration = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | number;
 
 export type PokemonGenerationData = {
@@ -18,6 +20,8 @@ export interface PokemonResponse {
   count: number;
   data?: Pokemon[];
 }
+
+export type PokemonData = UseQueryResult<Pokemon[], Error>;
 
 export interface Pokemon {
   abilities: Ability[];

@@ -29,3 +29,6 @@ export type Rating = {
 	rating: string;
 	title: string;
 };
+
+export type CardElement = HTMLButtonElement | string;
+export type Cards = CardElement[] | HTMLButtonElement[];

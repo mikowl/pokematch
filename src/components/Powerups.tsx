@@ -1,10 +1,9 @@
 import useSound from "use-sound";
-import { GameData } from "../types/other";
+import { GameData, CardElement } from "../types/other";
 import Pokeball from "./Icons/Pokeball";
 
 const powerUpList = ["reveal", "turns", "time", "matchSet"];
 
-type CardElement = HTMLButtonElement | string;
 export const randomPower = () => {
 	const randomNum = Math.floor(Math.random() * powerUpList.length);
 	return powerUpList[randomNum];
