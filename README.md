@@ -6,6 +6,7 @@ There are 9 "levels" progressing through each pokemon generation, every round is
   - reveal power (temporarily reveals all the cards)
   - turn power (takes away 2 turns)
   - time power (takes 7 seconds off the clock)
+  - match power (matches one set for you)
 
 **Note the battle winner is based off the sum of the pokemons stats*
 
@@ -38,6 +39,6 @@ There are 9 "levels" progressing through each pokemon generation, every round is
   - ~~Time freeze/minus seconds~~
   - Double points
   - ~~Free turns (take away 2 turns)~~
-  - Hint (flip over one matching pair)
+  - ~~Hint (flip over one matching pair)~~
   - Skip level (would be rare)
 
