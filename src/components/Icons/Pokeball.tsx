@@ -2,6 +2,7 @@ import { IconProps } from "../../types/other";
 
 const Pokeball = (props: IconProps) => {
 	const size = props.size ?? 32;
+	const alt = props.alt ?? "Pokeball";
 	return (
 		<svg
 			className={`icon-pokeball${props.className ? ` ${props.className}` : ""}`}
@@ -12,6 +13,7 @@ const Pokeball = (props: IconProps) => {
 			style={props.styles}
 			viewBox="0 0 1200.000000 1200.000000"
 			preserveAspectRatio="xMidYMid meet"
+			alt={alt}
 		>
 			<g
 				transform="translate(0.000000,1200.000000) scale(0.100000,-0.100000)"

@@ -1,12 +1,23 @@
+import { useRef } from "preact/hooks";
 import useSound from "use-sound";
 import { GameData, CardElement } from "../types/other";
 import Pokeball from "./Icons/Pokeball";
 
-const powerUpList = ["reveal", "turns", "time", "matchSet"];
+interface PowerUps {
+	[key: string]: string;
+}
 
-export const randomPower = () => {
-	const randomNum = Math.floor(Math.random() * powerUpList.length);
-	return powerUpList[randomNum];
+const powerUpInfo: PowerUps = {
+	reveal: "Reveal cards",
+	turns: "-2 turns",
+	time: "-7 seconds",
+	matchSet: "Match a set",
+};
+
+export const randomPower = (): string => {
+	const keys = Object.keys(powerUpInfo);
+	const randomIndex = Math.floor(Math.random() * keys.length);
+	return keys[randomIndex];
 };
 
 const Powerups = ({
@@ -25,6 +36,7 @@ const Powerups = ({
 	const { mute, powerUps, totalTurns, turns } = gameState;
 	const [playSuccess2] = useSound("/sounds/success2.mp3", { volume: 0.5 });
 	const [playClick] = useSound("/sounds/click.mp3", { volume: 0.8 });
+	const infoRef = useRef<Array<HTMLParagraphElement | null>>([]);
 
 	const revealPower = (i: number) => {
 		if (!mute) playSuccess2();
@@ -110,7 +122,7 @@ const Powerups = ({
 			powerUps: prevState.powerUps.filter((_, i) => i !== index),
 		}));
 		playClick();
-	}
+	};
 
 	return (
 		<div className={"power-ups"}>
@@ -121,26 +133,47 @@ const Powerups = ({
 				powerUps.map((powerUp, index) => {
 					const powerFunction = () => {
 						switch (powerUp) {
-						case "reveal":
-							revealPower(index);
-							break;
-						case "turns":
-							turnsPower(index);
-							break;
-						case "time":
-							timePower(index);
-							break;
-						case "matchSet":
-							matchSetPower(index);
-							break;
-						default:
-							break;
+							case "reveal":
+								revealPower(index);
+								break;
+							case "turns":
+								turnsPower(index);
+								break;
+							case "time":
+								timePower(index);
+								break;
+							case "matchSet":
+								matchSetPower(index);
+								break;
+							default:
+								break;
 						}
 					};
 					return (
-						<button onClick={() => powerFunction()} className={`power-up-btn`} key={index}>
-							<Pokeball className={`${powerUp}-color`} />
-						</button>
+						<div key={index} style={{display: "contents"}}>
+							<button
+								onClick={() => powerFunction()}
+								onMouseEnter={() => {
+									infoRef.current[index]?.classList.add("active");
+								}}
+								onMouseLeave={() => {
+									infoRef.current[index]?.classList.remove("active");
+								}}
+								className={`power-up-btn`}
+								key={index}
+							>
+								<Pokeball className={`${powerUp}-color`} alt={powerUpInfo[powerUp]} />
+							</button>
+							<p
+								key={index}
+								className="pu-info"
+								ref={(el) => {
+									infoRef.current[index] = el;
+								}}
+							>
+								{powerUpInfo[powerUp]}
+							</p>
+						</div>
 					);
 				})
 			)}

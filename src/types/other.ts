@@ -5,6 +5,7 @@ export type IconProps = {
 	fill?: string;
 	styles?: any;
 	className?: string;
+  alt?: string;
 };
 
 export type GameData = {
