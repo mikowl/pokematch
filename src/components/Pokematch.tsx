@@ -13,7 +13,7 @@ import StartScreen from "./StartScreen";
 
 export default function Pokematch() {
 	const getInitialGameState = (): GameData => {
-		const APP_VERSION = "2.4.0";
+		const APP_VERSION = "2.4.2";
 		if (localStorage.getItem("appVersion") !== String(APP_VERSION)) {
 			// Clear localStorage
 			localStorage.clear();
@@ -49,6 +49,7 @@ export default function Pokematch() {
 	const [minutes, setMinutes] = useState<number>(0);
 	const [roundTime, setRoundTime] = useState<number | string>(0);
 	const [matchedCards, setMatchedCards] = useState<Cards>([]);
+	const [averageTime, setAverageTime] = useState<string[]>([]);
 
 	const refetchData = async () => {
 		await refetch();
@@ -92,6 +93,7 @@ export default function Pokematch() {
 			gen: 1,
 			boardSize: 0,
 			powerUps: [],
+			averageTime: [],
 		});
 	};
 
@@ -102,11 +104,15 @@ export default function Pokematch() {
 
 	// update round time
 	useEffect(() => {
-		// const roundTime = formatTime(Date.now() - startTime);
 		const roundTime = `${minutes}:${seconds.toString().padStart(2, "0")}`;
 		setRoundTime(roundTime);
 		const body = document.querySelector("body");
 		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
+
+		// save end round time to average time
+		if (gameWin) {
+			setAverageTime((prevState) => [...prevState, roundTime]);
+		}
 	}, [startTime, gameWin, minutes, seconds]);
 
 	let content;
@@ -161,6 +167,7 @@ export default function Pokematch() {
 						deck={deck}
 						handleRestart={handleRestart}
 						roundTime={roundTime}
+						averageTime={averageTime}
 					/>
 				)}
 			</>

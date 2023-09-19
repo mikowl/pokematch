@@ -88,3 +88,20 @@ export const timeClass = (boardSize: number, roundTime: number | string) => {
 	}
 };
 
+export const averageTimeString = (averageTime:string[]) => {
+	// calculate average time
+	const timesInSeconds = averageTime.map((time) => {
+		const [minutes, seconds] = time.split(":").map(Number);
+		return minutes * 60 + seconds;
+	});
+
+	const totalSeconds = timesInSeconds.reduce((total, seconds) => total + seconds, 0);
+	const averageSeconds = totalSeconds / timesInSeconds.length;
+
+	const averageMinutes = Math.floor(averageSeconds / 60);
+	const averageRemainderSeconds = Math.round(averageSeconds % 60);
+
+	return `${averageMinutes.toString().padStart(2)}:${averageRemainderSeconds
+		.toString()
+		.padStart(2, "0")}`;
+};

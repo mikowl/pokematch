@@ -1,4 +1,4 @@
-import { scoringMessages, convertScoreToGrade, timeClass } from "../utils";
+import { scoringMessages, convertScoreToGrade, averageTimeString, timeClass } from "../utils";
 import { TOTAL_GENS } from "../api";
 import { Pokemon } from "../types/pokemon";
 import { GameData } from "../types/other";
@@ -14,12 +14,14 @@ const GameOvered = ({
 	deck,
 	handleRestart,
 	roundTime,
+	averageTime,
 }: {
 	gameState: GameData;
 	setGameState: Function;
 	deck: Pokemon[];
 	handleRestart: () => void;
 	roundTime: number | string;
+	averageTime: string[];
 }) => {
 	const { boardSize, gen, mute, powerUps, totalTurns, turns } = gameState;
 	// 0 = no guess, 1 = correct guess, 2 = incorrect guess
@@ -29,8 +31,6 @@ const GameOvered = ({
 	const [playFail] = useSound("/sounds/fail.mp3");
 	const [playGameOver] = useSound("/sounds/gameover.mp3", { volume: 0.75 });
 
-	// const [averageTime, setAverageTime] = useState<string[]>([]);
-
 	const averageScore: number = ((TOTAL_GENS * deck.length) / 2 / totalTurns) * 100 * 1.5;
 
 	useEffect(() => {
@@ -38,8 +38,7 @@ const GameOvered = ({
 		if (gen === TOTAL_GENS) {
 			if (!mute) playGameOver();
 		}
-		// setAverageTime((prev) => [...prev, String(roundTime)]);
-		// console.log(averageTime);
+
 		const lis = document.querySelectorAll<HTMLLIElement>(".pokeCaught");
 
 		// add winner class to poke with highest stats
@@ -192,8 +191,9 @@ const GameOvered = ({
 				{/* GAME COMPLETE */}
 				{gen === TOTAL_GENS && (
 					<p className="gameOveredMessage">
-						All 9 generations complete! <br /> score:{" "}
-						<strong>{convertScoreToGrade(averageScore)}</strong>
+						{`All  ${TOTAL_GENS} generations complete!`}
+						<br /> score: <strong>{convertScoreToGrade(averageScore)}</strong> Avg time:{" "}
+						<i>{averageTimeString(averageTime)}</i>
 						<button className={"btn restart"} onClick={handleRestart}>
 							Play again?
 						</button>
