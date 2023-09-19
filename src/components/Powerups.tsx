@@ -150,7 +150,7 @@ const Powerups = ({
 						}
 					};
 					return (
-						<div key={index} style={{display: "contents"}}>
+						<div key={index + "-" + powerUp} style={{ display: "contents" }}>
 							<button
 								onClick={() => powerFunction()}
 								onMouseEnter={() => {
@@ -160,7 +160,6 @@ const Powerups = ({
 									infoRef.current[index]?.classList.remove("active");
 								}}
 								className={`power-up-btn`}
-								key={index}
 							>
 								<Pokeball className={`${powerUp}-color`} alt={powerUpInfo[powerUp]} />
 							</button>
