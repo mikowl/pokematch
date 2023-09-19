@@ -37,6 +37,7 @@ module.exports = {
 		indent: [
 			"error",
 			"tab",
+			// "error", 4, { SwitchCase: 1 },
 		],
 		"max-len": "off",
 		'no-mixed-spaces-and-tabs': 'warn',
@@ -45,7 +46,6 @@ module.exports = {
 		'no-ternary': 'off',
 		'object-curly-newline': 'off',
 		"prefer-const": "error",
-
 		"react/self-closing-comp": [
 			"error",
 			{ component: true,
