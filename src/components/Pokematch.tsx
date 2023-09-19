@@ -93,7 +93,6 @@ export default function Pokematch() {
 			gen: 1,
 			boardSize: 0,
 			powerUps: [],
-			averageTime: [],
 		});
 	};
 
