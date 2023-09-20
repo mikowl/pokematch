@@ -1,4 +1,3 @@
-
 export const shuffle = (array: any[]) => {
 	return array.sort(() => Math.random() - 0.5);
 };
@@ -6,11 +5,11 @@ export const shuffle = (array: any[]) => {
 // range utility
 // example:
 // {range(5).map((i) => (
-// 	<Comp key={i + 1} value={squares[i]} /> 
+// 	<Comp key={i + 1} value={squares[i]} />
 // ))}
 export const range = (start: number, end?: number, step = 1) => {
 	const output = [];
-	if (typeof end === 'undefined') {
+	if (typeof end === "undefined") {
 		end = start;
 		start = 0;
 	}
@@ -25,7 +24,7 @@ export const isMobile = () => {
 };
 
 // format time to minutes and seconds function
-export function formatTime(timestamp:number) {
+export function formatTime(timestamp: number) {
 	const minutes = Math.floor(timestamp / 60000); // 1 minute = 60000 ms
 	const seconds = Math.floor((timestamp - minutes * 60000) / 1000); // 1 second = 1000 ms
 	const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
@@ -64,10 +63,10 @@ export const convertScoreToGrade = (score: number) => {
 };
 
 function timeToSeconds(time: number | string): number {
-	if (typeof time === 'string') {
-		const [minutes, seconds] = time.split(':');
+	if (typeof time === "string") {
+		const [minutes, seconds] = time.split(":");
 		return Number(minutes) * 60 + Number(seconds);
-	} 
+	}
 	return time;
 }
 
@@ -88,7 +87,7 @@ export const timeClass = (boardSize: number, roundTime: number | string) => {
 	}
 };
 
-export const averageTimeString = (averageTime:string[]) => {
+export const averageTimeString = (averageTime: string[]) => {
 	// calculate average time
 	const timesInSeconds = averageTime.map((time) => {
 		const [minutes, seconds] = time.split(":").map(Number);
