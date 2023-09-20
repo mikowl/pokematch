@@ -37,7 +37,7 @@ module.exports = {
 		indent: [
 			"error",
 			"tab",
-			// "error", 4, { SwitchCase: 1 },
+			{ SwitchCase: 1 },
 		],
 		"max-len": "off",
 		'no-mixed-spaces-and-tabs': 'warn',
