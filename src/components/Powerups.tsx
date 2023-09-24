@@ -1,11 +1,7 @@
 import { useRef } from "preact/hooks";
 import useSound from "use-sound";
-import { GameData, CardElement } from "../types/other";
+import { GameData, CardElement, PowerUps } from "../types/other";
 import Pokeball from "./Icons/Pokeball";
-
-interface PowerUps {
-	[key: string]: string;
-}
 
 const powerUpInfo: PowerUps = {
 	reveal: "Reveal cards",
@@ -65,11 +61,6 @@ const Powerups = ({
 			turnsEl?.classList.remove("animate-turns");
 		}, 3000);
 		if (!mute) playSuccess2();
-		setGameState({
-			...gameState,
-			totalTurns: totalTurns - 2,
-			powerUps: [...gameState.powerUps.filter((_, index) => index !== i)],
-		});
 		// this feels a bit messy but is an easy way to make countdown effect
 		setTimeout(() => {
 			setGameState({
@@ -82,6 +73,7 @@ const Powerups = ({
 			setGameState({
 				...gameState,
 				turns: turns - 2,
+				totalTurns: totalTurns + 2,
 				powerUps: [...gameState.powerUps.filter((_, index) => index !== i)],
 			});
 		}, 1000);

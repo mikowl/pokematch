@@ -33,3 +33,6 @@ export type Rating = {
 
 export type CardElement = HTMLButtonElement | string;
 export type Cards = CardElement[] | HTMLButtonElement[];
+export interface PowerUps {
+	[key: string]: string;
+}
