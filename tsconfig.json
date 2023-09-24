@@ -17,6 +17,9 @@
 		"jsx": "react-jsx",
 		"jsxImportSource": "preact"
 	},
+	"rules": {
+		"@typescript-eslint/no-unused-vars": ["error"]
+	},
 	"paths": {
 		"react": ["node_modules/preact/compat/"],
 		"react-dom": ["node_modules/preact/compat/"]
