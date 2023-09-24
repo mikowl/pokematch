@@ -30,6 +30,7 @@ module.exports = {
 		"eslint-plugin-import",
 	],
 	rules: {
+		"no-unused-vars": "off",
 		"import/consistent-type-specifier-style": [
 			"error",
 			"prefer-inline",
