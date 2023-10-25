@@ -3,7 +3,7 @@
     "background_color": "#79c9fc",
     "display": "standalone ",
     "scope": "/",
-    "start_url": "https://pokematch.vercel.app/",
+    "start_url": "https://pokematch-git-one-signal-mikowl.vercel.app",
     "name": "Pokematch",
     "short_name": "Pokematch",
     "description": "The best pokemon memory matching game ever made in the world",
