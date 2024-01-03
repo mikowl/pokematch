@@ -42,7 +42,7 @@ export default function Pokematch() {
 
 	const [gameState, setGameState] = useState<GameData>(getInitialGameState());
 	const { boardSize, gameWin, gen, startTime } = gameState;
-	const { data, isLoading, isFetching, error, refetch }: PokemonData = usePokemon(gen, boardSize);
+	const { data, isFetching, error, refetch }: PokemonData = usePokemon(gen, boardSize);
 
 	const [deck, setDeck] = useState<Pokemon[]>([]);
 	const [seconds, setSeconds] = useState<number>(0);
@@ -55,9 +55,8 @@ export default function Pokematch() {
 		await refetch();
 	};
 
-	if (data && !isLoading) {
-		setDeck(data);
-	}
+	if (data) setDeck(data); 
+
 	const handleDifficulty = (e: MouseEvent) => {
 		const target = e.target as HTMLInputElement;
 		const board_size = parseInt(target.value, 10);
@@ -69,7 +68,7 @@ export default function Pokematch() {
 
 	const nextGame = () => {
 		refetchData();
-		if (data && !isLoading) setDeck(data);
+		if (data) setDeck(data);
 		setGameState((prevState) => ({
 			...prevState,
 			startTime: Date.now(),
@@ -114,65 +113,6 @@ export default function Pokematch() {
 		}
 	}, [startTime, gameWin, minutes, seconds]);
 
-	let content;
-
-	if (boardSize === 0) {
-		content = <StartScreen handleDifficulty={handleDifficulty} />;
-	} else if (isFetching || isLoading) {
-		content = <Loader pokeball={true} />;
-	} else if (error) {
-		content = (
-			<p className={"error"}>
-				{" "}
-				Oh dang, something went wrong <br /> {error}{" "}
-			</p>
-		);
-	} else {
-		content = (
-			<>
-				<div className={`card-container deckgen-${gen} bs-${boardSize}`}>
-					{deck && (
-						<PokeCard
-							pokemons={deck}
-							gameState={gameState}
-							setGameState={setGameState}
-							matchedCards={matchedCards}
-							setMatchedCards={setMatchedCards}
-						/>
-					)}
-				</div>
-				{deck && (
-					<div className={`footerkinda ${gameWin ? "hide" : ""}`}>
-						<Powerups
-							gameState={gameState}
-							setGameState={setGameState}
-							setSeconds={setSeconds}
-							matchedCards={matchedCards}
-							setMatchedCards={setMatchedCards}
-						/>
-						<div class="restart-container">
-							<button className={"btn refresh"} onClick={handleRestart}>
-								<Refresh size={26} fill="#fff" />
-								<br />
-							</button>
-						</div>
-						<MuteButton gameState={gameState} setGameState={setGameState} />
-					</div>
-				)}
-				{gameWin && (
-					<GameOvered
-						gameState={gameState}
-						setGameState={setGameState}
-						deck={deck}
-						handleRestart={handleRestart}
-						roundTime={roundTime}
-						averageTime={averageTime}
-					/>
-				)}
-			</>
-		);
-	}
-
 	return (
 		<>
 			<Header
@@ -196,7 +136,58 @@ export default function Pokematch() {
 						</i>
 					)}
 				</h1>
-				{content}
+				{boardSize === 0 && <StartScreen handleDifficulty={handleDifficulty} />}
+				{isFetching && <Loader pokeball={true} />}
+				{error && (
+					<p className={"error"}>
+						Oh dang, something went wrong
+						<br />
+						{error}
+					</p>
+				)}
+				{boardSize !== 0 && !isFetching && !error && (
+					<>
+						{deck && (
+							<>
+								<div className={`card-container deckgen-${gen} bs-${boardSize}`}>
+									<PokeCard
+										pokemons={deck}
+										gameState={gameState}
+										setGameState={setGameState}
+										matchedCards={matchedCards}
+										setMatchedCards={setMatchedCards}
+									/>
+								</div>
+								<div className={`footerkinda ${gameWin ? "hide" : ""}`}>
+									<Powerups
+										gameState={gameState}
+										setGameState={setGameState}
+										setSeconds={setSeconds}
+										matchedCards={matchedCards}
+										setMatchedCards={setMatchedCards}
+									/>
+									<div class="restart-container">
+										<button className={"btn refresh"} onClick={handleRestart}>
+											<Refresh size={26} fill="#fff" />
+											<br />
+										</button>
+									</div>
+									<MuteButton gameState={gameState} setGameState={setGameState} />
+								</div>
+							</>
+						)}
+						{gameWin && (
+							<GameOvered
+								gameState={gameState}
+								setGameState={setGameState}
+								deck={deck}
+								handleRestart={handleRestart}
+								roundTime={roundTime}
+								averageTime={averageTime}
+							/>
+						)}
+					</>
+				)}
 			</div>
 		</>
 	);
