@@ -136,15 +136,6 @@ const GameOvered = ({
 	return (
 		<>
 			<div className={`gameOvered ${gen === 9 ? "game-complete" : ""}`}>
-				{gen === TOTAL_GENS && (
-					<ConfettiExplosion
-						duration={6000}
-						particleCount={200}
-						width={3000}
-						colors={["#f8b800", "#0078f8"]}
-						zIndex={9999}
-					/>
-				)}
 				<h2>{gen === TOTAL_GENS ? "Game Over!" : "You caught 'em all!"}</h2>
 				<div className="pokemonList">
 					<h3>Pokemon's Caught: </h3>
@@ -190,14 +181,23 @@ const GameOvered = ({
 				)}
 				{/* GAME COMPLETE */}
 				{gen === TOTAL_GENS && (
-					<p className="gameOveredMessage">
-						{`All  ${TOTAL_GENS} generations complete!`}
-						<br /> score: <strong>{convertScoreToGrade(averageScore)}</strong> Avg time:{" "}
-						<i>{averageTimeString(averageTime)}</i>
-						<button className={"btn restart"} onClick={handleRestart}>
-							Play again?
-						</button>
-					</p>
+					<>
+						<ConfettiExplosion
+							duration={6000}
+							particleCount={200}
+							width={2000}
+							colors={["#f8b800", "#0078f8"]}
+							zIndex={9999}
+						/>
+						<p className="gameOveredMessage">
+							{`All  ${TOTAL_GENS} generations complete!`}
+							<br /> score: <strong>{convertScoreToGrade(averageScore)}</strong> Avg time:{" "}
+							<i>{averageTimeString(averageTime)}</i>
+							<button className={"btn restart"} onClick={handleRestart}>
+								Play again?
+							</button>
+						</p>
+					</>
 				)}
 			</div>
 		</>
