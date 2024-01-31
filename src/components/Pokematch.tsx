@@ -105,8 +105,9 @@ export default function Pokematch() {
 		const roundTime = `${minutes}:${seconds.toString().padStart(2, "0")}`;
 		setRoundTime(roundTime);
 		const body = document.querySelector("body");
-		gameWin ? body?.classList.add("game-over") : body?.classList.remove("game-over");
-
+		if(body) {
+			gameWin ? body.classList.add("game-over") : body.classList.remove("game-over");
+		}
 		// save end round time to average time
 		if (gameWin) {
 			setAverageTime((prevState) => [...prevState, roundTime]);
