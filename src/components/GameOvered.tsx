@@ -182,13 +182,6 @@ const GameOvered = ({
 				{/* GAME COMPLETE */}
 				{gen === TOTAL_GENS && (
 					<>
-						<ConfettiExplosion
-							duration={6000}
-							particleCount={200}
-							width={2000}
-							colors={["#f8b800", "#0078f8"]}
-							zIndex={9999}
-						/>
 						<p className="gameOveredMessage">
 							{`All  ${TOTAL_GENS} generations complete!`}
 							<br /> score: <strong>{convertScoreToGrade(averageScore)}</strong> Avg time:{" "}
@@ -197,6 +190,14 @@ const GameOvered = ({
 								Play again?
 							</button>
 						</p>
+						<ConfettiExplosion
+							duration={6000}
+							particleCount={200}
+							width={window.innerWidth * 1.5}
+							height={window.innerHeight * 1.25 }
+							colors={["#f8b800", "#0078f8"]}
+							zIndex={9999}
+						/>
 					</>
 				)}
 			</div>
