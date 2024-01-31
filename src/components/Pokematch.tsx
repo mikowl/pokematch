@@ -8,12 +8,12 @@ import GameOvered from "./GameOvered";
 import MuteButton from "./MuteButton";
 import Refresh from "./Icons/Refresh";
 import Header from "./Header";
-import Powerups from "./Powerups";
+import { Powerups, powerUpInfo } from "./Powerups";
 import StartScreen from "./StartScreen";
 
 export default function Pokematch() {
 	const getInitialGameState = (): GameData => {
-		const APP_VERSION = "2.4.2";
+		const APP_VERSION = "2.4.3";
 		if (localStorage.getItem("appVersion") !== String(APP_VERSION)) {
 			// Clear localStorage
 			localStorage.clear();
@@ -26,13 +26,21 @@ export default function Pokematch() {
 			return JSON.parse(gameStateFromLocalStorage);
 		}
 
+		let startPowers: string[] = [];
+		if(import.meta.env.VITE_DEBUG == "TRUE") {
+			startPowers = Object.keys(powerUpInfo);
+			console.log('pui: ', Object.keys(powerUpInfo));
+		} else {
+			startPowers = [];
+		}
+		
 		return {
 			boardSize: 0,
 			difficulty: 0,
 			gameWin: false,
 			gen: 1,
 			mute: false,
-			powerUps: [],
+			powerUps: startPowers,
 			startTime: 0,
 			totalCaught: 0,
 			totalTurns: 0,

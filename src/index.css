@@ -808,12 +808,19 @@ header .icon-clock {
 	fill: var(--lcolor8);
 }
 .icon-pokeball.time-color {
-	fill: var(--lcolorb5);
+	/* fill: var(--lcolorb3); */
+	fill: hsl(288.66deg 54.96% 53.36%);
 }
 .icon-pokeball.matchSet-color {
 	fill: var(--lcolorb6);
 }
-
+.icon-pokeball.flipAllCards-color {
+	fill: var(--lcolorb5);
+	backdrop-filter: hue-rotate(50deg);
+	height: 28px;
+	border-radius: 100%;
+	outline: 2px solid rgb(255 255 255 / 80%);
+}
 .power-ups span {
 	position: absolute;
 	top: -4px;
@@ -833,13 +840,13 @@ p.pu-info {
 	left: 0;
 	right: 0;
 	bottom: -40px;
-	font-size: 0.875rem;
+	font-size: 0.75rem;
 	color: var(--darkblue);
 	transition: all 0.3s ease-in-out;
 }
 p.pu-info.active {
 	opacity: 1;
-	bottom: -50px;
+	bottom: -45px;
 }
 
 .powerup-descriptions {

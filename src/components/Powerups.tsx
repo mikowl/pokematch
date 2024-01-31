@@ -2,12 +2,14 @@ import { useRef } from "preact/hooks";
 import useSound from "use-sound";
 import { GameData, CardElement, PowerUps } from "../types/other";
 import Pokeball from "./Icons/Pokeball";
+import GameOvered from "./GameOvered";
 
-const powerUpInfo: PowerUps = {
+export const powerUpInfo: PowerUps = {
 	reveal: "Reveal cards",
 	turns: "-2 turns",
 	time: "-7 seconds",
 	matchSet: "Match a set",
+	flipAllCards: "Flip all cards",
 };
 
 export const randomPower = (): string => {
@@ -16,7 +18,7 @@ export const randomPower = (): string => {
 	return keys[randomIndex];
 };
 
-const Powerups = ({
+export const Powerups = ({
 	gameState,
 	setGameState,
 	setSeconds,
@@ -30,6 +32,7 @@ const Powerups = ({
 	setMatchedCards: Function;
 }) => {
 	const { mute, powerUps, totalTurns, turns } = gameState;
+	const [playSuccess] = useSound("/sounds/success.mp3", { volume: 0.5 });
 	const [playSuccess2] = useSound("/sounds/success2.mp3", { volume: 0.5 });
 	const [playClick] = useSound("/sounds/click.mp3", { volume: 0.8 });
 	const infoRef = useRef<Array<HTMLParagraphElement | null>>([]);
@@ -56,9 +59,9 @@ const Powerups = ({
 
 	const turnsPower = (i: number) => {
 		const turnsEl = document.querySelector(".header-turns");
-		turnsEl?.classList.add("animate-turns");
+		turnsEl?.classList?.add("animate-turns");
 		setTimeout(() => {
-			turnsEl?.classList.remove("animate-turns");
+			turnsEl?.classList?.remove("animate-turns");
 		}, 3000);
 		if (!mute) playSuccess2();
 		// this feels a bit messy but is an easy way to make countdown effect
@@ -81,9 +84,9 @@ const Powerups = ({
 
 	const timePower = (index: number) => {
 		const timeEl = document.querySelector(".timer");
-		timeEl?.classList.add("animate-time");
+		timeEl?.classList?.add("animate-time");
 		setTimeout(() => {
-			timeEl?.classList.remove("animate-time");
+			timeEl?.classList?.remove("animate-time");
 		}, 2000);
 		if (!mute) playSuccess2();
 
@@ -116,6 +119,33 @@ const Powerups = ({
 		playClick();
 	};
 
+	const flipAllCards = (index: number) => {
+		const cards = document.querySelectorAll(".card-btn:not(.flipped)");
+		cards.forEach((card) => {
+			card.classList.add("flipped", "animate-matched");
+			// all cards matched
+			setMatchedCards([...matchedCards, card]);
+			setTimeout(() => {
+				card.classList.remove("animate-matched");
+			}, 500);
+		});
+		setGameState((prevState: GameData) => ({
+			...prevState,
+			totalCaught: prevState.totalCaught + cards.length / 2,
+			powerUps: prevState.powerUps.filter((_, i) => i !== index),
+		}));
+		playClick();
+		// set next gen after 2 seconds
+		setTimeout(() => {
+			setGameState((prevState: GameData) => ({
+				...prevState,
+				gameWin: true,
+				// gen: prevState.gen + 1,
+			}));
+			playSuccess();
+		}, 2000);
+	}
+
 	return (
 		<div className={"power-ups"}>
 			<span>Powerups</span>
@@ -137,19 +167,22 @@ const Powerups = ({
 							case "matchSet":
 								matchSetPower(index);
 								break;
+							case "flipAllCards":
+								flipAllCards(index);
+								break;
 							default:
 								break;
 						}
 					};
 					return (
-						<div key={index + "-" + powerUp} style={{ display: "contents" }}>
+						<div key={`${index  }-${  powerUp}`} style={{ display: "contents" }}>
 							<button
 								onClick={() => powerFunction()}
 								onMouseEnter={() => {
-									infoRef.current[index]?.classList.add("active");
+									infoRef.current[index]?.classList?.add("active");
 								}}
 								onMouseLeave={() => {
-									infoRef.current[index]?.classList.remove("active");
+									infoRef.current[index]?.classList?.remove("active");
 								}}
 								className={`power-up-btn`}
 							>
@@ -171,5 +204,3 @@ const Powerups = ({
 		</div>
 	);
 };
-
-export default Powerups;

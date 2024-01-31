@@ -44,6 +44,10 @@ const StartScreen = ({
 						<Pokeball className="matchSet-color" />
 						<p>Match a set</p>
 					</div>
+					<div>
+						<Pokeball className="flipAllCards-color" />
+						<p>Flip all cards</p>
+					</div>
 				</div>
 				{import.meta.env.VITE_DEBUG == "TRUE" && (
 					<>
