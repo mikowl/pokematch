@@ -817,8 +817,7 @@ header .icon-clock {
 .icon-pokeball.flipAllCards-color {
 	fill: var(--lcolorb5);
 	backdrop-filter: hue-rotate(50deg);
-	height: 28px;
-	border-radius: 100%;
+	border-radius: 100vw;
 	outline: 2px solid rgb(255 255 255 / 80%);
 }
 .power-ups span {

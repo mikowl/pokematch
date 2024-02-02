@@ -40,5 +40,5 @@ There are 9 "levels" progressing through each pokemon generation, every round is
   - Double points
   - ~~Free turns (take away 2 turns)~~
   - ~~Hint (flip over one matching pair)~~
-  - Skip level (would be rare)
-
+  - ~~Skip level~~
+  - Give skip generation powerup a rarer chance of obtaining
