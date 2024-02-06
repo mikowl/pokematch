@@ -10,7 +10,7 @@
     "an": "npx vite-bundle-visualizer"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.18.0",
+    "@tanstack/react-query": "^5.18.1",
     "preact": "^10.19.3",
     "react-confetti-explosion": "^2.1.2",
     "use-sound": "^4.0.1"
